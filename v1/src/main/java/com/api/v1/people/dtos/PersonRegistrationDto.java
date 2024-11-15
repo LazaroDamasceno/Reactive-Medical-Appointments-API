@@ -1,4 +1,4 @@
-package com.api.v1.people;
+package com.api.v1.people.dtos;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

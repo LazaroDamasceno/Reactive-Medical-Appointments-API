@@ -1,20 +1,18 @@
-package com.api.v1.people;
+package com.api.v1.people.domain;
 
+import com.api.v1.people.dtos.AddressDto;
+import com.api.v1.people.dtos.PersonRegistrationDto;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
-@Document
 @Getter
 @NoArgsConstructor
 public class Person {
 
-    private UUID id = UUID.randomUUID();
     private String firstName;
     private String middleName;
     private String lastName;
@@ -23,7 +21,7 @@ public class Person {
     private AddressDto address;
     private String email;
     private String phoneNumber;
-    private String createdAt = ZonedDateTime.now().toString();
+    private final String createdAt = ZonedDateTime.now().toString();
 
     public static Person create(@Valid PersonRegistrationDto registrationDto) {
         Person person = new Person();
