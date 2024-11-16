@@ -19,11 +19,15 @@ public class CustomerFinderUtil {
     public Mono<Customer> find(@SSN String ssn) {
         return personFinderUtil
                 .find(ssn)
-                .flatMap(foundPerson -> {
-                    if (foundPerson == null) return Mono.error(CustomerNotFoundException::new);
-                    return customerRepository
-                            .findByPerson(foundPerson)
-                            .flatMap(Mono::just);
+                .hasElement()
+                .flatMap(exists -> {
+                    if (!exists) return Mono.error(CustomerNotFoundException::new);
+                    return personFinderUtil
+                               .find(ssn)
+                               .flatMap(foundPerson -> customerRepository
+                                       .findByPerson(foundPerson)
+                                       .flatMap(Mono::just)
+                               );
                 });
     }
 
