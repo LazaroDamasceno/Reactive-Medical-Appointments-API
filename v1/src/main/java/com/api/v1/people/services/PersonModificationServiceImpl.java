@@ -14,11 +14,11 @@ public class PersonModificationServiceImpl implements PersonModificationService 
     private final PersonRepository personRepository;
 
     @Override
-    public Mono<Void> modify(Person person, PersonModificationDto modificationDto) {
+    public Mono<Person> modify(Person person, PersonModificationDto modificationDto) {
         return Mono.defer(() -> {
             person.modify(modificationDto);
             return personRepository.save(person);
-        }).then();
+        });
     }
 
 }

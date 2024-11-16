@@ -6,5 +6,5 @@ import com.api.v1.people.dtos.PersonModificationDto;
 import reactor.core.publisher.Mono;
 
 public interface PersonModificationService {
-    Mono<Void> modify(Person person, PersonModificationDto modificationDto);
+    Mono<Person> modify(Person person, PersonModificationDto modificationDto);
 }
