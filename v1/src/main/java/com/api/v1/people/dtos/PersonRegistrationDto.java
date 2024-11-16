@@ -9,7 +9,7 @@ import java.util.Date;
 
 public record PersonRegistrationDto(
         @Valid FullNameDto fullName,
-        @NotBlank String ssn,
+        String ssn,
         @NotNull Date birthDate,
         @Valid AddressDto address,
         @NotBlank  @Size(min = 1) String email,
