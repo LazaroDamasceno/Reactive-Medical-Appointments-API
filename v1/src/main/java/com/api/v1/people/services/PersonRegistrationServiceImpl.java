@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-class PersonRegistrationServiceImpl implements PersonRegistrationService {
+public class PersonRegistrationServiceImpl implements PersonRegistrationService {
 
     private final PersonRepository personRepository;
 

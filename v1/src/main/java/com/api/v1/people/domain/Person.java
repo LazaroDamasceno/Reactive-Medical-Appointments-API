@@ -4,30 +4,30 @@ import com.api.v1.people.dtos.AddressDto;
 import com.api.v1.people.dtos.FullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Document
 @Getter
-@NoArgsConstructor
 public class Person {
 
     @Id
-    private UUID id;
+    private final UUID id;
     private FullNameDto fullName;
     private LocalDate birthDate;
-    private String ssn;
+    private final String ssn;
     private String email;
     private AddressDto address;
     private String phoneNumber;
     private String gender;
-    private String createdAt;
+    private final String createdAt;
 
     private Person(PersonRegistrationDto registrationDto) {
+        this.id = UUID.randomUUID();
         this.fullName = registrationDto.fullName();
         this.birthDate = registrationDto.birthDate();
         this.ssn = registrationDto.ssn();
@@ -35,6 +35,7 @@ public class Person {
         this.address = registrationDto.address();
         this.phoneNumber = registrationDto.phoneNumber();
         this.gender = registrationDto.gender();
+        this.createdAt = ZonedDateTime.now().toString();
     }
 
     public static Person create(PersonRegistrationDto registrationDto) {
