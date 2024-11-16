@@ -21,6 +21,7 @@ public class Doctor {
         this.licenseNumber = licenseNumber;
         this.speciality = speciality;
         this.createdAt = ZonedDateTime.now().toString();
+        this.hiredAt = ZonedDateTime.now().toString();
     }
 
     public static Doctor create(String personId, String licenseNumber, String speciality) {
