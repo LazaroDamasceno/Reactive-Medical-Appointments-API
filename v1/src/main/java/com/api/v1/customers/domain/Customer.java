@@ -2,24 +2,23 @@ package com.api.v1.customers.domain;
 
 import com.api.v1.people.domain.Person;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Document
 @Getter
+@NoArgsConstructor
 public class Customer {
 
-    @Id
-    private final UUID id;
     private Person person;
-    private final String createdAt;
+    private String createdAt;
 
     private Customer(Person person) {
         this.person = person;
-        this.id = UUID.randomUUID();
         this.createdAt = ZonedDateTime.now().toString();
     }
 
