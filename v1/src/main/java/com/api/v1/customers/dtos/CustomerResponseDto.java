@@ -1,4 +1,4 @@
-package com.api.v1.customers;
+package com.api.v1.customers.dtos;
 
 import com.api.v1.people.domain.Person;
 

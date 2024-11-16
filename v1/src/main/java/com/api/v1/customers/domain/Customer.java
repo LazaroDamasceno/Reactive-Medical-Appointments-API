@@ -1,4 +1,4 @@
-package com.api.v1.customers;
+package com.api.v1.customers.domain;
 
 import java.time.ZonedDateTime;
 
