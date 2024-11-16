@@ -11,4 +11,9 @@ public class DbSets {
         return FirestoreClient.getFirestore().collection("people");
     }
 
+    public CollectionReference customerCollection() {
+        return FirestoreClient.getFirestore().collection("customers");
+    }
+
+
 }
