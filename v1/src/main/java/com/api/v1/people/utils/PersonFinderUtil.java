@@ -42,14 +42,4 @@ public class PersonFinderUtil {
         });
     }
 
-    public Person findById(String personId) throws Exception {
-        return FirestoreCollections
-                .peopleCollection()
-                .document(personId)
-                .get()
-                .get()
-                .toObject(Person.class);
-
-    }
-
 }

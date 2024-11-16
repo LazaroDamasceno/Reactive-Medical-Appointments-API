@@ -1,5 +1,7 @@
 package com.api.v1.doctors.domain;
 
+import com.api.v1.doctors.dtos.DoctorRegistrationDto;
+
 import java.time.ZonedDateTime;
 
 public record Doctor(
@@ -9,15 +11,11 @@ public record Doctor(
         String createdAt
 ) {
 
-    public static Doctor create(
-            String personId,
-            String licenseNumber,
-            String speciality
-    ) {
+    public static Doctor create(DoctorRegistrationDto registrationDto) {
         return new Doctor(
-                personId,
-                licenseNumber,
-                speciality,
+                registrationDto.personId(),
+                registrationDto.licenseNumber(),
+                registrationDto.speciality(),
                 ZonedDateTime.now().toString()
         );
     }
