@@ -22,6 +22,4 @@ public class DoctorController {
         return registrationService.register(registrationDto );
     }
 
-
-
 }
