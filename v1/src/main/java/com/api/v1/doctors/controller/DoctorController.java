@@ -1,4 +1,4 @@
-package com.api.v1.doctors;
+package com.api.v1.doctors.controller;
 
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.doctors.dtos.DoctorResponseDto;
