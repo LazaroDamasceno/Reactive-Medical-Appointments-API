@@ -4,10 +4,8 @@ import com.api.v1.people.domain.Person;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import com.api.v1.people.services.PersonRegistrationService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -21,6 +19,7 @@ public class PersonController {
     }
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Mono<Person> register(@Valid @RequestBody PersonRegistrationDto registrationDto) {
         return registrationService.register(registrationDto);
     }
