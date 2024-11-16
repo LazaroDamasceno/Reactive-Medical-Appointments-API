@@ -1,6 +1,6 @@
 package com.api.v1.people.services;
 
-import com.api.v1.db.DbSets;
+import com.api.v1.firestore_db.DbSets;
 import com.api.v1.people.domain.Person;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import com.api.v1.people.exceptions.DuplicatedEmailException;

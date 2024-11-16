@@ -1,6 +1,6 @@
 package com.api.v1.people.utils;
 
-import com.api.v1.db.DbSets;
+import com.api.v1.firestore_db.DbSets;
 import com.api.v1.people.domain.Person;
 import lombok.experimental.UtilityClass;
 import reactor.core.publisher.Mono;

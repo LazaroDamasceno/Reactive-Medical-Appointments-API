@@ -1,4 +1,4 @@
-package com.api.v1.db;
+package com.api.v1.firestore_db;
 
 import com.google.cloud.firestore.CollectionReference;
 import com.google.firebase.cloud.FirestoreClient;

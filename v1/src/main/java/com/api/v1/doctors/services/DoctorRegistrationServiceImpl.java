@@ -1,6 +1,6 @@
 package com.api.v1.doctors.services;
 
-import com.api.v1.db.DbSets;
+import com.api.v1.firestore_db.DbSets;
 import com.api.v1.doctors.domain.Doctor;
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.doctors.dtos.DoctorResponseDto;
