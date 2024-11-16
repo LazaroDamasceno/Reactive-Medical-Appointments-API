@@ -29,12 +29,13 @@ public class CustomerModificationServiceImpl implements CustomerModificationServ
                     PersonAuditTrail auditTrail = PersonAuditTrail.create(foundCustomer.getPerson());
                     return auditTrailRepository
                             .save(auditTrail)
-                            .then(Mono.defer(() -> personModificationService
+                            .then(personModificationService
                                     .modify(foundCustomer.getPerson(), modificationDto)
                                     .flatMap(modifiedPerson -> {
                                         foundCustomer.setPerson(modifiedPerson);
                                         return customerRepository.save(foundCustomer);
-                            })))
+                                    }
+                            ))
                             .then();
                 });
 
