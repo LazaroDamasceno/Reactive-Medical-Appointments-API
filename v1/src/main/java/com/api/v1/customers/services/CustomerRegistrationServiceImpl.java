@@ -23,7 +23,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
                 .register(registrationDto)
                 .flatMap(personId -> {
                     Customer customer = Customer.create(personId);
-                    FirestoreCollections.customerCollection()
+                    FirestoreCollections.customersCollection()
                             .document()
                             .set(customer);
                     try {

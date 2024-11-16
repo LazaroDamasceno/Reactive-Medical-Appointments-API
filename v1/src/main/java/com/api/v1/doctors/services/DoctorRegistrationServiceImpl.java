@@ -27,7 +27,7 @@ class DoctorRegistrationServiceImpl implements DoctorRegistrationService {
                             registrationDto.licenseNumber(),
                             registrationDto.specialty()
                     );
-                    FirestoreCollections.doctorCollection()
+                    FirestoreCollections.doctorsCollection()
                             .document()
                             .set(doctor);
                     try {

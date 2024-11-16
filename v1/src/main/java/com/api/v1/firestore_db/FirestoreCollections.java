@@ -11,15 +11,15 @@ public class FirestoreCollections {
         return FirestoreClient.getFirestore().collection("people");
     }
 
-    public CollectionReference customerCollection() {
+    public CollectionReference customersCollection() {
         return FirestoreClient.getFirestore().collection("customers");
     }
 
-    public CollectionReference doctorCollection() {
+    public CollectionReference doctorsCollection() {
         return FirestoreClient.getFirestore().collection("doctors");
     }
 
-    public CollectionReference medicalAppointmentCollection() {
+    public CollectionReference medicalAppointmentsCollection() {
         return FirestoreClient.getFirestore().collection("medical_appointment");
     }
 
