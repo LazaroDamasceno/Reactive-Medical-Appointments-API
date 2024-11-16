@@ -3,8 +3,7 @@ package com.api.v1.customers.domain;
 import com.api.v1.people.domain.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.types.ObjectId;
+import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.ZonedDateTime;
@@ -14,6 +13,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class Customer {
 
+    @Setter
     private Person person;
     private String createdAt;
 
