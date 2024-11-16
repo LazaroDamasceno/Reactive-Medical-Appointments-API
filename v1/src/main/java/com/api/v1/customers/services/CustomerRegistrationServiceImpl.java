@@ -1,6 +1,9 @@
 package com.api.v1.customers.services;
 
+import com.api.v1.customers.domain.Customer;
 import com.api.v1.customers.dtos.CustomerResponseDto;
+import com.api.v1.customers.utils.CustomerResponseMapper;
+import com.api.v1.firestore_db.FirestoreCollections;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import com.api.v1.people.services.PersonRegistrationService;
 import jakarta.validation.Valid;
@@ -16,7 +19,37 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
 
     @Override
     public Mono<CustomerResponseDto> register(@Valid PersonRegistrationDto registrationDto) {
-        return null;
+        return personRegistrationService
+                .register(registrationDto)
+                .flatMap(personId -> {
+                    Customer customer = Customer.create(personId);
+                    FirestoreCollections
+                            .customersCollection()
+                            .document()
+                            .set(customer);
+                    String customerId;
+                    try {
+                        customerId = FirestoreCollections
+                                .customersCollection()
+                                .whereEqualTo("personId", personId)
+                                .get()
+                                .get()
+                                .getDocuments()
+                                .get(0)
+                                .getId();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    FirestoreCollections
+                            .peopleCollection()
+                            .document(personId)
+                            .update("customerId", customerId);
+                    try {
+                        return CustomerResponseMapper.mapToMono(customer);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 
 }
