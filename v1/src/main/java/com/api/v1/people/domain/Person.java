@@ -6,6 +6,8 @@ import com.api.v1.people.dtos.PersonModificationDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -16,6 +18,8 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class Person {
 
+    @BsonId
+    private ObjectId id;
     private FullNameDto fullName;
     private LocalDate birthDate;
     private String ssn;
@@ -27,6 +31,7 @@ public class Person {
     private String modifiedAt;
 
     private Person(PersonRegistrationDto registrationDto) {
+        this.id = new ObjectId();
         this.fullName = registrationDto.fullName();
         this.birthDate = registrationDto.birthDate();
         this.ssn = registrationDto.ssn();
