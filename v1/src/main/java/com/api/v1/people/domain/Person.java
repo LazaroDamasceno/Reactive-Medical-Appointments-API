@@ -2,6 +2,7 @@ package com.api.v1.people.domain;
 
 import com.api.v1.people.dtos.AddressDto;
 import com.api.v1.people.dtos.FullNameDto;
+import com.api.v1.people.dtos.PersonModificationDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Person {
     private String phoneNumber;
     private String gender;
     private String createdAt;
+    private String modifiedAt;
 
     private Person(PersonRegistrationDto registrationDto) {
         this.fullName = registrationDto.fullName();
@@ -37,5 +39,15 @@ public class Person {
 
     public static Person create(PersonRegistrationDto registrationDto) {
         return new Person(registrationDto);
+    }
+
+    public void modify(PersonModificationDto modificationDto) {
+        this.fullName = modificationDto.fullName();
+        this.birthDate = modificationDto.birthDate();
+        this.email = modificationDto.email();
+        this.address = modificationDto.address();
+        this.phoneNumber = modificationDto.phoneNumber();
+        this.gender = modificationDto.gender();
+        this.modifiedAt = ZonedDateTime.now().toString();
     }
 }
