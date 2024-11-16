@@ -14,4 +14,9 @@ public class FirestoreCollections {
     public CollectionReference customersCollection() {
         return FirestoreClient.getFirestore().collection("customers");
     }
+
+    public CollectionReference doctorsCollection() {
+        return FirestoreClient.getFirestore().collection("doctors");
+    }
+
 }

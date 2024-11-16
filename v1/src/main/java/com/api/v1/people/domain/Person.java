@@ -21,6 +21,7 @@ public class Person {
     private String email;
     private String phoneNumber;
     private String customerId;
+    private String doctorId;
     private final String createdAt = ZonedDateTime.now().toString();
 
     private Person(@Valid PersonRegistrationDto registrationDto) {
