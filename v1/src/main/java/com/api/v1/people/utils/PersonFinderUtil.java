@@ -16,7 +16,7 @@ public class PersonFinderUtil {
     public Mono<Person> find(@SSN String ssn) {
         return personRepository
                 .findBySsn(ssn)
-                .flatMap( Mono::just);
+                .flatMap(Mono::just);
     }
 
 }
