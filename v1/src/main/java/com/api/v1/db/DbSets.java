@@ -15,5 +15,9 @@ public class DbSets {
         return FirestoreClient.getFirestore().collection("customers");
     }
 
+    public CollectionReference doctorCollection() {
+        return FirestoreClient.getFirestore().collection("doctors");
+    }
+
 
 }
