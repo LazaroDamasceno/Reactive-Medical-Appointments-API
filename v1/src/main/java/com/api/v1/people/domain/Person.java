@@ -20,6 +20,7 @@ public class Person {
     private AddressDto address;
     private String email;
     private String phoneNumber;
+    private String customerId;
     private final String createdAt = ZonedDateTime.now().toString();
 
     private Person(@Valid PersonRegistrationDto registrationDto) {

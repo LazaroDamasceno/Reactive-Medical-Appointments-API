@@ -19,9 +19,4 @@ public class FirestoreCollections {
         return FirestoreClient.getFirestore().collection("doctors");
     }
 
-    public CollectionReference medicalAppointmentsCollection() {
-        return FirestoreClient.getFirestore().collection("medical_appointment");
-    }
-
-
 }
