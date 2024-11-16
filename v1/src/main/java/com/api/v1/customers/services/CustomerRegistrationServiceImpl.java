@@ -28,6 +28,7 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
                             .document()
                             .set(customer);
                     String customerId;
+
                     try {
                         customerId = FirestoreCollections
                                 .customersCollection()
@@ -40,10 +41,12 @@ class CustomerRegistrationServiceImpl implements CustomerRegistrationService {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+
                     FirestoreCollections
                             .peopleCollection()
                             .document(personId)
                             .update("customerId", customerId);
+
                     try {
                         return CustomerResponseMapper.mapToMono(customer);
                     } catch (Exception e) {
