@@ -5,23 +5,27 @@ import com.api.v1.doctors.dtos.DoctorResponseDto;
 import com.api.v1.firestore_db.FirestoreCollections;
 import com.api.v1.people.domain.Person;
 import lombok.experimental.UtilityClass;
+import reactor.core.publisher.Mono;
 
 @UtilityClass
 public class DoctorResponseMapper {
 
-    public DoctorResponseDto map(Doctor doctor) throws Exception {
+    public DoctorResponseDto mapToDto(Doctor doctor) throws Exception {
         return new DoctorResponseDto(
                 FirestoreCollections
                         .peopleCollection()
-                        .document(doctor.personId())
+                        .document(doctor.getPersonId())
                         .get()
                         .get()
                         .toObject(Person.class),
-                doctor.licenseNumber(),
-                doctor.speciality(),
-                doctor.createdAt()
-
+                doctor.getLicenseNumber(),
+                doctor.getSpeciality(),
+                doctor.getCreatedAt()
         );
+    }
+
+    public Mono<DoctorResponseDto> mapToMono(Doctor doctor) throws Exception {
+        return Mono.just(mapToDto(doctor));
     }
 
 }

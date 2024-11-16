@@ -1,23 +1,30 @@
 package com.api.v1.doctors.domain;
 
-import com.api.v1.doctors.dtos.DoctorRegistrationDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
-public record Doctor(
-        String personId,
-        String licenseNumber,
-        String speciality,
-        String createdAt
-) {
+@Getter
+@NoArgsConstructor
+public class Doctor {
 
-    public static Doctor create(DoctorRegistrationDto registrationDto) {
-        return new Doctor(
-                registrationDto.personId(),
-                registrationDto.licenseNumber(),
-                registrationDto.speciality(),
-                ZonedDateTime.now().toString()
-        );
+    private String personId;
+    private String licenseNumber;
+    private String speciality;
+    private String createdAt;
+    private String hiredAt;
+    private String terminatedAt;
+
+    public Doctor(String personId, String licenseNumber, String speciality) {
+        this.personId = personId;
+        this.licenseNumber = licenseNumber;
+        this.speciality = speciality;
+        this.createdAt = ZonedDateTime.now().toString();
+    }
+
+    public static Doctor create(String personId, String licenseNumber, String speciality) {
+        return new Doctor(personId, licenseNumber, speciality);
     }
 
 }
