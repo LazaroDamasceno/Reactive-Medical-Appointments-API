@@ -1,6 +1,5 @@
-package com.api.v1.people;
+package com.api.v1.people.controller;
 
-import com.api.v1.people.domain.Person;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import com.api.v1.people.services.PersonRegistrationService;
 import jakarta.validation.Valid;
