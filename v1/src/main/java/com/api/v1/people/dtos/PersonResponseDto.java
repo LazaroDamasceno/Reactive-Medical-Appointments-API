@@ -14,6 +14,7 @@ public record PersonResponseDto(
         @NotBlank String email,
         @Valid AddressDto address,
         @NotBlank String phoneNumber,
-        @NotBlank String gender
+        @NotBlank String gender,
+        @NotBlank String createdAt
 ) {
 }
