@@ -5,5 +5,5 @@ import com.api.v1.people.dtos.PersonRegistrationDto;
 import reactor.core.publisher.Mono;
 
 public interface PersonRegistrationService {
-    Mono<Person> register(PersonRegistrationDto registrationDto);
+    Mono<String> register(PersonRegistrationDto registrationDto);
 }

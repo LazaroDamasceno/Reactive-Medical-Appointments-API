@@ -17,7 +17,7 @@ public class PersonFinderUtil {
                         .get()
                         .get()
                         .getDocuments()
-                        .getFirst()
+                        .get(0)
                         .toObject(Person.class);
                 return Mono.just(foundPerson);
             } catch (Exception ignored) {

@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 class PersonRegistrationServiceImpl implements PersonRegistrationService {
 
     @Override
-    public Mono<Person> register(@Valid PersonRegistrationDto registrationDto) {
+    public Mono<String> register(@Valid PersonRegistrationDto registrationDto) {
         return Mono.defer(() -> {
             try {
                 boolean isSsnDuplicated = !DbSets
@@ -35,10 +35,12 @@ class PersonRegistrationServiceImpl implements PersonRegistrationService {
                     return Mono.error(DuplicatedEmailException::new);
                 }
                 Person person = Person.create(registrationDto);
-                DbSets.peopleCollection()
-                        .document()
-                        .set(person);
-                return Mono.just(person);
+                var savedPerson = DbSets.peopleCollection()
+                        .add(person);
+                String personId = savedPerson
+                        .get()
+                        .getId();
+                return Mono.just(personId);
             } catch (Exception ignored) {
                 return Mono.empty();
             }
