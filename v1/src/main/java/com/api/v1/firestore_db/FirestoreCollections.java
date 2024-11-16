@@ -5,7 +5,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class DbSets {
+public class FirestoreCollections {
 
     public CollectionReference peopleCollection() {
         return FirestoreClient.getFirestore().collection("people");

@@ -1,6 +1,6 @@
 package com.api.v1.people.services;
 
-import com.api.v1.firestore_db.DbSets;
+import com.api.v1.firestore_db.FirestoreCollections;
 import com.api.v1.people.domain.Person;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import com.api.v1.people.exceptions.DuplicatedEmailException;
@@ -16,7 +16,7 @@ class PersonRegistrationServiceImpl implements PersonRegistrationService {
     public Mono<String> register(@Valid PersonRegistrationDto registrationDto) {
         return Mono.defer(() -> {
             try {
-                boolean isSsnDuplicated = !DbSets
+                boolean isSsnDuplicated = !FirestoreCollections
                         .peopleCollection()
                         .whereEqualTo("ssn", registrationDto.ssn())
                         .get()
@@ -25,7 +25,7 @@ class PersonRegistrationServiceImpl implements PersonRegistrationService {
                 if (isSsnDuplicated) {
                     return Mono.error(DuplicatedSsnException::new);
                 }
-                boolean isEmailDuplicated = !DbSets
+                boolean isEmailDuplicated = !FirestoreCollections
                         .peopleCollection()
                         .whereEqualTo("email", registrationDto.email())
                         .get()
@@ -35,7 +35,7 @@ class PersonRegistrationServiceImpl implements PersonRegistrationService {
                     return Mono.error(DuplicatedEmailException::new);
                 }
                 Person person = Person.create(registrationDto);
-                var savedPerson = DbSets.peopleCollection()
+                var savedPerson = FirestoreCollections.peopleCollection()
                         .add(person);
                 String personId = savedPerson
                         .get()

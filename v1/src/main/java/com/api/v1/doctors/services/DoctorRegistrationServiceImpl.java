@@ -1,6 +1,6 @@
 package com.api.v1.doctors.services;
 
-import com.api.v1.firestore_db.DbSets;
+import com.api.v1.firestore_db.FirestoreCollections;
 import com.api.v1.doctors.domain.Doctor;
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.doctors.dtos.DoctorResponseDto;
@@ -27,7 +27,7 @@ class DoctorRegistrationServiceImpl implements DoctorRegistrationService {
                             registrationDto.licenseNumber(),
                             registrationDto.specialty()
                     );
-                    DbSets.doctorCollection()
+                    FirestoreCollections.doctorCollection()
                             .document()
                             .set(doctor);
                     try {
