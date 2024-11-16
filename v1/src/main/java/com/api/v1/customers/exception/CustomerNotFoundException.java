@@ -1,4 +1,4 @@
-package com.api.v1.customers;
+package com.api.v1.customers.exception;
 
 public class CustomerNotFoundException extends RuntimeException {
     public CustomerNotFoundException() {
