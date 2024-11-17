@@ -1,4 +1,4 @@
-package com.api.v1.customers;
+package com.api.v1;
 
 import com.api.v1.people.dtos.AddressDto;
 import com.api.v1.people.dtos.FullNameDto;
@@ -33,7 +33,7 @@ public class CustomerRegistrationTest {
                 "123456789",
                 "leosantos@mail.com",
                 new AddressDto(
-                        "California",
+                        "CA",
                         "LA",
                         "Downtown, LA City hall",
                         "90012"
@@ -62,7 +62,7 @@ public class CustomerRegistrationTest {
                 "123456789",
                 "leosantos@mail.com",
                 new AddressDto(
-                        "California",
+                        "CA",
                         "LA",
                         "Downtown, LA City hall",
                         "90012"
@@ -92,7 +92,7 @@ public class CustomerRegistrationTest {
                 "123456788",
                 "leosantos@mail.com",
                 new AddressDto(
-                        "California",
+                        "CA",
                         "LA",
                         "Downtown, LA City hall",
                         "90012"
