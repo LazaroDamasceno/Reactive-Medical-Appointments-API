@@ -3,13 +3,17 @@ package com.api.v1.customers;
 import com.api.v1.people.dtos.AddressDto;
 import com.api.v1.people.dtos.FullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.time.LocalDate;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerRegistrationTest {
 
@@ -17,6 +21,7 @@ public class CustomerRegistrationTest {
     private WebTestClient webTestClient;
 
     @Test
+    @Order(1)
     void testSuccessful() {
         var registrationDto = new PersonRegistrationDto(
                 new FullNameDto(
@@ -45,6 +50,7 @@ public class CustomerRegistrationTest {
     }
 
     @Test
+    @Order(2)
     void testUnsuccessful1() {
         var registrationDto = new PersonRegistrationDto(
                 new FullNameDto(
@@ -74,6 +80,7 @@ public class CustomerRegistrationTest {
     }
 
     @Test
+    @Order(3)
     void testUnsuccessful2() {
         var registrationDto = new PersonRegistrationDto(
                 new FullNameDto(
