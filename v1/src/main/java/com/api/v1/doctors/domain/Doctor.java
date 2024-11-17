@@ -4,6 +4,7 @@ import com.api.v1.doctors.dtos.DoctorLicenseNumberDto;
 import com.api.v1.people.domain.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,6 +19,7 @@ public class Doctor {
     @BsonId
     private ObjectId id;
     private DoctorLicenseNumberDto licenseNumber;
+    @Setter
     private Person person;
     private String createdAt;
     private String hiredAt;
