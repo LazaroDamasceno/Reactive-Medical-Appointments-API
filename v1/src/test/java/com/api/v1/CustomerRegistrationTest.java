@@ -38,7 +38,7 @@ public class CustomerRegistrationTest {
                         "Downtown, LA City hall",
                         "90012"
                 ),
-                "123456789",
+                "1234567890",
                 "male"
         );
         webTestClient
@@ -67,7 +67,7 @@ public class CustomerRegistrationTest {
                         "Downtown, LA City hall",
                         "90012"
                 ),
-                "123456789",
+                "1234567890",
                 "male"
 
         );
@@ -97,7 +97,7 @@ public class CustomerRegistrationTest {
                         "Downtown, LA City hall",
                         "90012"
                 ),
-                "123456789",
+                "1234567890",
                 "male"
 
         );
