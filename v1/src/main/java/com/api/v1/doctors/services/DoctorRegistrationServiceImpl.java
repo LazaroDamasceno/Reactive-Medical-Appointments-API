@@ -23,7 +23,7 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
         return personRegistrationService
                 .register(registrationDto.personRegistrationDto())
                 .flatMap(foundPerson -> {
-                    Doctor doctor = Doctor.create(registrationDto.licenseNumber(), foundPerson);
+                    Doctor doctor = Doctor.create(registrationDto.licenseNumberDto(), foundPerson);
                     return doctorRepository.save(doctor);
                 })
                 .flatMap(savedDoctor -> Mono.just(DoctorResponseMapper.map(savedDoctor)));
