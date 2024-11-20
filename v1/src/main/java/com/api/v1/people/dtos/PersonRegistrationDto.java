@@ -10,11 +10,11 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record PersonRegistrationDto(
-        @Valid FullNameDto fullName,
+        @Valid PersonFullNameDto fullName,
         @NotNull LocalDate birthDate,
         @SSN String ssn,
         @NotBlank @Email String email,
-        @Valid AddressDto address,
+        @Valid PersonAddressDto address,
         @NotBlank @Size(min = 10, max = 10, message = "Phone number has 10 digits.")
         String phoneNumber,
         @NotBlank @Size(min = 1) String gender

@@ -2,8 +2,8 @@ package com.api.v1;
 
 import com.api.v1.doctors.dtos.DoctorLicenseNumberDto;
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
-import com.api.v1.people.dtos.AddressDto;
-import com.api.v1.people.dtos.FullNameDto;
+import com.api.v1.people.dtos.PersonAddressDto;
+import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -28,7 +28,7 @@ public class DoctorRegistrationTest {
                     "CA"
             ),
             new PersonRegistrationDto(
-                    new FullNameDto(
+                    new PersonFullNameDto(
                             "Gabriel",
                             "",
                             "Santana"
@@ -36,7 +36,7 @@ public class DoctorRegistrationTest {
                     LocalDate.parse("2000-12-12"),
                     "987654321",
                     "gabrielsantana@mail.com",
-                    new AddressDto(
+                    new PersonAddressDto(
                             "CA",
                             "LA",
                             "Downtown",
@@ -75,7 +75,7 @@ public class DoctorRegistrationTest {
                     "CA"
             ),
             new PersonRegistrationDto(
-                    new FullNameDto(
+                    new PersonFullNameDto(
                             "Gabriel",
                             "",
                             "Santana"
@@ -83,7 +83,7 @@ public class DoctorRegistrationTest {
                     LocalDate.parse("2000-12-12"),
                     "987654321",
                     "gabrielsantana@mail.com",
-                    new AddressDto(
+                    new PersonAddressDto(
                             "CA",
                             "LA",
                             "Downtown",
@@ -111,7 +111,7 @@ public class DoctorRegistrationTest {
                     "CA"
             ),
             new PersonRegistrationDto(
-                    new FullNameDto(
+                    new PersonFullNameDto(
                             "Gabriel",
                             "",
                             "Santana"
@@ -119,7 +119,7 @@ public class DoctorRegistrationTest {
                     LocalDate.parse("2000-12-12"),
                     "987654320",
                     "gabrielsantana@mail.com",
-                    new AddressDto(
+                    new PersonAddressDto(
                             "CA",
                             "LA",
                             "Downtown",

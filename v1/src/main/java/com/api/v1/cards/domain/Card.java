@@ -16,11 +16,7 @@ public class Card {
     private final ObjectId number = new ObjectId();
     private final String createdAt = ZonedDateTime.now().toString();
 
-    private Card(String type) {
+    protected Card(String type) {
         this.type = type;
-    }
-
-    public static Card create(String type) {
-        return new Card(type);
     }
 }

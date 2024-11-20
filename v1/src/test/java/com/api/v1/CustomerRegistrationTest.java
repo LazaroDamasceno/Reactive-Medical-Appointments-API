@@ -1,7 +1,7 @@
 package com.api.v1;
 
-import com.api.v1.people.dtos.AddressDto;
-import com.api.v1.people.dtos.FullNameDto;
+import com.api.v1.people.dtos.PersonAddressDto;
+import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -24,7 +24,7 @@ public class CustomerRegistrationTest {
     @Order(1)
     void testSuccessful() {
         var registrationDto = new PersonRegistrationDto(
-                new FullNameDto(
+                new PersonFullNameDto(
                         "Lazaro",
                         "",
                         "Santos"
@@ -32,7 +32,7 @@ public class CustomerRegistrationTest {
                 LocalDate.parse("2000-12-12"),
                 "123456789",
                 "leosantos@mail.com",
-                new AddressDto(
+                new PersonAddressDto(
                         "CA",
                         "LA",
                         "Downtown, LA City hall",
@@ -53,7 +53,7 @@ public class CustomerRegistrationTest {
     @Order(2)
     void testUnsuccessful1() {
         var registrationDto = new PersonRegistrationDto(
-                new FullNameDto(
+                new PersonFullNameDto(
                         "Lazaro",
                         "",
                         "Santos"
@@ -61,7 +61,7 @@ public class CustomerRegistrationTest {
                 LocalDate.parse("2000-12-12"),
                 "123456789",
                 "leosantos@mail.com",
-                new AddressDto(
+                new PersonAddressDto(
                         "CA",
                         "LA",
                         "Downtown, LA City hall",
@@ -83,7 +83,7 @@ public class CustomerRegistrationTest {
     @Order(3)
     void testUnsuccessful2() {
         var registrationDto = new PersonRegistrationDto(
-                new FullNameDto(
+                new PersonFullNameDto(
                         "Lazaro",
                         "",
                         "Santos"
@@ -91,7 +91,7 @@ public class CustomerRegistrationTest {
                 LocalDate.parse("2000-12-12"),
                 "123456788",
                 "leosantos@mail.com",
-                new AddressDto(
+                new PersonAddressDto(
                         "CA",
                         "LA",
                         "Downtown, LA City hall",

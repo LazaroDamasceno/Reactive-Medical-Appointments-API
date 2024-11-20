@@ -2,8 +2,8 @@ package com.api.v1;
 
 import com.api.v1.doctors.dtos.DoctorLicenseNumberDto;
 import com.api.v1.doctors.dtos.DoctorModificationDto;
-import com.api.v1.people.dtos.AddressDto;
-import com.api.v1.people.dtos.FullNameDto;
+import com.api.v1.people.dtos.PersonAddressDto;
+import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonModificationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -28,14 +28,14 @@ public class DoctorModificationTest {
                     "CA"
             ),
             new PersonModificationDto(
-                    new FullNameDto(
+                    new PersonFullNameDto(
                             "Gabriel",
                             "Silva",
                             "Santana Jr."
                     ),
                     LocalDate.parse("2003-12-12"),
                     "jr@gsantana.io",
-                    new AddressDto(
+                    new PersonAddressDto(
                             "CA",
                             "Sant'ana",
                             "Downtown",
@@ -63,14 +63,14 @@ public class DoctorModificationTest {
                     "CA"
             ),
             new PersonModificationDto(
-                    new FullNameDto(
+                    new PersonFullNameDto(
                             "Gabriel",
                             "Silva",
                             "Santana Jr."
                     ),
                     LocalDate.parse("2003-12-12"),
                     "jr@gsantana.io",
-                    new AddressDto(
+                    new PersonAddressDto(
                             "CA",
                             "Sant'ana",
                             "Downtown",

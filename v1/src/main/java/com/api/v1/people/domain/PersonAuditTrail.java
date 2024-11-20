@@ -1,7 +1,7 @@
 package com.api.v1.people.domain;
 
-import com.api.v1.people.dtos.AddressDto;
-import com.api.v1.people.dtos.FullNameDto;
+import com.api.v1.people.dtos.PersonAddressDto;
+import com.api.v1.people.dtos.PersonFullNameDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,11 +13,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PersonAuditTrail {
 
-    private FullNameDto fullName;
+    private PersonFullNameDto fullName;
     private LocalDate birthDate;
     private String ssn;
     private String email;
-    private AddressDto address;
+    private PersonAddressDto address;
     private String phoneNumber;
     private String gender;
     private String createdAt;

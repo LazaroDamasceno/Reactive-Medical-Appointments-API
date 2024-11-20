@@ -3,7 +3,7 @@ package com.api.v1.people.dtos;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record AddressDto(
+public record PersonAddressDto(
         @NotBlank
         @Size(min = 2, max = 2, message = "State has 2 letters")
         String state,
