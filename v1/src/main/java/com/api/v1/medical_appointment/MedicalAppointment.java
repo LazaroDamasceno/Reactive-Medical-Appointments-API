@@ -18,6 +18,7 @@ public class MedicalAppointment {
 
     @BsonId
     private ObjectId id;
+    private ObjectId orderNumber;
     private Customer customer;
     private Doctor doctor;
     private LocalDateTime bookedAt;
@@ -31,6 +32,7 @@ public class MedicalAppointment {
 
     private MedicalAppointment(Customer customer, Doctor doctor, LocalDateTime bookedAt) {
         this.createdAtZone = ZoneId.systemDefault();
+        this.orderNumber = new ObjectId();
         this.createdAt = LocalDateTime.now();
         this.bookedAtZone = ZoneId.systemDefault();
         this.bookedAt = bookedAt;
