@@ -38,7 +38,7 @@ public class DoctorTerminationTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void testUnsuccessful2() {
         String medicalLicenseNumber = "12345677CA";
         webTestClient
