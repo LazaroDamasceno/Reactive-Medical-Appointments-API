@@ -18,11 +18,8 @@ public class MedicalAppointmentFinderUtil {
     public Mono<MedicalAppointment> find(@OrderNumber String orderNumber) {
         return medicalAppointmentRepository
                 .findByOrderNumber(new ObjectId(orderNumber))
-                .hasElement()
-                .flatMap(exists -> {
-                   if (!exists) return Mono.error(NonExistentMedicalAppointmentException::new);
-                   return medicalAppointmentRepository.findByOrderNumber(new ObjectId(orderNumber));
-                });
+                .switchIfEmpty(Mono.error(NonExistentMedicalAppointmentException::new))
+                .single();
     }
 
 }

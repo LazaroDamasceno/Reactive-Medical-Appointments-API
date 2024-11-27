@@ -3,6 +3,7 @@ package com.api.v1.people.utils;
 import com.api.v1.people.annotations.SSN;
 import com.api.v1.people.domain.Person;
 import com.api.v1.people.domain.PersonRepository;
+import com.api.v1.people.exceptions.NonExistentSsnException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -16,7 +17,13 @@ public class PersonFinderUtil {
     public Mono<Person> find(@SSN String ssn) {
         return personRepository
                 .findBySsn(ssn)
-                .flatMap(Mono::just);
+                .singleOptional()
+                .flatMap(optional -> {
+                    if (optional.isEmpty()) {
+                        return Mono.error(NonExistentSsnException::new);
+                    }
+                    return Mono.just(optional.get());
+                });
     }
 
 }

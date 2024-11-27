@@ -1,6 +1,5 @@
 package com.api.v1.customers.utils;
 
-import com.api.v1.customers.exception.NonExistentCustomerException;
 import com.api.v1.customers.domain.Customer;
 import com.api.v1.customers.domain.CustomerRepository;
 import com.api.v1.people.annotations.SSN;
