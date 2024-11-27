@@ -1,5 +1,6 @@
 package com.api.v1.doctors.services;
 
+import com.api.v1.doctors.annotations.MedicalLicenseNumber;
 import com.api.v1.doctors.domain.DoctorRepository;
 import com.api.v1.doctors.exceptions.TerminatedDoctorException;
 import com.api.v1.doctors.utils.DoctorFinderUtil;
@@ -15,7 +16,7 @@ class DoctorTerminationServiceImpl implements DoctorTerminationService {
     private final DoctorRepository doctorRepository;
 
     @Override
-    public Mono<Void> terminate(String medicalLicenseNumber) {
+    public Mono<Void> terminate(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
                 .find(medicalLicenseNumber)
                 .flatMap(doctor -> {

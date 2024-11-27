@@ -1,5 +1,6 @@
 package com.api.v1.doctors.controllers;
 
+import com.api.v1.doctors.annotations.MedicalLicenseNumber;
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.doctors.dtos.DoctorResponseDto;
 import com.api.v1.doctors.services.DoctorModificationService;
@@ -30,7 +31,7 @@ public class DoctorController {
     @PutMapping("{medicalLicenseNumber}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> modify(
-            @PathVariable String medicalLicenseNumber,
+            @PathVariable @MedicalLicenseNumber String medicalLicenseNumber,
             @Valid @RequestBody PersonModificationDto modificationDto
     ) {
         return modificationService.modify(medicalLicenseNumber, modificationDto);
@@ -38,7 +39,7 @@ public class DoctorController {
 
     @PatchMapping("{medicalLicenseNumber}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> terminate(@PathVariable String medicalLicenseNumber) {
+    public Mono<Void> terminate(@PathVariable @MedicalLicenseNumber String medicalLicenseNumber) {
         return terminationService.terminate(medicalLicenseNumber);
     }
 }
