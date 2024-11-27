@@ -60,9 +60,9 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                 .filter(medicalAppointment -> medicalAppointment.getCustomer().equals(customer)
                         && medicalAppointment.getDoctor().equals(doctor)
                         && medicalAppointment.getBookedAt().equals(bookingDate)
-                        && medicalAppointment.getBookedAt().getYear() == LocalDateTime.now().getDayOfMonth()
+                        && medicalAppointment.getBookedAt().getYear() == LocalDateTime.now().getYear()
                         && medicalAppointment.getBookedAt().getMonthValue() == LocalDateTime.now().getMonthValue()
-                        && medicalAppointment.getBookedAt().getDayOfMonth() == LocalDateTime.now().getYear()
+                        && medicalAppointment.getBookedAt().getDayOfMonth() == LocalDateTime.now().getDayOfMonth()
                 )
                 .switchIfEmpty(Mono.error(new UnavailableBookingDateException(message)));
     }
