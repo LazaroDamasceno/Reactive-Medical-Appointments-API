@@ -1,6 +1,8 @@
 package com.api.v1.people.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public record PersonResponseDto(
         String fullNameDto,
@@ -9,7 +11,6 @@ public record PersonResponseDto(
         String email,
         PersonAddressDto address,
         String phoneNumber,
-        String gender,
-        String createdAt
+        String gender
 ) {
 }

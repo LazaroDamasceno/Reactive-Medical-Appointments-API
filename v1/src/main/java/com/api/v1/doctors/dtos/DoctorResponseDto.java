@@ -1,13 +1,15 @@
 package com.api.v1.doctors.dtos;
 
 import com.api.v1.people.dtos.PersonResponseDto;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public record DoctorResponseDto(
         String licenseNumber,
-        @Valid PersonResponseDto personResponseDto,
-        @NotNull String hiredAt,
-        String terminatedAt
+        PersonResponseDto personResponseDto,
+        LocalDateTime hiredAt,
+        ZoneId hiredAtAt,
+        LocalDateTime terminatedAt,
+        ZoneId terminatedAtZone
 ) {
 }

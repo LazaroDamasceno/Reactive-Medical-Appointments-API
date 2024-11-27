@@ -13,7 +13,9 @@ public class DoctorResponseMapper {
                 doctor.getLicenseNumber(),
                 PersonResponseMapper.map(doctor.getPerson()),
                 doctor.getHiredAt(),
-                doctor.getTerminatedAt()
+                doctor.getHiredAtZone(),
+                doctor.getTerminatedAt(),
+                doctor.getTerminatedAtZone()
         );
     }
 

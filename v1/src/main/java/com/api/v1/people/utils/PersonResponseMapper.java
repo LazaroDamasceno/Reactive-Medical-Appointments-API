@@ -15,8 +15,7 @@ public class PersonResponseMapper {
                 person.getEmail(),
                 person.getAddress(),
                 person.getPhoneNumber(),
-                person.getGender(),
-                person.getCreatedAt()
+                person.getGender()
         );
     }
 
