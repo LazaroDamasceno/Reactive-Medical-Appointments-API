@@ -16,12 +16,12 @@ public class DoctorFinderUtil {
     public Mono<Doctor> find(String licenseNumber) {
         return doctorRepository
                 .findByLicenseNumber(licenseNumber)
-                .hasElement()
-                .flatMap(exists -> {
-                    if (!exists) return Mono.error(NonExistentDoctorException::new);
-                    return doctorRepository
-                            .findByLicenseNumber(licenseNumber)
-                            .flatMap(Mono::just);
+                .singleOptional()
+                .flatMap(optional -> {
+                   if (optional.isEmpty()) {
+                       return Mono.error(NonExistentDoctorException::new);
+                   }
+                   return Mono.just(optional.get());
                 });
     }
 
