@@ -1,7 +1,6 @@
 package com.api.v1;
 
 import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -24,11 +23,9 @@ public class CustomerRegistrationTest {
     @Order(1)
     void testSuccessful() {
         var registrationDto = new PersonRegistrationDto(
-                new PersonFullNameDto(
-                        "Lazaro",
-                        "",
-                        "Santos"
-                ),
+                "Lazaro",
+                "",
+                "Santos",
                 LocalDate.parse("2000-12-12"),
                 "123456789",
                 "leosantos@mail.com",
@@ -53,11 +50,9 @@ public class CustomerRegistrationTest {
     @Order(2)
     void testUnsuccessful1() {
         var registrationDto = new PersonRegistrationDto(
-                new PersonFullNameDto(
-                        "Lazaro",
-                        "",
-                        "Santos"
-                ),
+                "Lazaro",
+                "",
+                "Santos",
                 LocalDate.parse("2000-12-12"),
                 "123456789",
                 "leosantos@mail.com",
@@ -83,11 +78,9 @@ public class CustomerRegistrationTest {
     @Order(3)
     void testUnsuccessful2() {
         var registrationDto = new PersonRegistrationDto(
-                new PersonFullNameDto(
-                        "Lazaro",
-                        "",
-                        "Santos"
-                ),
+                "Lazaro",
+                "",
+                "Santos",
                 LocalDate.parse("2000-12-12"),
                 "123456788",
                 "leosantos@mail.com",

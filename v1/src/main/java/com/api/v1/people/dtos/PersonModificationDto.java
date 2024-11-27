@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record PersonModificationDto(
-        @Valid PersonFullNameDto fullName,
+        @NotBlank String firstName,
+        String middleName,
+        @NotBlank String lastName,
         @NotNull LocalDate birthDate,
         @NotBlank String email,
         @Valid PersonAddressDto address,

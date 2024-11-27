@@ -10,7 +10,9 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record PersonRegistrationDto(
-        @Valid PersonFullNameDto fullName,
+        @NotBlank String firstName,
+        String middleName,
+        @NotBlank String lastName,
         @NotNull LocalDate birthDate,
         @SSN String ssn,
         @NotBlank @Email String email,

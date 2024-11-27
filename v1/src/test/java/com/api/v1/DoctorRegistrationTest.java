@@ -1,9 +1,7 @@
 package com.api.v1;
 
-import com.api.v1.doctors.dtos.DoctorLicenseNumberDto;
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -23,16 +21,11 @@ public class DoctorRegistrationTest {
     private WebTestClient webTestClient;
 
     DoctorRegistrationDto registrationDto1 = new DoctorRegistrationDto(
-            new DoctorLicenseNumberDto(
-                    "12345678",
-                    "CA"
-            ),
+            "12345678CA",
             new PersonRegistrationDto(
-                    new PersonFullNameDto(
-                            "Gabriel",
-                            "",
-                            "Santana"
-                    ),
+                    "Leonardo",
+                    "Silva",
+                    "Santos Jr.",
                     LocalDate.parse("2000-12-12"),
                     "987654321",
                     "gabrielsantana@mail.com",
@@ -70,16 +63,11 @@ public class DoctorRegistrationTest {
     }
 
     DoctorRegistrationDto registrationDto2 = new DoctorRegistrationDto(
-            new DoctorLicenseNumberDto(
-                    "12345677",
-                    "CA"
-            ),
+            "12345678CA",
             new PersonRegistrationDto(
-                    new PersonFullNameDto(
-                            "Gabriel",
-                            "",
-                            "Santana"
-                    ),
+                    "Leonardo",
+                    "Silva",
+                    "Santos Jr.",
                     LocalDate.parse("2000-12-12"),
                     "987654321",
                     "gabrielsantana@mail.com",
@@ -106,16 +94,11 @@ public class DoctorRegistrationTest {
     }
 
     DoctorRegistrationDto registrationDto3 = new DoctorRegistrationDto(
-            new DoctorLicenseNumberDto(
-                    "12345677",
-                    "CA"
-            ),
+            "12345678CA",
             new PersonRegistrationDto(
-                    new PersonFullNameDto(
-                            "Gabriel",
-                            "",
-                            "Santana"
-                    ),
+                    "Leonardo",
+                    "Silva",
+                    "Santos Jr.",
                     LocalDate.parse("2000-12-12"),
                     "987654320",
                     "gabrielsantana@mail.com",

@@ -1,7 +1,6 @@
 package com.api.v1.people.domain;
 
 import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonModificationDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import lombok.Getter;
@@ -20,7 +19,9 @@ public class Person {
 
     @BsonId
     private ObjectId id;
-    private PersonFullNameDto fullName;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private LocalDate birthDate;
     private String ssn;
     private String email;
@@ -32,7 +33,9 @@ public class Person {
 
     private Person(PersonRegistrationDto registrationDto) {
         this.id = new ObjectId();
-        this.fullName = registrationDto.fullName();
+        this.firstName = registrationDto.firstName();
+        this.middleName = registrationDto.middleName();
+        this.lastName = registrationDto.lastName();
         this.birthDate = registrationDto.birthDate();
         this.ssn = registrationDto.ssn();
         this.email = registrationDto.email();
@@ -47,7 +50,9 @@ public class Person {
     }
 
     public void modify(PersonModificationDto modificationDto) {
-        this.fullName = modificationDto.fullName();
+        this.firstName = modificationDto.firstName();
+        this.middleName = modificationDto.middleName();
+        this.lastName = modificationDto.lastName();
         this.birthDate = modificationDto.birthDate();
         this.email = modificationDto.email();
         this.address = modificationDto.address();

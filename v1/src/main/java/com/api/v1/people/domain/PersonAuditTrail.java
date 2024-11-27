@@ -1,7 +1,6 @@
 package com.api.v1.people.domain;
 
 import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonFullNameDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;

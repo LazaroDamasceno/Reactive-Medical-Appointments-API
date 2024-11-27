@@ -1,8 +1,8 @@
 package com.api.v1.doctors.services;
 
 import com.api.v1.doctors.domain.DoctorRepository;
-import com.api.v1.doctors.dtos.DoctorModificationDto;
 import com.api.v1.doctors.utils.DoctorFinderUtil;
+import com.api.v1.people.dtos.PersonModificationDto;
 import com.api.v1.people.services.PersonModificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +18,15 @@ public class DoctorModificationServiceImpl implements DoctorModificationService 
     private final DoctorRepository doctorRepository;
 
     @Override
-    public Mono<Void> modify(@Valid DoctorModificationDto modificationDto) {
+    public Mono<Void> modify(String medicalLicenseNumber, @Valid PersonModificationDto modificationDto) {
         return doctorFinderUtil
-                .find(modificationDto.licenseNumberDto())
+                .find(medicalLicenseNumber)
                 .flatMap(doctor -> personModificationService
-                        .modify(doctor.getPerson(), modificationDto.modificationDto())
-                        .flatMap(modifiedPerson -> {
-                            doctor.setPerson(modifiedPerson);
-                            return doctorRepository.save(doctor);
-                        })
+                        .modify(doctor.getPerson(), modificationDto)
+                            .flatMap(modifiedPerson -> {
+                                doctor.setPerson(modifiedPerson);
+                                return doctorRepository.save(doctor);
+                            })
                 ).then();
     }
-
 }

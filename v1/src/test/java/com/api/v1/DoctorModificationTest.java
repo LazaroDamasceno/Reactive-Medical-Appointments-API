@@ -1,9 +1,6 @@
 package com.api.v1;
 
-import com.api.v1.doctors.dtos.DoctorLicenseNumberDto;
-import com.api.v1.doctors.dtos.DoctorModificationDto;
 import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonFullNameDto;
 import com.api.v1.people.dtos.PersonModificationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -22,72 +19,42 @@ public class DoctorModificationTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    DoctorModificationDto modificationDto1 = new DoctorModificationDto(
-            new DoctorLicenseNumberDto(
-                    "12345678",
-                    "CA"
+    PersonModificationDto modificationDto = new PersonModificationDto(
+            "Gabriel",
+            "Silva",
+            "Santana Jr.",
+            LocalDate.parse("2003-12-12"),
+            "jr@gsantana.io",
+            new PersonAddressDto(
+                    "CA",
+                    "Sant'ana",
+                    "Downtown",
+                    "90012"
             ),
-            new PersonModificationDto(
-                    new PersonFullNameDto(
-                            "Gabriel",
-                            "Silva",
-                            "Santana Jr."
-                    ),
-                    LocalDate.parse("2003-12-12"),
-                    "jr@gsantana.io",
-                    new PersonAddressDto(
-                            "CA",
-                            "Sant'ana",
-                            "Downtown",
-                            "90012"
-                    ),
-                    "0987654321",
-                    "cis male"
-            )
+            "0987654321",
+            "cis male"
     );
 
     @Test
     @Order(1)
     void testSuccessful() {
+        String licenseNumber = "12345678CA";
         webTestClient
                 .put()
-                .uri("api/v1/doctors")
-                .bodyValue(modificationDto1)
+                .uri("api/v1/doctors/%s".formatted(licenseNumber))
+                .bodyValue(modificationDto)
                 .exchange()
                 .expectStatus().is2xxSuccessful();
     }
 
-    DoctorModificationDto modificationDto2 = new DoctorModificationDto(
-            new DoctorLicenseNumberDto(
-                    "12345677",
-                    "CA"
-            ),
-            new PersonModificationDto(
-                    new PersonFullNameDto(
-                            "Gabriel",
-                            "Silva",
-                            "Santana Jr."
-                    ),
-                    LocalDate.parse("2003-12-12"),
-                    "jr@gsantana.io",
-                    new PersonAddressDto(
-                            "CA",
-                            "Sant'ana",
-                            "Downtown",
-                            "90012"
-                    ),
-                    "0987654321",
-                    "cis male"
-            )
-    );
-
     @Test
     @Order(2)
     void testUnsuccessful() {
+        String licenseNumber = "12345677CA";
         webTestClient
                 .put()
-                .uri("api/v1/doctors")
-                .bodyValue(modificationDto2)
+                .uri("api/v1/doctors/%s".formatted(licenseNumber))
+                .bodyValue(modificationDto)
                 .exchange()
                 .expectStatus().is5xxServerError();
     }
