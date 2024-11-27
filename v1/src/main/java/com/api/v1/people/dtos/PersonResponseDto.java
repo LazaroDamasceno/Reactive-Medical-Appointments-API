@@ -3,7 +3,7 @@ package com.api.v1.people.dtos;
 import java.time.LocalDate;
 
 public record PersonResponseDto(
-        PersonFullNameDto fullNameDto,
+        String fullNameDto,
         LocalDate birthDate,
         String ssn,
         String email,

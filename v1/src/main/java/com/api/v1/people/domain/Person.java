@@ -60,4 +60,9 @@ public class Person {
         this.gender = modificationDto.gender();
         this.modifiedAt = ZonedDateTime.now().toString();
     }
+
+    public String getFullName() {
+        if (middleName.isEmpty()) return "%s %s".formatted(firstName, lastName);
+        return "%s %s %s".formatted(firstName, middleName, lastName);
+    }
 }

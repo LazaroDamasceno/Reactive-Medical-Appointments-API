@@ -1,37 +1,21 @@
 package com.api.v1.people.domain;
 
-import com.api.v1.people.dtos.PersonAddressDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Document
 @Getter
 @NoArgsConstructor
 public class PersonAuditTrail {
 
-    private PersonFullNameDto fullName;
-    private LocalDate birthDate;
-    private String ssn;
-    private String email;
-    private PersonAddressDto address;
-    private String phoneNumber;
-    private String gender;
-    private String createdAt;
-    private String modifiedAt;
+    private Person person;
+    private final String createdAt = ZonedDateTime.now().toString();
 
     private PersonAuditTrail(Person person) {
-        this.fullName = person.getFullName();
-        this.birthDate = person.getBirthDate();
-        this.ssn = person.getSsn();
-        this.email = person.getEmail();
-        this.address = person.getAddress();
-        this.phoneNumber = person.getPhoneNumber();
-        this.gender = person.getGender();
-        this.createdAt = person.getCreatedAt();
-        this.modifiedAt = person.getModifiedAt();
+        this.person = person;
     }
 
     public static PersonAuditTrail create(Person person) {
