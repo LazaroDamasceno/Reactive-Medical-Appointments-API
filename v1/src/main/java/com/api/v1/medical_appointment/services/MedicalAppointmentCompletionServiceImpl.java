@@ -10,13 +10,13 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-class MedicalAppointmentCompletionServiceImpl implements MedicalAppointmentCancellationService {
+class MedicalAppointmentCompletionServiceImpl implements MedicalAppointmentCompletionService {
 
     private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
     private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     @Override
-    public Mono<Void> cancel(@OrderNumber String orderNumber) {
+    public Mono<Void> complete(@OrderNumber String orderNumber) {
         return medicalAppointmentFinderUtil
                 .find(orderNumber)
                 .flatMap(medicalAppointment -> {
