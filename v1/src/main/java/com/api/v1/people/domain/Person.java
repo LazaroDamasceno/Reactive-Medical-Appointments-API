@@ -10,7 +10,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Document
 @Getter
@@ -28,8 +29,10 @@ public class Person {
     private PersonAddressDto address;
     private String phoneNumber;
     private String gender;
-    private String createdAt;
-    private String modifiedAt;
+    private LocalDateTime createdAt;
+    private ZoneId createdAtZone;
+    private LocalDateTime modifiedAt;
+    private ZoneId modifiedAtZone;
 
     private Person(PersonRegistrationDto registrationDto) {
         this.id = new ObjectId();
@@ -42,7 +45,8 @@ public class Person {
         this.address = registrationDto.address();
         this.phoneNumber = registrationDto.phoneNumber();
         this.gender = registrationDto.gender();
-        this.createdAt = ZonedDateTime.now().toString();
+        this.createdAt = LocalDateTime.now();
+        this.createdAtZone = ZoneId.systemDefault();
     }
 
     public static Person create(PersonRegistrationDto registrationDto) {
@@ -58,7 +62,8 @@ public class Person {
         this.address = modificationDto.address();
         this.phoneNumber = modificationDto.phoneNumber();
         this.gender = modificationDto.gender();
-        this.modifiedAt = ZonedDateTime.now().toString();
+        this.modifiedAt = LocalDateTime.now();
+        this.modifiedAtZone = ZoneId.systemDefault();
     }
 
     public String getFullName() {

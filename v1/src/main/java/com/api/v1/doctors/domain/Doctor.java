@@ -8,7 +8,8 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Document
 @Getter
@@ -20,16 +21,23 @@ public class Doctor {
     private String licenseNumber;
     @Setter
     private Person person;
-    private String createdAt;
-    private String hiredAt;
-    private String terminatedAt;
+    private LocalDateTime createdAt;
+    private ZoneId createdAtZone;
+    private LocalDateTime modifiedAt;
+    private ZoneId modifiedAtZone;
+    private LocalDateTime hiredAt;
+    private ZoneId hiredAtZone;
+    private LocalDateTime terminatedAt;
+    private ZoneId terminatedAtZone;
 
     private Doctor(String licenseNumber, Person person) {
         this.id = new ObjectId();
         this.licenseNumber = licenseNumber;
         this.person = person;
-        this.createdAt = ZonedDateTime.now().toString();
-        this.hiredAt = ZonedDateTime.now().toString();
+        this.createdAt = LocalDateTime.now();
+        this.createdAtZone = ZoneId.systemDefault();
+        this.hiredAt = LocalDateTime.now();
+        this.hiredAtZone = ZoneId.systemDefault();
     }
 
     public static Doctor create(String licenseNumber, Person person) {
@@ -37,6 +45,7 @@ public class Doctor {
     }
 
     public void terminate() {
-        this.terminatedAt = ZonedDateTime.now().toString();
+        this.terminatedAt = LocalDateTime.now();
+        this.terminatedAtZone = ZoneId.systemDefault();
     }
 }
