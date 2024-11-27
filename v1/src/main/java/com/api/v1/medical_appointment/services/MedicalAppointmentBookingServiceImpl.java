@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-class MedicalAppointmentServiceImpl implements MedicalAppointmentService {
+class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingService {
 
     private final CustomerFinderUtil customerFinderUtil;
     private final DoctorFinderUtil doctorFinderUtil;
