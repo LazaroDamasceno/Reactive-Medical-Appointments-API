@@ -1,9 +1,8 @@
 package com.api.v1.doctors.utils;
 
-import com.api.v1.doctors.exceptions.DoctorNotFoundException;
+import com.api.v1.doctors.exceptions.NonExistentDoctorException;
 import com.api.v1.doctors.domain.Doctor;
 import com.api.v1.doctors.domain.DoctorRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -19,7 +18,7 @@ public class DoctorFinderUtil {
                 .findByLicenseNumber(licenseNumber)
                 .hasElement()
                 .flatMap(exists -> {
-                    if (!exists) return Mono.error(DoctorNotFoundException::new);
+                    if (!exists) return Mono.error(NonExistentDoctorException::new);
                     return doctorRepository
                             .findByLicenseNumber(licenseNumber)
                             .flatMap(Mono::just);
