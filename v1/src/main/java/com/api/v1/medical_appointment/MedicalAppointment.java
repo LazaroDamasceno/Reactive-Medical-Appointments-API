@@ -51,8 +51,8 @@ public class MedicalAppointment {
     }
 
     public void markAsCanceled() {
-        completedAt = LocalDateTime.now();
-        completedAtZone = ZoneId.systemDefault();
+        canceledAt = LocalDateTime.now();
+        canceledAtZone = ZoneId.systemDefault();
     }
 
 }
