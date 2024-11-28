@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Date;
 
 @Document
 @Getter
@@ -20,13 +22,13 @@ public class Customer {
     private ObjectId id;
     @Setter
     private Person person;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private ZoneId createdAtZone;
 
     private Customer(Person person) {
         this.id = new ObjectId();
         this.person = person;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
         this.createdAtZone = ZoneId.systemDefault();
     }
 
