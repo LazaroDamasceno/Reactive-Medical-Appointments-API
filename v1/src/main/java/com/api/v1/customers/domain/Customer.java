@@ -8,8 +8,8 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 @Document
 @Getter
@@ -20,13 +20,13 @@ public class Customer {
     private ObjectId id;
     @Setter
     private Person person;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private ZoneId createdAtZone;
 
     private Customer(Person person) {
         this.id = new ObjectId();
         this.person = person;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = new Date();
         this.createdAtZone = ZoneId.systemDefault();
     }
 
