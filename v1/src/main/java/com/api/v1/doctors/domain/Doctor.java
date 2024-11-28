@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.Date;
 
 @Document
 @Getter
@@ -23,22 +21,22 @@ public class Doctor {
     private String licenseNumber;
     @Setter
     private Person person;
-    private Date createdAt;
+    private LocalDateTime createdAt;
     private ZoneId createdAtZone;
-    private Date modifiedAt;
+    private LocalDateTime modifiedAt;
     private ZoneId modifiedAtZone;
-    private Date hiredAt;
+    private LocalDateTime hiredAt;
     private ZoneId hiredAtZone;
-    private Date terminatedAt;
+    private LocalDateTime terminatedAt;
     private ZoneId terminatedAtZone;
 
     private Doctor(String licenseNumber, Person person) {
         this.id = new ObjectId();
         this.licenseNumber = licenseNumber;
         this.person = person;
-        this.createdAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
+        this.createdAt = LocalDateTime.now();
         this.createdAtZone = ZoneId.systemDefault();
-        this.hiredAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
+        this.hiredAt = LocalDateTime.now();
         this.hiredAtZone = ZoneId.systemDefault();
     }
 
@@ -47,7 +45,7 @@ public class Doctor {
     }
 
     public void terminate() {
-        this.terminatedAt = Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC));
+        this.terminatedAt = LocalDateTime.now();
         this.terminatedAtZone = ZoneId.systemDefault();
     }
 }
