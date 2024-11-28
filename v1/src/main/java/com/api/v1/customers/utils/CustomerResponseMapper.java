@@ -11,7 +11,8 @@ public class CustomerResponseMapper {
     public CustomerResponseDto map(Customer customer) {
         return new CustomerResponseDto(
                 PersonResponseMapper.map(customer.getPerson()),
-                customer.getCreatedAt()
+                customer.getCreatedAt(),
+                customer.getCreatedAtZone()
         );
     }
 
