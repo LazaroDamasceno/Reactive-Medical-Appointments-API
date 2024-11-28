@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerRegistrationService registrationService;
     private final CustomerModificationService modificationService;
 
-    @PostMapping
+    @PostMapping("paid")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Mono<CustomerResponseDto> register(@Valid @RequestBody PersonRegistrationDto registrationDto) {
         return registrationService.register(registrationDto);

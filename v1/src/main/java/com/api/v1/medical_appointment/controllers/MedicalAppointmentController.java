@@ -8,6 +8,7 @@ import com.api.v1.medical_appointment.services.MedicalAppointmentCancellationSer
 import com.api.v1.medical_appointment.services.MedicalAppointmentCompletionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -21,16 +22,19 @@ public class MedicalAppointmentController {
     private final MedicalAppointmentCompletionService completionService;
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Mono<MedicalAppointment> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
-        return bookingService.book(bookingDto);
+        return bookingService.bookPaidMedicalAppointment(bookingDto);
     }
 
     @PatchMapping("{orderNumber}/cancellation")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> cancel(@OrderNumber @PathVariable String orderNumber) {
         return cancellationService.cancel(orderNumber);
     }
 
     @PatchMapping("{orderNumber}/completion")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> complete(@OrderNumber @PathVariable String orderNumber) {
         return completionService.complete(orderNumber);
     }

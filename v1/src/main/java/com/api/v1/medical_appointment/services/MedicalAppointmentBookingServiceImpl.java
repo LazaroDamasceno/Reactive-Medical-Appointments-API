@@ -21,9 +21,53 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
     private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     @Override
-    public Mono<MedicalAppointment> book(@Valid MedicalAppointmentBookingDto bookingDto) {
+    public Mono<MedicalAppointment> bookPaidMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
-        return null;
+        return customerMono
+                .zipWith(doctorMono)
+                .flatMap(tuple -> Mono.defer(() -> {
+                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                            tuple.getT1(),
+                            tuple.getT2(),
+                            bookingDto.bookingDate(),
+                            "Medical appointment covered by the customer"
+                    );
+                    return medicalAppointmentRepository.save(medicalAppointment);
+                }));
+    }
+
+    @Override
+    public Mono<MedicalAppointment> bookAffordableMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
+        Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
+        Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
+        return customerMono
+                .zipWith(doctorMono)
+                .flatMap(tuple -> Mono.defer(() -> {
+                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                            tuple.getT1(),
+                            tuple.getT2(),
+                            bookingDto.bookingDate(),
+                            "Medical appointment covered by the Affordable Care Act"
+                    );
+                    return medicalAppointmentRepository.save(medicalAppointment);
+                }));
+    }
+
+    @Override
+    public Mono<MedicalAppointment> bookPrivateHeathCareMedicalAppointment(MedicalAppointmentBookingDto bookingDto) {
+        Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
+        Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
+        return customerMono
+                .zipWith(doctorMono)
+                .flatMap(tuple -> Mono.defer(() -> {
+                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                            tuple.getT1(),
+                            tuple.getT2(),
+                            bookingDto.bookingDate(),
+                            "Medical appointment covered by private health care"
+                    );
+                    return medicalAppointmentRepository.save(medicalAppointment);
+                }));
     }
 }
