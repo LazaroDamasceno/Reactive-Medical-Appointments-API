@@ -8,7 +8,7 @@ import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.time.ZoneId;
 
 @Document
@@ -22,20 +22,20 @@ public class MedicalAppointment {
     private String type;
     private Customer customer;
     private Doctor doctor;
-    private LocalDateTime bookedAt;
+    private Date bookedAt;
     private ZoneId bookedAtZone;
-    private LocalDateTime canceledAt;
+    private Date canceledAt;
     private ZoneId canceledAtZone;
-    private LocalDateTime completedAt;
+    private Date completedAt;
     private ZoneId completedAtZone;
-    private LocalDateTime createdAt;
+    private Date createdAt;
     private ZoneId createdAtZone;
 
-    private MedicalAppointment(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
+    private MedicalAppointment(Customer customer, Doctor doctor, Date bookedAt, String type) {
         this.id = new ObjectId();
         this.type = type;
         this.orderNumber = new ObjectId();
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = new Date();
         this.createdAtZone = ZoneId.systemDefault();
         this.bookedAt = bookedAt;
         this.bookedAtZone = ZoneId.systemDefault();
@@ -43,17 +43,17 @@ public class MedicalAppointment {
         this.customer = customer;
     }
 
-    public static MedicalAppointment create(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
+    public static MedicalAppointment create(Customer customer, Doctor doctor, Date bookedAt, String type) {
         return new MedicalAppointment(customer, doctor, bookedAt, type);
     }
 
     public void markAsCompleted() {
-        completedAt = LocalDateTime.now();
+        completedAt = new Date();
         completedAtZone = ZoneId.systemDefault();
     }
 
     public void markAsCanceled() {
-        canceledAt = LocalDateTime.now();
+        canceledAt = new Date();
         canceledAtZone = ZoneId.systemDefault();
     }
 
