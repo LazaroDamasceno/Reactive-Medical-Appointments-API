@@ -3,6 +3,7 @@ package com.api.v1.medical_appointments.controllers;
 import com.api.v1.medical_appointments.annotation.OrderNumber;
 import com.api.v1.medical_appointments.domain.MedicalAppointment;
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
 import com.api.v1.medical_appointments.services.MedicalAppointmentBookingService;
 import com.api.v1.medical_appointments.services.MedicalAppointmentCancellationService;
 import com.api.v1.medical_appointments.services.MedicalAppointmentCompletionService;
@@ -22,13 +23,13 @@ public class MedicalAppointmentController {
     private final MedicalAppointmentCompletionService completionService;
 
 
-    public Mono<MedicalAppointment> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
+    public Mono<MedicalAppointmentResponseDto> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
         return bookingService.bookPaidMedicalAppointment(bookingDto);
     }
 
     @PostMapping("paid")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<MedicalAppointment> bookPaidMedicalAppointment(
+    public Mono<MedicalAppointmentResponseDto> bookPaidMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
         return bookingService.bookPaidMedicalAppointment(bookingDto);
@@ -36,7 +37,7 @@ public class MedicalAppointmentController {
 
     @PostMapping("affordable")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<MedicalAppointment> bookAffordableMedicalAppointment(
+    public Mono<MedicalAppointmentResponseDto> bookAffordableMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
         return bookingService.bookAffordableMedicalAppointment(bookingDto);
@@ -44,7 +45,7 @@ public class MedicalAppointmentController {
 
     @PostMapping("private-health-care")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<MedicalAppointment> bookPrivateHeathCareMedicalAppointment(
+    public Mono<MedicalAppointmentResponseDto> bookPrivateHeathCareMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
         return bookingService.bookPrivateHeathCareMedicalAppointment(bookingDto);

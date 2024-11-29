@@ -23,22 +23,22 @@ public class MedicalAppointment {
     private Customer customer;
     private Doctor doctor;
     private BsonDateTime bookedAt;
-    private ZoneId bookedAtZone;
+    private ZoneOffset bookedAtZone;
     private BsonDateTime canceledAt;
-    private ZoneId canceledAtZone;
+    private ZoneOffset canceledAtZone;
     private BsonDateTime completedAt;
-    private ZoneId completedAtZone;
+    private ZoneOffset completedAtZone;
     private BsonDateTime createdAt;
-    private ZoneId createdAtZone;
+    private ZoneOffset createdAtZone;
 
     private MedicalAppointment(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
         this.id = new ObjectId();
         this.type = type;
         this.orderNumber = new ObjectId();
         this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.createdAtZone = ZoneId.systemDefault();
+        this.createdAtZone = ZoneOffset.UTC;
         this.bookedAt = new BsonDateTime(bookedAt.toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.bookedAtZone = ZoneId.systemDefault();
+        this.bookedAtZone = ZoneOffset.UTC;
         this.doctor = doctor;
         this.customer = customer;
     }
@@ -49,12 +49,12 @@ public class MedicalAppointment {
 
     public void markAsCompleted() {
         completedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        completedAtZone = ZoneId.systemDefault();
+        completedAtZone = ZoneOffset.UTC;
     }
 
     public void markAsCanceled() {
         canceledAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        canceledAtZone = ZoneId.systemDefault();
+        canceledAtZone = ZoneOffset.UTC;
     }
 
 }

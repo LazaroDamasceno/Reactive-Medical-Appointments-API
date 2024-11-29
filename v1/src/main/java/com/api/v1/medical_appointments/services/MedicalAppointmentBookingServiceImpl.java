@@ -7,6 +7,8 @@ import com.api.v1.doctors.utils.DoctorFinderUtil;
 import com.api.v1.medical_appointments.domain.MedicalAppointment;
 import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
+import com.api.v1.medical_appointments.utils.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
     private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     @Override
-    public Mono<MedicalAppointment> bookPaidMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
+    public Mono<MedicalAppointmentResponseDto> bookPaidMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
@@ -34,11 +36,12 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                             "Medical appointment covered by the customer"
                     );
                     return medicalAppointmentRepository.save(medicalAppointment);
-                }));
+                }))
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     @Override
-    public Mono<MedicalAppointment> bookAffordableMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
+    public Mono<MedicalAppointmentResponseDto> bookAffordableMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
@@ -51,11 +54,12 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                             "Medical appointment covered by the Affordable Care Act"
                     );
                     return medicalAppointmentRepository.save(medicalAppointment);
-                }));
+                }))
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     @Override
-    public Mono<MedicalAppointment> bookPrivateHeathCareMedicalAppointment(MedicalAppointmentBookingDto bookingDto) {
+    public Mono<MedicalAppointmentResponseDto> bookPrivateHeathCareMedicalAppointment(MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
@@ -68,6 +72,7 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                             "Medical appointment covered by private health care"
                     );
                     return medicalAppointmentRepository.save(medicalAppointment);
-                }));
+                }))
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 }

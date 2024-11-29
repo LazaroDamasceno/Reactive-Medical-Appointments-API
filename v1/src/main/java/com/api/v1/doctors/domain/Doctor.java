@@ -22,20 +22,20 @@ public class Doctor {
     @Setter
     private Person person;
     private BsonDateTime createdAt;
-    private ZoneId createdAtZone;
+    private ZoneOffset createdAtZone;
     private BsonDateTime hiredAt;
-    private ZoneId hiredAtZone;
+    private ZoneOffset hiredAtZone;
     private BsonDateTime terminatedAt;
-    private ZoneId terminatedAtZone;
+    private ZoneOffset terminatedAtZone;
 
     private Doctor(String licenseNumber, Person person) {
         this.id = new ObjectId();
         this.licenseNumber = licenseNumber;
         this.person = person;
         this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.createdAtZone = ZoneId.systemDefault();
+        this.createdAtZone = ZoneOffset.UTC;
         this.hiredAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.hiredAtZone = ZoneId.systemDefault();
+        this.hiredAtZone = ZoneOffset.UTC;
     }
 
     public static Doctor create(String licenseNumber, Person person) {
@@ -44,6 +44,6 @@ public class Doctor {
 
     public void terminate() {
         this.terminatedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.terminatedAtZone = ZoneId.systemDefault();
+        this.terminatedAtZone = ZoneOffset.UTC;
     }
 }

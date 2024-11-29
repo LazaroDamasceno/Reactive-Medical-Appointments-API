@@ -13,7 +13,7 @@ public record Card(
         String ownerName,
         String OwnerSsn,
         BsonDateTime createAt,
-        ZoneId createdAtZone
+        ZoneOffset createdAtZone
 ) {
 
     public static Card create(
@@ -31,7 +31,7 @@ public record Card(
                 ownerName,
                 OwnerSsn,
                 new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()),
-                ZoneId.systemDefault()
+                ZoneOffset.UTC
         );
     }
 

@@ -1,16 +1,16 @@
 package com.api.v1.doctors.dtos;
 
 import com.api.v1.people.dtos.PersonResponseDto;
+import org.bson.BsonDateTime;
 
 import java.time.ZoneId;
-import java.util.Date;
 
 public record DoctorResponseDto(
         String licenseNumber,
         PersonResponseDto personResponseDto,
-        String hiredAt,
+        BsonDateTime hiredAt,
         ZoneId hiredAtZone,
-        String terminatedAt,
+        BsonDateTime terminatedAt,
         ZoneId terminatedAtZone
 ) {
 }

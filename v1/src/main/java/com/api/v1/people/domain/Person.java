@@ -29,9 +29,9 @@ public class Person {
     private String phoneNumber;
     private String gender;
     private BsonDateTime createdAt;
-    private ZoneId createdAtZone;
+    private ZoneOffset createdAtZone;
     private BsonDateTime modifiedAt;
-    private ZoneId modifiedAtZone;
+    private ZoneOffset modifiedAtZone;
 
     private Person(PersonRegistrationDto registrationDto) {
         this.id = new ObjectId();
@@ -45,7 +45,7 @@ public class Person {
         this.phoneNumber = registrationDto.phoneNumber();
         this.gender = registrationDto.gender();
         this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.createdAtZone = ZoneId.systemDefault();
+        this.createdAtZone = ZoneOffset.UTC;
     }
 
     public static Person create(PersonRegistrationDto registrationDto) {
@@ -62,7 +62,7 @@ public class Person {
         this.phoneNumber = modificationDto.phoneNumber();
         this.gender = modificationDto.gender();
         this.modifiedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
-        this.modifiedAtZone = ZoneId.systemDefault();
+        this.modifiedAtZone = ZoneOffset.UTC;
     }
 
     public String getFullName() {
