@@ -11,8 +11,11 @@ import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
 import com.api.v1.medical_appointments.utils.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.bson.BsonDateTime;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.time.ZoneOffset;
 
 @Service
 @RequiredArgsConstructor
@@ -28,15 +31,26 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
-                .flatMap(tuple -> Mono.defer(() -> {
-                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                            tuple.getT1(),
-                            tuple.getT2(),
-                            bookingDto.bookingDate(),
-                            "Medical appointment covered by the customer"
-                    );
-                    return medicalAppointmentRepository.save(medicalAppointment);
-                }))
+                .flatMap(tuple -> {
+                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
+                    return medicalAppointmentRepository
+                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
+                            .singleOptional()
+                            .flatMap(optional -> {
+                               if (optional.isPresent()) {
+                                   return Mono.error(Exception::new);
+                               }
+                               return Mono.defer(() -> {
+                                  MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                          tuple.getT1(),
+                                          tuple.getT2(),
+                                          bookingDto.bookingDate(),
+                                          "Medical appointment covered by the customer"
+                                  );
+                                  return medicalAppointmentRepository.save(medicalAppointment);
+                               });
+                            });
+                })
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
@@ -46,15 +60,26 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
-                .flatMap(tuple -> Mono.defer(() -> {
-                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                            tuple.getT1(),
-                            tuple.getT2(),
-                            bookingDto.bookingDate(),
-                            "Medical appointment covered by the Affordable Care Act"
-                    );
-                    return medicalAppointmentRepository.save(medicalAppointment);
-                }))
+                .flatMap(tuple -> {
+                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
+                    return medicalAppointmentRepository
+                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
+                            .singleOptional()
+                            .flatMap(optional -> {
+                                if (optional.isPresent()) {
+                                    return Mono.error(Exception::new);
+                                }
+                                return Mono.defer(() -> {
+                                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                            tuple.getT1(),
+                                            tuple.getT2(),
+                                            bookingDto.bookingDate(),
+                                            "Medical appointment covered by the Affordable Care Act"
+                                    );
+                                    return medicalAppointmentRepository.save(medicalAppointment);
+                                });
+                            });
+                })
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
@@ -64,15 +89,26 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
-                .flatMap(tuple -> Mono.defer(() -> {
-                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                            tuple.getT1(),
-                            tuple.getT2(),
-                            bookingDto.bookingDate(),
-                            "Medical appointment covered by private health care"
-                    );
-                    return medicalAppointmentRepository.save(medicalAppointment);
-                }))
+                .flatMap(tuple -> {
+                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
+                    return medicalAppointmentRepository
+                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
+                            .singleOptional()
+                            .flatMap(optional -> {
+                                if (optional.isPresent()) {
+                                    return Mono.error(Exception::new);
+                                }
+                                return Mono.defer(() -> {
+                                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                            tuple.getT1(),
+                                            tuple.getT2(),
+                                            bookingDto.bookingDate(),
+                                            "Medical appointment covered by the private health care"
+                                    );
+                                    return medicalAppointmentRepository.save(medicalAppointment);
+                                });
+                            });
+                })
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 }

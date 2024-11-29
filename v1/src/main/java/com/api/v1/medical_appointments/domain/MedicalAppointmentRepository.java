@@ -14,12 +14,12 @@ public interface MedicalAppointmentRepository extends ReactiveMongoRepository<Me
     Mono<MedicalAppointment> findByOrderNumber(ObjectId orderNumber);
 
     @Query("""
-            { 'doctor': ?0 },
-            { 'customer': ?1 },
+            { 'customer': ?0 },
+            { 'doctor': ?1 },
             { 'bookedAt': ?2 },
             { 'canceledAt': null },
             { 'completedAt': null }
     """)
-    Mono<MedicalAppointment> find(Doctor doctor, Customer customer, BsonDateTime bookedAt);
+    Mono<MedicalAppointment> find(Customer customer, Doctor doctor, BsonDateTime bookedAt);
 
 }

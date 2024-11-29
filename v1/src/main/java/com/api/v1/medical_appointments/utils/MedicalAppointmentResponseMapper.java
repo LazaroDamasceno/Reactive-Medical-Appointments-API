@@ -6,26 +6,17 @@ import com.api.v1.medical_appointments.domain.MedicalAppointment;
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-
 public class MedicalAppointmentResponseMapper {
 
     public static MedicalAppointmentResponseDto mapToDto(MedicalAppointment medicalAppointment) {
         return new MedicalAppointmentResponseDto(
                 medicalAppointment.getOrderNumber(),
-                OffsetDateTime.of(
-                        LocalDateTime.parse(medicalAppointment.getBookedAt().toString()),
-                        medicalAppointment.getBookedAtZone()
-                ),
-                OffsetDateTime.of(
-                        LocalDateTime.parse(medicalAppointment.getCanceledAt().toString()),
-                        medicalAppointment.getCanceledAtZone()
-                ),
-                OffsetDateTime.of(
-                        LocalDateTime.parse(medicalAppointment.getCompletedAt().toString()),
-                        medicalAppointment.getCompletedAtZone()
-                ),
+                medicalAppointment.getBookedAt(),
+                medicalAppointment.getBookedAtZone(),
+                medicalAppointment.getCanceledAt(),
+                medicalAppointment.getCanceledAtZone(),
+                medicalAppointment.getCompletedAt(),
+                medicalAppointment.getCompletedAtZone(),
                 CustomerResponseMapper.map(medicalAppointment.getCustomer()),
                 DoctorResponseMapper.map(medicalAppointment.getDoctor())
         );

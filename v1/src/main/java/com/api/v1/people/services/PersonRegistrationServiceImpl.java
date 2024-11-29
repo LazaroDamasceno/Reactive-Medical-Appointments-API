@@ -3,8 +3,7 @@ package com.api.v1.people.services;
 import com.api.v1.people.domain.Person;
 import com.api.v1.people.domain.PersonRepository;
 import com.api.v1.people.dtos.PersonRegistrationDto;
-import com.api.v1.people.exceptions.DuplicatedEmailException;
-import com.api.v1.people.exceptions.DuplicatedSsnException;
+import com.api.v1.people.exceptions.DuplicatedPersonalInformationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,19 +19,19 @@ public class PersonRegistrationServiceImpl implements PersonRegistrationService 
     public Mono<Person> register(@Valid PersonRegistrationDto registrationDto) {
         return personRepository
                 .findBySsn(registrationDto.ssn())
-                .hasElement()
-                .flatMap(isSsnDuplicated -> {
-                    if (isSsnDuplicated) return Mono.error(DuplicatedSsnException::new);
-                    return personRepository
-                            .findByEmail(registrationDto.email())
-                            .hasElement()
-                            .flatMap(isEmailDuplicated -> {
-                                if (isEmailDuplicated) return Mono.error(DuplicatedEmailException::new);
-                                return Mono.defer(() -> {
-                                    Person person = Person.create(registrationDto);
-                                    return personRepository.save(person);
-                                });
-                            });
+                .singleOptional()
+                .zipWith(personRepository
+                        .findByEmail(registrationDto.email())
+                        .singleOptional()
+                )
+                .flatMap(tuple -> {
+                   if (tuple.getT1().isPresent() || tuple.getT2().isPresent()) {
+                       return Mono.error(DuplicatedPersonalInformationException::new);
+                   }
+                   return Mono.defer(() -> {
+                      Person person = Person.create(registrationDto);
+                      return personRepository.save(person);
+                   });
                 });
     }
 
