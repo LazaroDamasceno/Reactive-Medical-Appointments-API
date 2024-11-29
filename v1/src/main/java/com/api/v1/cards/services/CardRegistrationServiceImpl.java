@@ -34,7 +34,7 @@ class CardRegistrationServiceImpl implements CardRegistrationService {
     public Mono<Card> registerDebitCard(@Valid CardRegistrationDto registrationDto) {
         return Mono.defer(() -> {
             Card debitCard = Card.create(
-                    "Credit card",
+                    "Debit card",
                     registrationDto.dueDate(),
                     registrationDto.cvc(),
                     registrationDto.ownerName(),

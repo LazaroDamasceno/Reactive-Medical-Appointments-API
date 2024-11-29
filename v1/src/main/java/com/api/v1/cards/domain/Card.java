@@ -1,8 +1,9 @@
 package com.api.v1.cards.domain;
 
+import org.bson.BsonDateTime;
 import org.bson.types.ObjectId;
 
-import java.time.LocalDate;
+import java.time.*;
 
 public record Card(
         String type,
@@ -10,7 +11,9 @@ public record Card(
         LocalDate dueDate,
         String cvc,
         String ownerName,
-        String OwnerSsn
+        String OwnerSsn,
+        BsonDateTime createAt,
+        ZoneId createdAtZone
 ) {
 
     public static Card create(
@@ -26,7 +29,9 @@ public record Card(
                 dueDate,
                 cvc,
                 ownerName,
-                OwnerSsn
+                OwnerSsn,
+                new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()),
+                ZoneId.systemDefault()
         );
     }
 

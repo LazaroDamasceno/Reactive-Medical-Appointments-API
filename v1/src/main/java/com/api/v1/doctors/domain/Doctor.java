@@ -4,6 +4,7 @@ import com.api.v1.people.domain.Person;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.BsonDateTime;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,20 +21,20 @@ public class Doctor {
     private String licenseNumber;
     @Setter
     private Person person;
-    private String createdAt;
+    private BsonDateTime createdAt;
     private ZoneId createdAtZone;
-    private String hiredAt;
+    private BsonDateTime hiredAt;
     private ZoneId hiredAtZone;
-    private String terminatedAt;
+    private BsonDateTime terminatedAt;
     private ZoneId terminatedAtZone;
 
     private Doctor(String licenseNumber, Person person) {
         this.id = new ObjectId();
         this.licenseNumber = licenseNumber;
         this.person = person;
-        this.createdAt = LocalDateTime.now().toString();
+        this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
         this.createdAtZone = ZoneId.systemDefault();
-        this.hiredAt = LocalDateTime.now().toString();
+        this.hiredAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
         this.hiredAtZone = ZoneId.systemDefault();
     }
 
@@ -42,7 +43,7 @@ public class Doctor {
     }
 
     public void terminate() {
-        this.terminatedAt = LocalDateTime.now().toString();
+        this.terminatedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
         this.terminatedAtZone = ZoneId.systemDefault();
     }
 }
