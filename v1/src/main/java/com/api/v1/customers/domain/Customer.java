@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.*;
 
 @Document
 @Getter
@@ -20,13 +18,13 @@ public class Customer {
     private ObjectId id;
     @Setter
     private Person person;
-    private Date createdAt;
+    private String createdAt;
     private ZoneId createdAtZone;
 
     private Customer(Person person) {
         this.id = new ObjectId();
         this.person = person;
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
     }
 

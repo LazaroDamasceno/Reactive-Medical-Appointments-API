@@ -1,7 +1,7 @@
-package com.api.v1.medical_appointment.services;
+package com.api.v1.medical_appointments.services;
 
-import com.api.v1.medical_appointment.domain.MedicalAppointment;
-import com.api.v1.medical_appointment.dtos.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.domain.MedicalAppointment;
+import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
 import reactor.core.publisher.Mono;
 
 public interface MedicalAppointmentBookingService {

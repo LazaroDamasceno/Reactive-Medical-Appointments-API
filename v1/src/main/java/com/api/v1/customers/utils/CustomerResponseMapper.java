@@ -10,8 +10,7 @@ public class CustomerResponseMapper {
 
     public CustomerResponseDto map(Customer customer) {
         return new CustomerResponseDto(
-                PersonResponseMapper.map(customer.getPerson()),
-                customer.getCreatedAt()
+                PersonResponseMapper.map(customer.getPerson())
         );
     }
 

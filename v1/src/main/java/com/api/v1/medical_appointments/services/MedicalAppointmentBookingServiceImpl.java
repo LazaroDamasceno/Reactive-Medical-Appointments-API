@@ -1,12 +1,12 @@
-package com.api.v1.medical_appointment.services;
+package com.api.v1.medical_appointments.services;
 
 import com.api.v1.customers.domain.Customer;
 import com.api.v1.customers.utils.CustomerFinderUtil;
 import com.api.v1.doctors.domain.Doctor;
 import com.api.v1.doctors.utils.DoctorFinderUtil;
-import com.api.v1.medical_appointment.domain.MedicalAppointment;
-import com.api.v1.medical_appointment.domain.MedicalAppointmentRepository;
-import com.api.v1.medical_appointment.dtos.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.domain.MedicalAppointment;
+import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
+import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

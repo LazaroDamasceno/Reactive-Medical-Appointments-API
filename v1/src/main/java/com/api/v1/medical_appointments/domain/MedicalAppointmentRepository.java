@@ -1,4 +1,4 @@
-package com.api.v1.medical_appointment.domain;
+package com.api.v1.medical_appointments.domain;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.Query;

@@ -1,22 +1,22 @@
-package com.api.v1.medical_appointment.services;
+package com.api.v1.medical_appointments.services;
 
-import com.api.v1.medical_appointment.annotation.OrderNumber;
-import com.api.v1.medical_appointment.domain.MedicalAppointmentRepository;
-import com.api.v1.medical_appointment.exceptions.ImmutableMedicalAppointmentException;
-import com.api.v1.medical_appointment.utils.MedicalAppointmentFinderUtil;
+import com.api.v1.medical_appointments.annotation.OrderNumber;
+import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
+import com.api.v1.medical_appointments.exceptions.ImmutableMedicalAppointmentException;
+import com.api.v1.medical_appointments.utils.MedicalAppointmentFinderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-class MedicalAppointmentCancellationServiceImpl implements MedicalAppointmentCancellationService {
+class MedicalAppointmentCompletionServiceImpl implements MedicalAppointmentCompletionService {
 
     private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
     private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     @Override
-    public Mono<Void> cancel(@OrderNumber String orderNumber) {
+    public Mono<Void> complete(@OrderNumber String orderNumber) {
         return medicalAppointmentFinderUtil
                 .find(orderNumber)
                 .flatMap(medicalAppointment -> {
@@ -28,7 +28,7 @@ class MedicalAppointmentCancellationServiceImpl implements MedicalAppointmentCan
                         String message = "The sought medical appointment is already completed.";
                         return Mono.error(new ImmutableMedicalAppointmentException(message));
                     }
-                    medicalAppointment.markAsCanceled();
+                    medicalAppointment.markAsCompleted();
                     return medicalAppointmentRepository.save(medicalAppointment);
                 })
                 .then();

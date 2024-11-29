@@ -1,4 +1,4 @@
-package com.api.v1.medical_appointment.annotation;
+package com.api.v1.medical_appointments.annotation;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
