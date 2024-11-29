@@ -5,16 +5,16 @@ import com.api.v1.doctors.dtos.DoctorResponseDto;
 import org.bson.BsonDateTime;
 import org.bson.types.ObjectId;
 
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 
 public record MedicalAppointmentResponseDto(
     ObjectId orderNumber,
     BsonDateTime bookedAt,
-    ZoneOffset bookedAtZone,
+    ZoneId bookedAtZone,
     BsonDateTime canceledAt,
-    ZoneOffset canceledAtZone,
+    ZoneId canceledAtZone,
     BsonDateTime completedAt,
-    ZoneOffset completedAtZone,
+    ZoneId completedAtZone,
     CustomerResponseDto customerResponseDto,
     DoctorResponseDto doctorResponseDto
 ) {
