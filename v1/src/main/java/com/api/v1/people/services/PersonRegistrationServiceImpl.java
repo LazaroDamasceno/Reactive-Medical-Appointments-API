@@ -3,7 +3,8 @@ package com.api.v1.people.services;
 import com.api.v1.people.domain.Person;
 import com.api.v1.people.domain.PersonRepository;
 import com.api.v1.people.dtos.PersonRegistrationDto;
-import com.api.v1.people.exceptions.DuplicatedPersonalInformationException;
+import com.api.v1.people.exceptions.DuplicatedEmailException;
+import com.api.v1.people.exceptions.DuplicatedSsnException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,11 @@ public class PersonRegistrationServiceImpl implements PersonRegistrationService 
                         .singleOptional()
                 )
                 .flatMap(tuple -> {
-                   if (tuple.getT1().isPresent() || tuple.getT2().isPresent()) {
-                       return Mono.error(DuplicatedPersonalInformationException::new);
+                   if (tuple.getT1().isPresent()) {
+                       return Mono.error(DuplicatedSsnException::new);
+                   }
+                   if (tuple.getT2().isPresent()) {
+                        return Mono.error(DuplicatedEmailException::new);
                    }
                    return Mono.defer(() -> {
                       Person person = Person.create(registrationDto);
