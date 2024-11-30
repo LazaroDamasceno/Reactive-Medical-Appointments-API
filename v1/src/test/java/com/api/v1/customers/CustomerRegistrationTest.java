@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.customers;
 
 import com.api.v1.people.dtos.PersonAddressDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;

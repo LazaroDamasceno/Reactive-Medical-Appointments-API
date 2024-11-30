@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.medical_appointments;
 
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
 import org.junit.jupiter.api.MethodOrderer;

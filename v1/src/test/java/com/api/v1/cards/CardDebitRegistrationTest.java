@@ -1,7 +1,6 @@
-package com.api.v1;
+package com.api.v1.cards;
 
 import com.api.v1.cards.dtos.CardRegistrationDto;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.LocalDate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CardCreditRegistrationTest {
+public class CardDebitRegistrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -26,7 +25,7 @@ public class CardCreditRegistrationTest {
     void testDebitCardRegistration() {
         webTestClient
                 .post()
-                .uri("api/v1/cards/credit-card")
+                .uri("api/v1/cards/debit-card")
                 .bodyValue(registrationDto)
                 .exchange()
                 .expectStatus().is2xxSuccessful();

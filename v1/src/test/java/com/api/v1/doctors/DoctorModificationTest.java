@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.doctors;
 
 import com.api.v1.people.dtos.PersonAddressDto;
 import com.api.v1.people.dtos.PersonModificationDto;
@@ -14,34 +14,34 @@ import java.time.LocalDate;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CustomerModificationTest {
+public class DoctorModificationTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
     PersonModificationDto modificationDto = new PersonModificationDto(
-            "Leonardo",
+            "Gabriel",
             "Silva",
-            "Santos Jr.",
-            LocalDate.parse("2004-12-12"),
-            "jr@leosantos.com",
+            "Santana Jr.",
+            LocalDate.parse("2003-12-12"),
+            "jr@gsantana.io",
             new PersonAddressDto(
-                    "CO",
-                    "Denver",
+                    "CA",
+                    "Sant'ana",
                     "Downtown",
                     "90012"
             ),
-            "1234567890",
+            "0987654321",
             "cis male"
     );
 
     @Test
     @Order(1)
     void testSuccessful() {
-        String ssn = "123456789";
+        String licenseNumber = "12345678CA";
         webTestClient
                 .put()
-                .uri("api/v1/customers/%s".formatted(ssn))
+                .uri("api/v1/doctors/%s".formatted(licenseNumber))
                 .bodyValue(modificationDto)
                 .exchange()
                 .expectStatus().is2xxSuccessful();
@@ -50,10 +50,10 @@ public class CustomerModificationTest {
     @Test
     @Order(2)
     void testUnsuccessful() {
-        String ssn = "123456779";
+        String licenseNumber = "12345677CA";
         webTestClient
                 .put()
-                .uri("api/v1/customers/%s".formatted(ssn))
+                .uri("api/v1/doctors/%s".formatted(licenseNumber))
                 .bodyValue(modificationDto)
                 .exchange()
                 .expectStatus().is5xxServerError();

@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.cards;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -10,40 +10,29 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DoctorTerminationTest {
+public class CardDeletionTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
+    String cardNumber = "";
+
     @Test
     @Order(1)
-    void testSuccessful() {
-        String medicalLicenseNumber = "12345678CA";
+    void testCreditCardRegistration() {
         webTestClient
-                .patch()
-                .uri("api/v1/doctors/%s".formatted(medicalLicenseNumber))
+                .delete()
+                .uri("api/v1/cards/%s".formatted(cardNumber))
                 .exchange()
                 .expectStatus().is2xxSuccessful();
     }
 
     @Test
     @Order(2)
-    void testUnsuccessful1() {
-        String medicalLicenseNumber = "12345678CA";
+    void testDebitCardRegistration() {
         webTestClient
-                .patch()
-                .uri("api/v1/doctors/%s".formatted(medicalLicenseNumber))
-                .exchange()
-                .expectStatus().is5xxServerError();
-    }
-
-    @Test
-    @Order(3)
-    void testUnsuccessful2() {
-        String medicalLicenseNumber = "12345677CA";
-        webTestClient
-                .patch()
-                .uri("api/v1/doctors/%s".formatted(medicalLicenseNumber))
+                .delete()
+                .uri("api/v1/cards/%s".formatted(cardNumber))
                 .exchange()
                 .expectStatus().is5xxServerError();
     }

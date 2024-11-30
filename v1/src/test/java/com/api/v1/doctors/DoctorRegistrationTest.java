@@ -1,4 +1,4 @@
-package com.api.v1;
+package com.api.v1.doctors;
 
 import com.api.v1.doctors.dtos.DoctorRegistrationDto;
 import com.api.v1.people.dtos.PersonAddressDto;
