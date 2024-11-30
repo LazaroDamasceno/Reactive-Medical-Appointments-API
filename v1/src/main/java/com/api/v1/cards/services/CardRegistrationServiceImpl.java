@@ -4,6 +4,7 @@ import com.api.v1.cards.domain.Card;
 import com.api.v1.cards.domain.CardRepository;
 import com.api.v1.cards.dtos.CardRegistrationDto;
 import com.api.v1.cards.dtos.CardResponseDto;
+import com.api.v1.cards.utils.CardResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,8 @@ class CardRegistrationServiceImpl implements CardRegistrationService {
                    registrationDto.ssnOwner()
            );
            return cardRepository.save(creditCard);
-        });
+        })
+        .flatMap(CardResponseMapper::mapToMono);
     }
 
     @Override
@@ -40,6 +42,7 @@ class CardRegistrationServiceImpl implements CardRegistrationService {
                     registrationDto.ssnOwner()
             );
             return cardRepository.save(debitCard);
-        });
+        })
+        .flatMap(CardResponseMapper::mapToMono);
     }
 }
