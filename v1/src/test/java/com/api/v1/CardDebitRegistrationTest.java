@@ -28,7 +28,7 @@ public class CardDebitRegistrationTest {
                 .uri("api/v1/cards/debit-card")
                 .bodyValue(registrationDto)
                 .exchange()
-                .expectStatus().is5xxServerError();
+                .expectStatus().is2xxSuccessful();
     }
 
 }

@@ -23,24 +23,13 @@ public class CardCreditRegistrationTest {
     );
 
     @Test
-    void testCreditCardRegistration() {
+    void testDebitCardRegistration() {
         webTestClient
                 .post()
                 .uri("api/v1/cards/credit-card")
                 .bodyValue(registrationDto)
                 .exchange()
                 .expectStatus().is2xxSuccessful();
-    }
-
-    @Test
-    @Order(2)
-    void testDebitCardRegistration() {
-        webTestClient
-                .post()
-                .uri("api/v1/cards/debit-card")
-                .bodyValue(registrationDto)
-                .exchange()
-                .expectStatus().is5xxServerError();
     }
 
 }
