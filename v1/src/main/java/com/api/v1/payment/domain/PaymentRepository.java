@@ -1,4 +1,4 @@
-package com.api.v1.payment;
+package com.api.v1.payment.domain;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

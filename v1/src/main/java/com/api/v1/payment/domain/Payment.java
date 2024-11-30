@@ -1,4 +1,4 @@
-package com.api.v1.payment;
+package com.api.v1.payment.domain;
 
 import com.api.v1.cards.domain.Card;
 import com.api.v1.medical_appointments.domain.MedicalAppointment;
