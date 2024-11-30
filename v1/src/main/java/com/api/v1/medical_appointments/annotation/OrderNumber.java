@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 @NotNull
-@Size(min = 12, max = 12)
-@Pattern(regexp = "^\\d{12}")
+@Size(min = 24, max = 24)
+@Pattern(regexp = "^\\d{24}")
 public @interface OrderNumber {
 }

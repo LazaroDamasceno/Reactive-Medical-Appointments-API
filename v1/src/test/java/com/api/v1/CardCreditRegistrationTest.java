@@ -11,9 +11,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.time.LocalDate;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CardRegistrationTest {
+public class CardCreditRegistrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -26,7 +25,6 @@ public class CardRegistrationTest {
     );
 
     @Test
-    @Order(1)
     void testCreditCardRegistration() {
         webTestClient
                 .post()

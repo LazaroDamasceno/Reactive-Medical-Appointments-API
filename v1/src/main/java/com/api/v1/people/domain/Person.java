@@ -5,7 +5,6 @@ import com.api.v1.people.dtos.PersonModificationDto;
 import com.api.v1.people.dtos.PersonRegistrationDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.bson.BsonDateTime;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -28,9 +27,9 @@ public class Person {
     private PersonAddressDto address;
     private String phoneNumber;
     private String gender;
-    private BsonDateTime createdAt;
+    private String createdAt;
     private ZoneId createdAtZone;
-    private BsonDateTime modifiedAt;
+    private String modifiedAt;
     private ZoneId modifiedAtZone;
 
     private Person(PersonRegistrationDto registrationDto) {
@@ -44,7 +43,7 @@ public class Person {
         this.address = registrationDto.address();
         this.phoneNumber = registrationDto.phoneNumber();
         this.gender = registrationDto.gender();
-        this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
     }
 
@@ -61,7 +60,7 @@ public class Person {
         this.address = modificationDto.address();
         this.phoneNumber = modificationDto.phoneNumber();
         this.gender = modificationDto.gender();
-        this.modifiedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.modifiedAt = LocalDateTime.now().toString();
         this.modifiedAtZone = ZoneOffset.UTC;
     }
 

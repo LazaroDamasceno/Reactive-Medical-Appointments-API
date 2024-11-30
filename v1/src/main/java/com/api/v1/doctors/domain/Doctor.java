@@ -21,20 +21,20 @@ public class Doctor {
     private String licenseNumber;
     @Setter
     private Person person;
-    private BsonDateTime createdAt;
+    private String createdAt;
     private ZoneId createdAtZone;
-    private BsonDateTime hiredAt;
+    private String hiredAt;
     private ZoneId hiredAtZone;
-    private BsonDateTime terminatedAt;
+    private String terminatedAt;
     private ZoneId terminatedAtZone;
 
     private Doctor(String licenseNumber, Person person) {
         this.id = new ObjectId();
         this.licenseNumber = licenseNumber;
         this.person = person;
-        this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
-        this.hiredAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.hiredAt = LocalDateTime.now().toString();
         this.hiredAtZone = ZoneId.systemDefault();
     }
 
@@ -43,7 +43,7 @@ public class Doctor {
     }
 
     public void terminate() {
-        this.terminatedAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.terminatedAt = LocalDateTime.now().toString();
         this.terminatedAtZone = ZoneId.systemDefault();
     }
 }

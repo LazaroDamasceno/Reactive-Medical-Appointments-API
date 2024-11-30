@@ -6,13 +6,14 @@ import org.bson.types.ObjectId;
 import java.time.*;
 
 public record Card(
+        ObjectId id,
         String type,
         ObjectId number,
         LocalDate dueDate,
         String cvc,
         String ownerName,
         String OwnerSsn,
-        BsonDateTime createAt,
+        String createAt,
         ZoneId createdAtZone
 ) {
 
@@ -24,13 +25,14 @@ public record Card(
             String OwnerSsn
     ) {
         return new Card(
+                new ObjectId(),
                 type,
                 new ObjectId(),
                 dueDate,
                 cvc,
                 ownerName,
                 OwnerSsn,
-                new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()),
+                LocalDateTime.now().toString(),
                 ZoneId.systemDefault()
         );
     }

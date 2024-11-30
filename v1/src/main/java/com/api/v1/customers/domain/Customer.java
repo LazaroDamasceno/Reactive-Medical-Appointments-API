@@ -19,13 +19,13 @@ public class Customer {
     private ObjectId id;
     @Setter
     private Person person;
-    private BsonDateTime createdAt;
+    private String createdAt;
     private ZoneId createdAtZone;
 
     private Customer(Person person) {
         this.id = new ObjectId();
         this.person = person;
-        this.createdAt = new BsonDateTime(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
+        this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
     }
 
