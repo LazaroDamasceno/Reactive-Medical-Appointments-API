@@ -3,12 +3,11 @@ package com.api.v1.cards.services;
 import com.api.v1.cards.domain.Card;
 import com.api.v1.cards.domain.CardRepository;
 import com.api.v1.cards.dtos.CardRegistrationDto;
+import com.api.v1.cards.dtos.CardResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +16,7 @@ class CardRegistrationServiceImpl implements CardRegistrationService {
     private final CardRepository cardRepository;
 
     @Override
-    public Mono<Card> registerCreditCard(@Valid CardRegistrationDto registrationDto) {
+    public Mono<CardResponseDto> registerCreditCard(@Valid CardRegistrationDto registrationDto) {
         return Mono.defer(() -> {
            Card creditCard = Card.create(
                    "Credit card",
@@ -31,7 +30,7 @@ class CardRegistrationServiceImpl implements CardRegistrationService {
     }
 
     @Override
-    public Mono<Card> registerDebitCard(@Valid CardRegistrationDto registrationDto) {
+    public Mono<CardResponseDto> registerDebitCard(@Valid CardRegistrationDto registrationDto) {
         return Mono.defer(() -> {
             Card debitCard = Card.create(
                     "Debit card",
