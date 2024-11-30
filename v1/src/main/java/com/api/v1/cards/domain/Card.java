@@ -1,11 +1,14 @@
 package com.api.v1.cards.domain;
 
-import org.bson.BsonDateTime;
+import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.*;
 
+@Document
 public record Card(
+        @BsonId
         ObjectId id,
         String type,
         ObjectId number,
