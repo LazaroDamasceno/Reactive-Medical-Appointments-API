@@ -8,6 +8,7 @@ import com.api.v1.medical_appointments.domain.MedicalAppointment;
 import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
 import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
+import com.api.v1.medical_appointments.exceptions.UnavailableSlotException;
 import com.api.v1.medical_appointments.utils.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,12 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         return customerMono
                 .zipWith(doctorMono)
                 .flatMap(tuple -> {
-                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
                     return medicalAppointmentRepository
-                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
+                            .find(tuple.getT1(), tuple.getT2(), bookingDto.bookingDate().toString())
                             .singleOptional()
                             .flatMap(optional -> {
                                if (optional.isPresent()) {
-                                   return Mono.error(Exception::new);
+                                   return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
                                }
                                return Mono.defer(() -> {
                                   MedicalAppointment medicalAppointment = MedicalAppointment.create(
@@ -60,26 +60,23 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
-                .flatMap(tuple -> {
-                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
-                    return medicalAppointmentRepository
-                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
-                            .singleOptional()
-                            .flatMap(optional -> {
-                                if (optional.isPresent()) {
-                                    return Mono.error(Exception::new);
-                                }
-                                return Mono.defer(() -> {
-                                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                                            tuple.getT1(),
-                                            tuple.getT2(),
-                                            bookingDto.bookingDate(),
-                                            "Medical appointment covered by the Affordable Care Act"
-                                    );
-                                    return medicalAppointmentRepository.save(medicalAppointment);
-                                });
+                .flatMap(tuple -> medicalAppointmentRepository
+                        .find(tuple.getT1(), tuple.getT2(), bookingDto.bookingDate().toString())
+                        .singleOptional()
+                        .flatMap(optional -> {
+                            if (optional.isPresent()) {
+                                return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
+                            }
+                            return Mono.defer(() -> {
+                                MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                        tuple.getT1(),
+                                        tuple.getT2(),
+                                        bookingDto.bookingDate(),
+                                        "Medical appointment covered by the Affordable Care Act"
+                                );
+                                return medicalAppointmentRepository.save(medicalAppointment);
                             });
-                })
+                }))
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
@@ -90,13 +87,12 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
         return customerMono
                 .zipWith(doctorMono)
                 .flatMap(tuple -> {
-                    var bookingDate  = new BsonDateTime(bookingDto.bookingDate().toInstant(ZoneOffset.UTC).toEpochMilli());
                     return medicalAppointmentRepository
-                            .find(tuple.getT1(), tuple.getT2(), bookingDate)
+                            .find(tuple.getT1(), tuple.getT2(), bookingDto.bookingDate().toString())
                             .singleOptional()
                             .flatMap(optional -> {
                                 if (optional.isPresent()) {
-                                    return Mono.error(Exception::new);
+                                    return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
                                 }
                                 return Mono.defer(() -> {
                                     MedicalAppointment medicalAppointment = MedicalAppointment.create(

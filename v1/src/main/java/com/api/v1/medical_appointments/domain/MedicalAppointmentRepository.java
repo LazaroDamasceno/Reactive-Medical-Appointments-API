@@ -2,7 +2,6 @@ package com.api.v1.medical_appointments.domain;
 
 import com.api.v1.customers.domain.Customer;
 import com.api.v1.doctors.domain.Doctor;
-import org.bson.BsonDateTime;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
@@ -20,6 +19,6 @@ public interface MedicalAppointmentRepository extends ReactiveMongoRepository<Me
             { 'canceledAt': null },
             { 'completedAt': null }
     """)
-    Mono<MedicalAppointment> find(Customer customer, Doctor doctor, BsonDateTime bookedAt);
+    Mono<MedicalAppointment> find(Customer customer, Doctor doctor, String bookedAt);
 
 }
