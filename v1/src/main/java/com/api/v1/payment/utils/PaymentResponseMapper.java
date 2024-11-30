@@ -1,4 +1,4 @@
-package com.api.v1.payment;
+package com.api.v1.payment.utils;
 
 import com.api.v1.cards.utils.CardResponseMapper;
 import com.api.v1.payment.domain.Payment;
