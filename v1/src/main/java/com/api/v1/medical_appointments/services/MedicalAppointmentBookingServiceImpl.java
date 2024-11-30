@@ -12,11 +12,8 @@ import com.api.v1.medical_appointments.exceptions.UnavailableSlotException;
 import com.api.v1.medical_appointments.utils.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.bson.BsonDateTime;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.time.ZoneOffset;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +35,7 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                             .singleOptional()
                             .flatMap(optional -> {
                                if (optional.isPresent()) {
-                                   return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
+                                   return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
                                }
                                return Mono.defer(() -> {
                                   MedicalAppointment medicalAppointment = MedicalAppointment.create(
@@ -65,7 +62,7 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                         .singleOptional()
                         .flatMap(optional -> {
                             if (optional.isPresent()) {
-                                return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
+                                return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
                             }
                             return Mono.defer(() -> {
                                 MedicalAppointment medicalAppointment = MedicalAppointment.create(
@@ -92,7 +89,7 @@ class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingS
                             .singleOptional()
                             .flatMap(optional -> {
                                 if (optional.isPresent()) {
-                                    return Mono.error(new UnavailableSlotException(bookingDto.bookingDate()));
+                                    return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
                                 }
                                 return Mono.defer(() -> {
                                     MedicalAppointment medicalAppointment = MedicalAppointment.create(
