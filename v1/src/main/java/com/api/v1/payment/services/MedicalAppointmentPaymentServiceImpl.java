@@ -1,8 +1,6 @@
 package com.api.v1.payment.services;
 
-import com.api.v1.cards.domain.Card;
 import com.api.v1.cards.utils.CardFinderUtil;
-import com.api.v1.medical_appointments.domain.MedicalAppointment;
 import com.api.v1.medical_appointments.utils.MedicalAppointmentFinderUtil;
 import com.api.v1.payment.domain.Payment;
 import com.api.v1.payment.domain.PaymentRepository;
@@ -17,7 +15,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-class MedicalPaymentPaymentServiceImpl implements MedicalPaymentPaymentService {
+class MedicalAppointmentPaymentServiceImpl implements MedicalAppointmentPaymentService {
 
     private final PaymentRepository paymentRepository;
     private final CardFinderUtil cardFinderUtil;
