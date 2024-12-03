@@ -22,7 +22,7 @@ class MedicalAppointmentPaymentServiceImpl implements MedicalAppointmentPaymentS
     private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
 
     @Override
-    public Mono<PaymentResponseDto> register(@Valid MedicalAppointmentPaymentDto paymentDto) {
+    public Mono<PaymentResponseDto> payMedicalAppointment(@Valid MedicalAppointmentPaymentDto paymentDto) {
         var cardMono = cardFinderUtil.findByNumber(paymentDto.cardNumber());
         var appointmentMono = medicalAppointmentFinderUtil.find(paymentDto.appointmentOrderNumber());
         return cardMono

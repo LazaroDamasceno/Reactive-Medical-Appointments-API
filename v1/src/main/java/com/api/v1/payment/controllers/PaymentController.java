@@ -17,7 +17,7 @@ public class PaymentController implements MedicalAppointmentPaymentService {
 
     @Override
     @PostMapping
-    public Mono<PaymentResponseDto> register(@Valid @RequestBody MedicalAppointmentPaymentDto paymentDto) {
-        return paymentPaymentService.register(paymentDto);
+    public Mono<PaymentResponseDto> payMedicalAppointment(@Valid @RequestBody MedicalAppointmentPaymentDto paymentDto) {
+        return paymentPaymentService.payMedicalAppointment(paymentDto);
     }
 }

@@ -5,5 +5,5 @@ import com.api.v1.payment.dtos.PaymentResponseDto;
 import reactor.core.publisher.Mono;
 
 public interface MedicalAppointmentPaymentService {
-    Mono<PaymentResponseDto> register(MedicalAppointmentPaymentDto paymentDto);
+    Mono<PaymentResponseDto> payMedicalAppointment(MedicalAppointmentPaymentDto paymentDto);
 }
