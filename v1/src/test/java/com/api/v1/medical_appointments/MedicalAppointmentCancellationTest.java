@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MedicalAppointmentCancelingTest {
+public class MedicalAppointmentCancellationTest {
 
     @Autowired
     private WebTestClient webTestClient;
