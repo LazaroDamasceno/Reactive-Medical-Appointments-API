@@ -1,6 +1,6 @@
 package com.api.v1.payments;
 
-import com.api.v1.payment.MedicalAppointmentPaymentDto;
+import com.api.v1.dtos.MedicalAppointmentPaymentDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
