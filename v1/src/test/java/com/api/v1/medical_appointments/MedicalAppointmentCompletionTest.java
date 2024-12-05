@@ -22,7 +22,7 @@ public class MedicalAppointmentCompletionTest {
     void testSuccessful() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-appointments/%s/cancellation".formatted(orderNumber))
+                .uri("api/v1/medical-appointments/%s/completion".formatted(orderNumber))
                 .exchange()
                 .expectStatus().is2xxSuccessful();
     }
@@ -32,7 +32,7 @@ public class MedicalAppointmentCompletionTest {
     void testUnSuccessfulForImmutableMedicalAppointment() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-appointments/%s/cancellation".formatted(orderNumber))
+                .uri("api/v1/medical-appointments/%s/completion".formatted(orderNumber))
                 .exchange()
                 .expectStatus().is5xxServerError();
     }
@@ -42,7 +42,7 @@ public class MedicalAppointmentCompletionTest {
     void testUnSuccessfulForNotFoundMedicalAppointment() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-appointments/%s/cancellation".formatted("123456789012345678901234"))
+                .uri("api/v1/medical-appointments/%s/completion".formatted("123456789012345678901234"))
                 .exchange()
                 .expectStatus().is5xxServerError();
     }
