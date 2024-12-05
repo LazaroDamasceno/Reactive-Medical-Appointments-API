@@ -1,6 +1,6 @@
 package com.api.v1.doctors;
 
-import com.api.v1.doctors.internal.exceptions.NonExistentDoctorException;
+import com.api.v1.doctors.exceptions.NonExistentDoctorException;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 

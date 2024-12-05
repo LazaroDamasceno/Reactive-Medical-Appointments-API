@@ -10,6 +10,7 @@ public class V1Application {
 	public static void main(String[] args) {
 		var modules = ApplicationModules.of(V1Application.class);
 		System.out.println(modules);
+		modules.verify();
 		SpringApplication.run(V1Application.class, args);
 	}
 

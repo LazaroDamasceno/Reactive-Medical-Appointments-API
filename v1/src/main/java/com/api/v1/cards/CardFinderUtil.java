@@ -1,6 +1,6 @@
 package com.api.v1.cards;
 
-import com.api.v1.cards.internal.exceptions.NonExistentCardException;
+import com.api.v1.cards.exceptions.NonExistentCardException;
 import com.api.v1.medical_appointments.OrderNumber;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.api.v1.people;
 
-import com.api.v1.people.internal.exceptions.NonExistentSsnException;
+import com.api.v1.people.exceptions.NonExistentSsnException;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
