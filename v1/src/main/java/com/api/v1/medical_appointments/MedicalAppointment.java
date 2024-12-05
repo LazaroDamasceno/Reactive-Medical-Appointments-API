@@ -2,8 +2,6 @@ package com.api.v1.medical_appointments;
 
 import com.api.v1.customers.Customer;
 import com.api.v1.doctors.Doctor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,8 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.*;
 
 @Document
-@NoArgsConstructor
-@Getter
 public class MedicalAppointment {
 
     @BsonId
@@ -42,6 +38,9 @@ public class MedicalAppointment {
         this.customer = customer;
     }
 
+    public MedicalAppointment() {
+    }
+
     public static MedicalAppointment create(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
         return new MedicalAppointment(customer, doctor, bookedAt, type);
     }
@@ -56,4 +55,55 @@ public class MedicalAppointment {
         canceledAtZone = ZoneId.systemDefault();
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public ObjectId getOrderNumber() {
+        return orderNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public String getBookedAt() {
+        return bookedAt;
+    }
+
+    public ZoneId getBookedAtZone() {
+        return bookedAtZone;
+    }
+
+    public String getCanceledAt() {
+        return canceledAt;
+    }
+
+    public ZoneId getCanceledAtZone() {
+        return canceledAtZone;
+    }
+
+    public String getCompletedAt() {
+        return completedAt;
+    }
+
+    public ZoneId getCompletedAtZone() {
+        return completedAtZone;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public ZoneId getCreatedAtZone() {
+        return createdAtZone;
+    }
 }

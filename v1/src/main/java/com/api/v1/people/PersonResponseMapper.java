@@ -1,11 +1,9 @@
 package com.api.v1.people;
 
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
-public class PersonResponseMapper {
+public final class PersonResponseMapper {
 
-    public PersonResponseDto map(Person person) {
+    public static PersonResponseDto map(Person person) {
         return new PersonResponseDto(
                 person.getFullName(),
                 person.getBirthDate(),

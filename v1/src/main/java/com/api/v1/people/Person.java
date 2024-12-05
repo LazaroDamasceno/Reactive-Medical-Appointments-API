@@ -1,7 +1,5 @@
 package com.api.v1.people;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time. *;
 
 @Document
-@Getter
-@NoArgsConstructor
 public class Person {
 
     @BsonId
@@ -44,6 +40,9 @@ public class Person {
         this.createdAtZone = ZoneId.systemDefault();
     }
 
+    public Person() {
+    }
+
     public static Person create(PersonRegistrationDto registrationDto) {
         return new Person(registrationDto);
     }
@@ -64,5 +63,61 @@ public class Person {
     public String getFullName() {
         if (middleName.isEmpty()) return "%s %s".formatted(firstName, lastName);
         return "%s %s %s".formatted(firstName, middleName, lastName);
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public PersonAddressDto getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public ZoneId getCreatedAtZone() {
+        return createdAtZone;
+    }
+
+    public String getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public ZoneId getModifiedAtZone() {
+        return modifiedAtZone;
     }
 }

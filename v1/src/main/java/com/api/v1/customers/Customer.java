@@ -1,22 +1,16 @@
 package com.api.v1.customers;
 
 import com.api.v1.people.Person;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.*;
 
 @Document
-@Getter
-@NoArgsConstructor
 public class Customer {
 
     @BsonId
     private ObjectId id;
-    @Setter
     private Person person;
     private String createdAt;
     private ZoneId createdAtZone;
@@ -28,8 +22,30 @@ public class Customer {
         this.createdAtZone = ZoneId.systemDefault();
     }
 
+    public Customer() {
+    }
+
     public static Customer create(Person person) {
         return new Customer(person);
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public ZoneId getCreatedAtZone() {
+        return createdAtZone;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }

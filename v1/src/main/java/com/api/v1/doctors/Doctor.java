@@ -1,9 +1,6 @@
 package com.api.v1.doctors;
 
 import com.api.v1.people.Person;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,14 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.*;
 
 @Document
-@Getter
-@NoArgsConstructor
 public class Doctor {
 
     @BsonId
     private ObjectId id;
     private String licenseNumber;
-    @Setter
     private Person person;
     private String createdAt;
     private ZoneId createdAtZone;
@@ -37,6 +31,9 @@ public class Doctor {
         this.hiredAtZone = ZoneId.systemDefault();
     }
 
+    public Doctor() {
+    }
+
     public static Doctor create(String licenseNumber, Person person) {
         return new Doctor(licenseNumber, person);
     }
@@ -44,5 +41,45 @@ public class Doctor {
     public void terminate() {
         this.terminatedAt = LocalDateTime.now().toString();
         this.terminatedAtZone = ZoneId.systemDefault();
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public String getLicenseNumber() {
+        return licenseNumber;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public ZoneId getCreatedAtZone() {
+        return createdAtZone;
+    }
+
+    public String getHiredAt() {
+        return hiredAt;
+    }
+
+    public ZoneId getHiredAtZone() {
+        return hiredAtZone;
+    }
+
+    public String getTerminatedAt() {
+        return terminatedAt;
+    }
+
+    public ZoneId getTerminatedAtZone() {
+        return terminatedAtZone;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
