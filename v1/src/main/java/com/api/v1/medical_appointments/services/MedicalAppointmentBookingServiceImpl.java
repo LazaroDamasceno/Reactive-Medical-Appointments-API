@@ -1,15 +1,16 @@
 package com.api.v1.medical_appointments.services;
 
-import com.api.v1.customers.domain.Customer;
-import com.api.v1.customers.utils.CustomerFinderUtil;
-import com.api.v1.doctors.domain.Doctor;
-import com.api.v1.doctors.utils.DoctorFinderUtil;
-import com.api.v1.medical_appointments.domain.MedicalAppointment;
-import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
-import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
-import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
+import com.api.v1.customers.Customer;
+import com.api.v1.customers.CustomerFinderUtil;
+import com.api.v1.doctors.Doctor;
+import com.api.v1.doctors.DoctorFinderUtil;
+import com.api.v1.medical_appointments.MedicalAppointmentBookingService;
+import com.api.v1.medical_appointments.MedicalAppointment;
+import com.api.v1.medical_appointments.MedicalAppointmentRepository;
+import com.api.v1.medical_appointments.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.MedicalAppointmentResponseDto;
 import com.api.v1.medical_appointments.exceptions.UnavailableSlotException;
-import com.api.v1.medical_appointments.utils.MedicalAppointmentResponseMapper;
+import com.api.v1.medical_appointments.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

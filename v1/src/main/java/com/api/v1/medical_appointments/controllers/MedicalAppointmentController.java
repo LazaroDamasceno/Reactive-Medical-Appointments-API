@@ -1,12 +1,11 @@
 package com.api.v1.medical_appointments.controllers;
 
-import com.api.v1.medical_appointments.annotation.OrderNumber;
-import com.api.v1.medical_appointments.domain.MedicalAppointment;
-import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
-import com.api.v1.medical_appointments.dtos.MedicalAppointmentResponseDto;
-import com.api.v1.medical_appointments.services.MedicalAppointmentBookingService;
-import com.api.v1.medical_appointments.services.MedicalAppointmentCancellationService;
-import com.api.v1.medical_appointments.services.MedicalAppointmentCompletionService;
+import com.api.v1.medical_appointments.OrderNumber;
+import com.api.v1.medical_appointments.MedicalAppointmentBookingDto;
+import com.api.v1.medical_appointments.MedicalAppointmentResponseDto;
+import com.api.v1.medical_appointments.MedicalAppointmentBookingService;
+import com.api.v1.medical_appointments.MedicalAppointmentCancellationService;
+import com.api.v1.medical_appointments.MedicalAppointmentCompletionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

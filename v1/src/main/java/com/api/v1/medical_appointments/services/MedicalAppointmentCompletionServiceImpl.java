@@ -1,9 +1,10 @@
 package com.api.v1.medical_appointments.services;
 
-import com.api.v1.medical_appointments.annotation.OrderNumber;
-import com.api.v1.medical_appointments.domain.MedicalAppointmentRepository;
+import com.api.v1.medical_appointments.MedicalAppointmentCompletionService;
+import com.api.v1.medical_appointments.OrderNumber;
+import com.api.v1.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.medical_appointments.exceptions.ImmutableMedicalAppointmentException;
-import com.api.v1.medical_appointments.utils.MedicalAppointmentFinderUtil;
+import com.api.v1.medical_appointments.MedicalAppointmentFinderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

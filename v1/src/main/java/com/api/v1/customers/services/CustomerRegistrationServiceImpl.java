@@ -1,11 +1,12 @@
 package com.api.v1.customers.services;
 
-import com.api.v1.customers.domain.Customer;
-import com.api.v1.customers.domain.CustomerRepository;
-import com.api.v1.customers.dtos.CustomerResponseDto;
-import com.api.v1.customers.utils.CustomerResponseMapper;
-import com.api.v1.people.dtos.PersonRegistrationDto;
-import com.api.v1.people.services.PersonRegistrationService;
+import com.api.v1.customers.CustomerRegistrationService;
+import com.api.v1.customers.Customer;
+import com.api.v1.customers.CustomerRepository;
+import com.api.v1.customers.CustomerResponseDto;
+import com.api.v1.customers.CustomerResponseMapper;
+import com.api.v1.people.PersonRegistrationDto;
+import com.api.v1.people.PersonRegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

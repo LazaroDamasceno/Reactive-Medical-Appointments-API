@@ -1,12 +1,13 @@
 package com.api.v1.doctors.services;
 
-import com.api.v1.doctors.domain.Doctor;
-import com.api.v1.doctors.domain.DoctorRepository;
-import com.api.v1.doctors.dtos.DoctorRegistrationDto;
-import com.api.v1.doctors.dtos.DoctorResponseDto;
+import com.api.v1.doctors.DoctorRegistrationService;
+import com.api.v1.doctors.Doctor;
+import com.api.v1.doctors.DoctorRepository;
+import com.api.v1.doctors.DoctorRegistrationDto;
+import com.api.v1.doctors.DoctorResponseDto;
 import com.api.v1.doctors.exceptions.DuplicatedMedicalLicenseNumberException;
-import com.api.v1.doctors.utils.DoctorResponseMapper;
-import com.api.v1.people.services.PersonRegistrationService;
+import com.api.v1.doctors.DoctorResponseMapper;
+import com.api.v1.people.PersonRegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package com.api.v1.medical_appointments;
 
-import com.api.v1.medical_appointments.dtos.MedicalAppointmentBookingDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

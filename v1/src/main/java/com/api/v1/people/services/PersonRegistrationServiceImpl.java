@@ -1,8 +1,9 @@
 package com.api.v1.people.services;
 
-import com.api.v1.people.domain.Person;
-import com.api.v1.people.domain.PersonRepository;
-import com.api.v1.people.dtos.PersonRegistrationDto;
+import com.api.v1.people.PersonRegistrationService;
+import com.api.v1.people.Person;
+import com.api.v1.people.PersonRepository;
+import com.api.v1.people.PersonRegistrationDto;
 import com.api.v1.people.exceptions.DuplicatedEmailException;
 import com.api.v1.people.exceptions.DuplicatedSsnException;
 import jakarta.validation.Valid;

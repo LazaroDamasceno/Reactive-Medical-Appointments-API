@@ -1,10 +1,11 @@
 package com.api.v1.people.services;
 
-import com.api.v1.people.domain.Person;
-import com.api.v1.people.domain.PersonAuditTrail;
-import com.api.v1.people.domain.PersonAuditTrailRepository;
-import com.api.v1.people.domain.PersonRepository;
-import com.api.v1.people.dtos.PersonModificationDto;
+import com.api.v1.people.PersonModificationService;
+import com.api.v1.people.Person;
+import com.api.v1.people.PersonAuditTrail;
+import com.api.v1.people.PersonAuditTrailRepository;
+import com.api.v1.people.PersonRepository;
+import com.api.v1.people.PersonModificationDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

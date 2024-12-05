@@ -1,7 +1,7 @@
 package com.api.v1.doctors;
 
-import com.api.v1.people.dtos.PersonAddressDto;
-import com.api.v1.people.dtos.PersonModificationDto;
+import com.api.v1.people.PersonAddressDto;
+import com.api.v1.people.PersonModificationDto;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

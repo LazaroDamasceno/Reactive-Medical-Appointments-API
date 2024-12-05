@@ -1,9 +1,10 @@
 package com.api.v1.doctors.services;
 
+import com.api.v1.doctors.DoctorTerminationService;
 import com.api.v1.doctors.annotations.MedicalLicenseNumber;
-import com.api.v1.doctors.domain.DoctorRepository;
+import com.api.v1.doctors.DoctorRepository;
 import com.api.v1.doctors.exceptions.TerminatedDoctorException;
-import com.api.v1.doctors.utils.DoctorFinderUtil;
+import com.api.v1.doctors.DoctorFinderUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

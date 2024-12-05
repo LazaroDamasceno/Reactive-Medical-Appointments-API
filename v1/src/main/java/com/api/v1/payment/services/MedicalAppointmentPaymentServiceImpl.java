@@ -1,13 +1,14 @@
 package com.api.v1.payment.services;
 
-import com.api.v1.cards.utils.CardFinderUtil;
-import com.api.v1.medical_appointments.utils.MedicalAppointmentFinderUtil;
-import com.api.v1.payment.domain.Payment;
-import com.api.v1.payment.domain.PaymentRepository;
-import com.api.v1.payment.dtos.MedicalAppointmentPaymentDto;
-import com.api.v1.payment.dtos.PaymentResponseDto;
+import com.api.v1.cards.CardFinderUtil;
+import com.api.v1.medical_appointments.MedicalAppointmentFinderUtil;
+import com.api.v1.payment.MedicalAppointmentPaymentService;
+import com.api.v1.payment.Payment;
+import com.api.v1.payment.PaymentRepository;
+import com.api.v1.payment.MedicalAppointmentPaymentDto;
+import com.api.v1.payment.PaymentResponseDto;
 import com.api.v1.payment.exceptions.NotAllowedPaymentException;
-import com.api.v1.payment.utils.PaymentResponseMapper;
+import com.api.v1.payment.PaymentResponseMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

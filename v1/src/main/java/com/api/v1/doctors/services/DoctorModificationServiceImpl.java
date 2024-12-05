@@ -1,10 +1,11 @@
 package com.api.v1.doctors.services;
 
+import com.api.v1.doctors.DoctorModificationService;
 import com.api.v1.doctors.annotations.MedicalLicenseNumber;
-import com.api.v1.doctors.domain.DoctorRepository;
-import com.api.v1.doctors.utils.DoctorFinderUtil;
-import com.api.v1.people.dtos.PersonModificationDto;
-import com.api.v1.people.services.PersonModificationService;
+import com.api.v1.doctors.DoctorRepository;
+import com.api.v1.doctors.DoctorFinderUtil;
+import com.api.v1.people.PersonModificationDto;
+import com.api.v1.people.PersonModificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

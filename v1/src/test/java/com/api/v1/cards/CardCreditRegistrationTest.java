@@ -1,6 +1,5 @@
 package com.api.v1.cards;
 
-import com.api.v1.cards.dtos.CardRegistrationDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

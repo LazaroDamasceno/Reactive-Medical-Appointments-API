@@ -1,8 +1,8 @@
 package com.api.v1.payment.controllers;
 
-import com.api.v1.payment.dtos.MedicalAppointmentPaymentDto;
-import com.api.v1.payment.dtos.PaymentResponseDto;
-import com.api.v1.payment.services.MedicalAppointmentPaymentService;
+import com.api.v1.payment.MedicalAppointmentPaymentDto;
+import com.api.v1.payment.PaymentResponseDto;
+import com.api.v1.payment.MedicalAppointmentPaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

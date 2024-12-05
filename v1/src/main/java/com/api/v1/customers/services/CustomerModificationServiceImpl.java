@@ -1,10 +1,11 @@
 package com.api.v1.customers.services;
 
-import com.api.v1.customers.domain.CustomerRepository;
-import com.api.v1.customers.utils.CustomerFinderUtil;
-import com.api.v1.people.annotations.SSN;
-import com.api.v1.people.dtos.PersonModificationDto;
-import com.api.v1.people.services.PersonModificationService;
+import com.api.v1.customers.CustomerModificationService;
+import com.api.v1.customers.CustomerRepository;
+import com.api.v1.customers.CustomerFinderUtil;
+import com.api.v1.people.SSN;
+import com.api.v1.people.PersonModificationDto;
+import com.api.v1.people.PersonModificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

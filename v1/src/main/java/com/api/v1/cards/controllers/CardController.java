@@ -1,12 +1,12 @@
 package com.api.v1.cards.controllers;
 
-import com.api.v1.cards.domain.Card;
-import com.api.v1.cards.dtos.CardRegistrationDto;
-import com.api.v1.cards.dtos.CardResponseDto;
-import com.api.v1.cards.services.CardDeletionService;
-import com.api.v1.cards.services.CardRegistrationService;
-import com.api.v1.cards.services.CardRetrievalService;
-import com.api.v1.medical_appointments.annotation.OrderNumber;
+import com.api.v1.cards.Card;
+import com.api.v1.cards.CardRegistrationDto;
+import com.api.v1.cards.CardResponseDto;
+import com.api.v1.cards.CardDeletionService;
+import com.api.v1.cards.CardRegistrationService;
+import com.api.v1.cards.CardRetrievalService;
+import com.api.v1.medical_appointments.OrderNumber;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
