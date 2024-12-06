@@ -1,11 +1,11 @@
 package com.api.v1.controllers;
 
-import com.api.v1.dtos.CustomerResponseDto;
-import com.api.v1.services.CustomerModificationService;
-import com.api.v1.services.CustomerRegistrationService;
+import com.api.v1.dtos.customers.CustomerResponseDto;
+import com.api.v1.services.interfaces.customers.CustomerModificationService;
+import com.api.v1.services.interfaces.customers.CustomerRegistrationService;
 import com.api.v1.annotations.SSN;
-import com.api.v1.dtos.PersonModificationDto;
-import com.api.v1.dtos.PersonRegistrationDto;
+import com.api.v1.dtos.people.PersonModificationDto;
+import com.api.v1.dtos.people.PersonRegistrationDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

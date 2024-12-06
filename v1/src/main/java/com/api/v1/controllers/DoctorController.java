@@ -1,12 +1,12 @@
 package com.api.v1.controllers;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
-import com.api.v1.dtos.DoctorRegistrationDto;
-import com.api.v1.dtos.DoctorResponseDto;
-import com.api.v1.services.DoctorModificationService;
-import com.api.v1.services.DoctorRegistrationService;
-import com.api.v1.services.DoctorTerminationService;
-import com.api.v1.dtos.PersonModificationDto;
+import com.api.v1.dtos.doctors.DoctorRegistrationDto;
+import com.api.v1.dtos.doctors.DoctorResponseDto;
+import com.api.v1.services.interfaces.doctors.DoctorModificationService;
+import com.api.v1.services.interfaces.doctors.DoctorRegistrationService;
+import com.api.v1.services.interfaces.doctors.DoctorTerminationService;
+import com.api.v1.dtos.people.PersonModificationDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

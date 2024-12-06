@@ -1,11 +1,11 @@
 package com.api.v1.controllers;
 
-import com.api.v1.domain.Card;
-import com.api.v1.dtos.CardRegistrationDto;
-import com.api.v1.dtos.CardResponseDto;
-import com.api.v1.services.CardDeletionService;
-import com.api.v1.services.CardRegistrationService;
-import com.api.v1.services.CardRetrievalService;
+import com.api.v1.domain.cards.Card;
+import com.api.v1.dtos.cards.CardRegistrationDto;
+import com.api.v1.dtos.cards.CardResponseDto;
+import com.api.v1.services.interfaces.cards.CardDeletionService;
+import com.api.v1.services.interfaces.cards.CardRegistrationService;
+import com.api.v1.services.interfaces.cards.CardRetrievalService;
 import com.api.v1.annotations.OrderNumber;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
