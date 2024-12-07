@@ -11,7 +11,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PaymentMedicalPaymentTest {
+public class PaymentMedicalAppointmentTest {
 
     @Autowired
     private WebTestClient webTestClient;
