@@ -33,7 +33,7 @@ public class CustomerRegistrationServiceImpl implements CustomerRegistrationServ
                     Customer customer = Customer.create(savedPerson);
                     return customerRepository.save(customer);
                 })
-                .flatMap(savedCustomer -> Mono.just(CustomerResponseMapper.map(savedCustomer)));
+                .flatMap(savedCustomer -> Mono.just(CustomerResponseMapper.mapToDto(savedCustomer)));
     }
 
 }
