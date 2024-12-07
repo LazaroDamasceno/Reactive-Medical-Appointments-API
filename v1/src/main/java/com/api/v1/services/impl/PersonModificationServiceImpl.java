@@ -1,4 +1,4 @@
-package com.api.v1.services.people.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.services.people.PersonModificationService;
 import com.api.v1.domain.people.Person;

@@ -1,4 +1,4 @@
-package com.api.v1.services.cards.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.services.cards.CardRetrievalService;
 import com.api.v1.domain.cards.Card;

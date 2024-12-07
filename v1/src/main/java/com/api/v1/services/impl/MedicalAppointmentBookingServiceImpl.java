@@ -1,4 +1,4 @@
-package com.api.v1.services.medical_appointments.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.domain.customers.Customer;
 import com.api.v1.utils.customers.CustomerFinderUtil;

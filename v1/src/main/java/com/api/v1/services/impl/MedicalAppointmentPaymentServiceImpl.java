@@ -1,4 +1,4 @@
-package com.api.v1.services.payments.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.services.payments.MedicalAppointmentPaymentService;
 import com.api.v1.utils.cards.CardFinderUtil;

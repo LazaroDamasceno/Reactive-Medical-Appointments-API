@@ -1,4 +1,4 @@
-package com.api.v1.services.payments.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.annotations.OrderNumber;
 import com.api.v1.domain.payments.PaymentRepository;

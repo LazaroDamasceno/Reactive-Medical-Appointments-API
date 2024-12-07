@@ -1,4 +1,4 @@
-package com.api.v1.services.doctors.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
 import com.api.v1.domain.doctors.DoctorRepository;

@@ -1,4 +1,4 @@
-package com.api.v1.services.customers.impl;
+package com.api.v1.services.impl;
 
 import com.api.v1.services.customers.CustomerModificationService;
 import com.api.v1.domain.customers.CustomerRepository;
