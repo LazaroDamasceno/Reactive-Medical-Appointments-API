@@ -34,14 +34,14 @@ public class PaymentController {
 
     @GetMapping("by-payment-number/{paymentNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<PaymentResponseDto> findByNumber(@OrderNumber @PathVariable String paymentNumber) {
-        return retrievalService.findByNumber(paymentNumber);
+    public Mono<PaymentResponseDto> findByPaymentNumber(@OrderNumber @PathVariable String paymentNumber) {
+        return retrievalService.findByPaymentNumber(paymentNumber);
     }
 
     @GetMapping("by-card-number/{cardNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PaymentResponseDto> findAllByCard(@OrderNumber @PathVariable String cardNumber) {
-        return retrievalService.findAllByCard(cardNumber);
+    public Flux<PaymentResponseDto> findAllByCardNumber(@OrderNumber @PathVariable String cardNumber) {
+        return retrievalService.findAllByCardNumber(cardNumber);
     }
 
     @GetMapping

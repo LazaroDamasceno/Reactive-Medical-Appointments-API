@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface PaymentRetrievalService {
-    Mono<PaymentResponseDto> findByNumber(String paymentNumber);
-    Flux<PaymentResponseDto> findAllByCard(String cardNumber);
+    Mono<PaymentResponseDto> findByPaymentNumber(String paymentNumber);
+    Flux<PaymentResponseDto> findAllByCardNumber(String cardNumber);
     Flux<PaymentResponseDto> findAll();
 }

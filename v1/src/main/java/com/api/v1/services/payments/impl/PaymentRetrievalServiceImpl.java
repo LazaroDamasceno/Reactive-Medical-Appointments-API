@@ -1,8 +1,9 @@
-package com.api.v1.services.payments;
+package com.api.v1.services.payments.impl;
 
 import com.api.v1.annotations.OrderNumber;
 import com.api.v1.domain.payments.PaymentRepository;
 import com.api.v1.dtos.payment.PaymentResponseDto;
+import com.api.v1.services.payments.PaymentRetrievalService;
 import com.api.v1.utils.cards.CardFinderUtil;
 import com.api.v1.utils.payments.PaymentFinderUtil;
 import com.api.v1.utils.payments.PaymentResponseMapper;
@@ -28,14 +29,14 @@ public class PaymentRetrievalServiceImpl implements PaymentRetrievalService {
     }
 
     @Override
-    public Mono<PaymentResponseDto> findByNumber(@OrderNumber String paymentNumber) {
+    public Mono<PaymentResponseDto> findByPaymentNumber(@OrderNumber String paymentNumber) {
         return paymentFinderUtil
                 .find(paymentNumber)
                 .flatMap(PaymentResponseMapper::mapToMono);
     }
 
     @Override
-    public Flux<PaymentResponseDto> findAllByCard(@OrderNumber String cardNumber) {
+    public Flux<PaymentResponseDto> findAllByCardNumber(@OrderNumber String cardNumber) {
         return cardFinderUtil
                 .findByNumber(cardNumber)
                 .flatMapMany(foundCard -> paymentRepository
