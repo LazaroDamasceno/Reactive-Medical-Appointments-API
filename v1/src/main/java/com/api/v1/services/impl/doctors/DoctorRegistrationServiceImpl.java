@@ -41,6 +41,6 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
                                return doctorRepository.save(doctor);
                             });
                 }))
-                .flatMap(savedDoctor -> Mono.just(DoctorResponseMapper.map(savedDoctor)));
+                .flatMap(savedDoctor -> Mono.just(DoctorResponseMapper.mapToDto(savedDoctor)));
     }
 }

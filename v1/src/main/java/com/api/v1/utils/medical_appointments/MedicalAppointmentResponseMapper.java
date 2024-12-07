@@ -18,7 +18,7 @@ public class MedicalAppointmentResponseMapper {
                 medicalAppointment.getCompletedAt(),
                 medicalAppointment.getCompletedAtZone(),
                 CustomerResponseMapper.map(medicalAppointment.getCustomer()),
-                DoctorResponseMapper.map(medicalAppointment.getDoctor())
+                DoctorResponseMapper.mapToDto(medicalAppointment.getDoctor())
         );
     }
 
