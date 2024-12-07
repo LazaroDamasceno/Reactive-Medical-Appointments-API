@@ -1,8 +1,8 @@
 package com.api.v1.controllers;
 
 import com.api.v1.dtos.customers.CustomerResponseDto;
-import com.api.v1.services.customers.CustomerModificationService;
-import com.api.v1.services.customers.CustomerRegistrationService;
+import com.api.v1.services.interfaces.customers.CustomerModificationService;
+import com.api.v1.services.interfaces.customers.CustomerRegistrationService;
 import com.api.v1.annotations.SSN;
 import com.api.v1.dtos.people.PersonModificationDto;
 import com.api.v1.dtos.people.PersonRegistrationDto;
