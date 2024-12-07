@@ -2,7 +2,7 @@ package com.api.v1.controllers;
 
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentPaymentDto;
 import com.api.v1.dtos.payment.PaymentResponseDto;
-import com.api.v1.services.interfaces.medical_appointments.MedicalAppointmentPaymentService;
+import com.api.v1.services.medical_appointments.MedicalAppointmentPaymentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
