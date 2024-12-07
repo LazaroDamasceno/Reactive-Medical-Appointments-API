@@ -1,4 +1,4 @@
-package com.api.v1.services.medical_appointments;
+package com.api.v1.services.payments;
 
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentPaymentDto;
 import com.api.v1.dtos.payment.PaymentResponseDto;

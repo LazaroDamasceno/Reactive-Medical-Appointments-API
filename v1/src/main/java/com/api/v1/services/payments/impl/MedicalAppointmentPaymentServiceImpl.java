@@ -1,8 +1,8 @@
-package com.api.v1.services.medical_appointments.impl;
+package com.api.v1.services.payments.impl;
 
+import com.api.v1.services.payments.MedicalAppointmentPaymentService;
 import com.api.v1.utils.cards.CardFinderUtil;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentFinderUtil;
-import com.api.v1.services.medical_appointments.MedicalAppointmentPaymentService;
 import com.api.v1.domain.payments.Payment;
 import com.api.v1.domain.payments.PaymentRepository;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentPaymentDto;
