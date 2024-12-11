@@ -90,7 +90,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findActiveCustomer(String ssn) {
+    public Flux<MedicalAppointmentResponseDto> findActiveCustomer(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(foundCustomer -> medicalAppointmentRepository
