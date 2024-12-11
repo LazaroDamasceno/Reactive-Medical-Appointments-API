@@ -20,18 +20,18 @@ public class MedicalAppointmentController {
     private final MedicalAppointmentBookingService bookingService;
     private final MedicalAppointmentCancellationService cancellationService;
     private final MedicalAppointmentCompletionService completionService;
-    private final MedicalAppointmentRetrievalService retrievalService;
+    //private final MedicalAppointmentRetrievalService retrievalService;
 
     public MedicalAppointmentController(
             MedicalAppointmentBookingService bookingService,
             MedicalAppointmentCancellationService cancellationService,
-            MedicalAppointmentCompletionService completionService,
-            MedicalAppointmentRetrievalService retrievalService
+            MedicalAppointmentCompletionService completionService
+            //MedicalAppointmentRetrievalService retrievalService
     ) {
         this.bookingService = bookingService;
         this.cancellationService = cancellationService;
         this.completionService = completionService;
-        this.retrievalService = retrievalService;
+        //this.retrievalService = retrievalService;
     }
 
     public Mono<MedicalAppointmentResponseDto> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
@@ -74,15 +74,4 @@ public class MedicalAppointmentController {
         return completionService.complete(orderNumber);
     }
 
-    @GetMapping("{orderNumber}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@OrderNumber @PathVariable String orderNumber) {
-        return retrievalService.findByOrderNumber(orderNumber);
-    }
-
-    @GetMapping
-    @ResponseStatus(value = HttpStatus.OK)
-    public Flux<MedicalAppointmentResponseDto> findAll() {
-        return retrievalService.findAll();
-    }
 }
