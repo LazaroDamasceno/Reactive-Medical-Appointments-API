@@ -13,6 +13,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @NotNull
 @Size(min = 24, max = 24)
-@Pattern(regexp = "^\\d{24}")
 public @interface OrderNumber {
 }
