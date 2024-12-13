@@ -20,7 +20,7 @@ public class MedicalAppointmentBookingTest {
     MedicalAppointmentBookingDto bookingDto = new MedicalAppointmentBookingDto(
             "123456789",
             "12345678CA",
-            LocalDateTime.parse("2024-12-12T00:00:00")
+            LocalDateTime.parse("2024-12-12T12:30:30")
     );
 
     @Test
