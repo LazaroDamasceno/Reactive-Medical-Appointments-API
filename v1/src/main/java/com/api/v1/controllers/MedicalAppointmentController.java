@@ -3,8 +3,10 @@ package com.api.v1.controllers;
 import com.api.v1.annotations.MedicalLicenseNumber;
 import com.api.v1.annotations.OrderNumber;
 import com.api.v1.annotations.SSN;
+import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentBookingDto;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentResponseDto;
+import com.api.v1.exceptions.medical_appointments.UnavailableSlotException;
 import com.api.v1.services.medical_appointments.MedicalAppointmentBookingService;
 import com.api.v1.services.medical_appointments.MedicalAppointmentCancellationService;
 import com.api.v1.services.medical_appointments.MedicalAppointmentCompletionService;
@@ -23,17 +25,19 @@ public class MedicalAppointmentController {
     private final MedicalAppointmentCancellationService cancellationService;
     private final MedicalAppointmentCompletionService completionService;
     private final MedicalAppointmentRetrievalService retrievalService;
+    private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     public MedicalAppointmentController(
             MedicalAppointmentBookingService bookingService,
             MedicalAppointmentCancellationService cancellationService,
             MedicalAppointmentCompletionService completionService,
-            MedicalAppointmentRetrievalService retrievalService
+            MedicalAppointmentRetrievalService retrievalService, MedicalAppointmentRepository medicalAppointmentRepository
     ) {
         this.bookingService = bookingService;
         this.cancellationService = cancellationService;
         this.completionService = completionService;
         this.retrievalService = retrievalService;
+        this.medicalAppointmentRepository = medicalAppointmentRepository;
     }
 
     public Mono<MedicalAppointmentResponseDto> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
@@ -45,7 +49,21 @@ public class MedicalAppointmentController {
     public Mono<MedicalAppointmentResponseDto> bookPaidMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
-        return bookingService.bookPaidMedicalAppointment(bookingDto);
+        return medicalAppointmentRepository
+                .findAll()
+                .filter(ma ->
+                        ma.getDoctor().getLicenseNumber().equals(bookingDto.medicalLicenseNumber())
+                                && ma.getCustomer().getPerson().getSsn().equals(bookingDto.ssn())
+                                && ma.getBookedAt().equals(bookingDto.bookingDate().toString())
+                                && ma.getCanceledAt() == null
+                )
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
+                    }
+                    return bookingService.bookPaidMedicalAppointment(bookingDto);
+                });
     }
 
     @PostMapping("affordable")
@@ -53,7 +71,21 @@ public class MedicalAppointmentController {
     public Mono<MedicalAppointmentResponseDto> bookAffordableMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
-        return bookingService.bookAffordableMedicalAppointment(bookingDto);
+        return medicalAppointmentRepository
+                .findAll()
+                .filter(ma ->
+                        ma.getDoctor().getLicenseNumber().equals(bookingDto.medicalLicenseNumber())
+                                && ma.getCustomer().getPerson().getSsn().equals(bookingDto.ssn())
+                                && ma.getBookedAt().equals(bookingDto.bookingDate().toString())
+                                && ma.getCanceledAt() == null
+                )
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
+                    }
+                    return bookingService.bookAffordableMedicalAppointment(bookingDto);
+                });
     }
 
     @PostMapping("private-health-care")
@@ -61,7 +93,21 @@ public class MedicalAppointmentController {
     public Mono<MedicalAppointmentResponseDto> bookPrivateHeathCareMedicalAppointment(
             @RequestBody @Valid MedicalAppointmentBookingDto bookingDto
     ) {
-        return bookingService.bookPrivateHeathCareMedicalAppointment(bookingDto);
+        return medicalAppointmentRepository
+                .findAll()
+                .filter(ma ->
+                        ma.getDoctor().getLicenseNumber().equals(bookingDto.medicalLicenseNumber())
+                                && ma.getCustomer().getPerson().getSsn().equals(bookingDto.ssn())
+                                && ma.getBookedAt().equals(bookingDto.bookingDate().toString())
+                                && ma.getCanceledAt() == null
+                )
+                .hasElements()
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new UnavailableSlotException(bookingDto.bookingDate(), bookingDto.medicalLicenseNumber()));
+                    }
+                    return bookingService.bookPrivateHeathCareMedicalAppointment(bookingDto);
+                });
     }
 
     @PatchMapping("{orderNumber}/cancellation")
@@ -170,4 +216,5 @@ public class MedicalAppointmentController {
     ) {
         return retrievalService.findCanceledByDoctor(medicalLicenseNumber);
     }
+
 }
