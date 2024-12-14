@@ -4,6 +4,7 @@ import com.api.v1.domain.medical_slots.MedicalSlot;
 import com.api.v1.dtos.medical_slots.MedicalSlotResponseDto;
 import com.api.v1.utils.doctors.DoctorResponseMapper;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentResponseMapper;
+import reactor.core.publisher.Mono;
 
 public class MedicalSlotResponseMapper {
 
@@ -16,6 +17,10 @@ public class MedicalSlotResponseMapper {
                 medicalSlot.getCanceledAt(),
                 medicalSlot.getCanceledAtZone()
         );
+    }
+
+    public static Mono<MedicalSlotResponseDto> mapToMono(MedicalSlot medicalSlot) {
+        return Mono.just(mapToDto(medicalSlot));
     }
 
 }
