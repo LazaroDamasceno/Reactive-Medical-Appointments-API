@@ -18,6 +18,8 @@ public class MedicalSlot {
     private ZoneId availableAtZone;
     private String canceledAt;
     private ZoneId canceledAtZone;
+    private String completedAt;
+    private ZoneId completedAtZone;
     private String createdAt;
     private ZoneId createdAtZone;
 
@@ -40,6 +42,11 @@ public class MedicalSlot {
     public void cancel() {
         canceledAt = LocalDateTime.now().toString();
         canceledAtZone = ZoneId.systemDefault();
+    }
+
+    public void complete() {
+        completedAt = LocalDateTime.now().toString();
+        completedAtZone = ZoneId.systemDefault();
     }
 
     public ObjectId getId() {
@@ -74,4 +81,11 @@ public class MedicalSlot {
         return doctor;
     }
 
+    public String getCompletedAt() {
+        return completedAt;
+    }
+
+    public ZoneId getCompletedAtZone() {
+        return completedAtZone;
+    }
 }

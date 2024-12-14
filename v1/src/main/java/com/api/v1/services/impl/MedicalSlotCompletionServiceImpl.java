@@ -4,19 +4,19 @@ import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.medical_slots.MedicalSlot;
 import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.ImmutableMedicalSlotException;
-import com.api.v1.services.medical_slots.MedicalSlotCancellationService;
+import com.api.v1.services.medical_slots.MedicalSlotCompletionService;
 import com.api.v1.utils.medical_slots.MedicalSlotFinderUtil;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellationService {
+public class MedicalSlotCompletionServiceImpl implements MedicalSlotCompletionService {
 
     private final MedicalSlotFinderUtil medicalSlotFinderUtil;
     private final MedicalSlotRepository medicalSlotRepository;
 
-    public MedicalSlotCancellationServiceImpl(
+    public MedicalSlotCompletionServiceImpl(
             MedicalSlotFinderUtil medicalSlotFinderUtil,
             MedicalSlotRepository medicalSlotRepository
     ) {
@@ -25,14 +25,14 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
     }
 
     @Override
-    public Mono<Void> cancel(@MongoDbId String id) {
+    public Mono<Void> complete(@MongoDbId String id) {
         return medicalSlotFinderUtil
                 .find(new ObjectId(id))
                 .flatMap(medicalSlot -> {
                     return onCanceledMedicalSlot(medicalSlot)
                             .then(onCompletedMedicalSlot(medicalSlot))
                             .then(Mono.defer(() -> {
-                                medicalSlot.cancel();
+                                medicalSlot.complete();
                                 return medicalSlotRepository.save(medicalSlot);
                             }));
                 })
