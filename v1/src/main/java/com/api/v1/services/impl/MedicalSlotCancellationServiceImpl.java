@@ -41,7 +41,7 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
 
     private Mono<Object> onCanceledMedicalSlot(MedicalSlot medicalSlot) {
         String message = "Medical slot is already canceled.";
-        if (medicalSlot.getCanceledAt() != null) {
+        if (medicalSlot.getCanceledAt() != null && medicalSlot.getCompletedAt() == null) {
             return Mono.error(new ImmutableMedicalSlotException(message));
         }
         return Mono.empty();
@@ -49,7 +49,7 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
 
     private Mono<Object> onCompletedMedicalSlot(MedicalSlot medicalSlot) {
         String message = "Medical slot is already completed.";
-        if (medicalSlot.getCompletedAt() != null) {
+        if (medicalSlot.getCompletedAt() != null && medicalSlot.getCanceledAt() == null) {
             return Mono.error(new ImmutableMedicalSlotException(message));
         }
         return Mono.empty();
