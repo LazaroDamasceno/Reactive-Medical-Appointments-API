@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
 
 @Document
 public class MedicalSlot {
@@ -16,6 +15,7 @@ public class MedicalSlot {
     private Doctor doctor;
     private String availableAt;
     private ZoneId availableAtZone;
+    private MedicalAppointment medicalAppointment;
     private String canceledAt;
     private ZoneId canceledAtZone;
     private String completedAt;
@@ -87,5 +87,13 @@ public class MedicalSlot {
 
     public ZoneId getCompletedAtZone() {
         return completedAtZone;
+    }
+
+    public MedicalAppointment getMedicalAppointment() {
+        return medicalAppointment;
+    }
+
+    public void setMedicalAppointment(MedicalAppointment medicalAppointment) {
+        this.medicalAppointment = medicalAppointment;
     }
 }
