@@ -1,11 +1,11 @@
 package com.api.v1.dtos.medical_appointments;
 
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import jakarta.validation.constraints.Min;
 
 public record MedicalAppointmentPaymentDto(
-        @MongoObjectId String cardNumber,
-        @MongoObjectId String appointmentOrderNumber,
+        @MongoDbId String cardNumber,
+        @MongoDbId String appointmentOrderNumber,
         @Min(0) double price
 ) {
 }

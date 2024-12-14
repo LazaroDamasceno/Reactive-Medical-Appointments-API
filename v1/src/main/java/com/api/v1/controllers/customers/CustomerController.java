@@ -1,4 +1,4 @@
-package com.api.v1.controllers;
+package com.api.v1.controllers.customers;
 
 import com.api.v1.dtos.customers.CustomerResponseDto;
 import com.api.v1.services.customers.CustomerModificationService;

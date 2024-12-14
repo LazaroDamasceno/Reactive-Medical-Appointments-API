@@ -1,4 +1,4 @@
-package com.api.v1.controllers;
+package com.api.v1.controllers.doctors;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
 import com.api.v1.dtos.doctors.DoctorRegistrationDto;

@@ -1,6 +1,6 @@
 package com.api.v1.utils.payments;
 
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.payments.Payment;
 import com.api.v1.domain.payments.PaymentRepository;
 import com.api.v1.exceptions.payments.NonExistentPaymentException;
@@ -17,7 +17,7 @@ public class PaymentFinderUtil {
         this.paymentRepository = paymentRepository;
     }
 
-    public Mono<Payment> find(@MongoObjectId String paymentNumber) {
+    public Mono<Payment> find(@MongoDbId String paymentNumber) {
         return paymentRepository
                 .findAll()
                 .filter(p -> p.id().equals(new ObjectId(paymentNumber)))
