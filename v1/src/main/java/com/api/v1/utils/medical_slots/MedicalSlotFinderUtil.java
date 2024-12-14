@@ -30,6 +30,7 @@ public class MedicalSlotFinderUtil {
                 .filter(slot ->
                         slot.getDoctor().getId().equals(doctorId)
                         && slot.getAvailableAt().equals(availableAt)
+                        && slot.getCanceledAt() == null
                 )
                 .singleOrEmpty()
                 .switchIfEmpty(Mono.error(new UnavailableMedicalSlotException(message)));
