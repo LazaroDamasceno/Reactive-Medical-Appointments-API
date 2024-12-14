@@ -18,8 +18,13 @@ public class DoctorFinderUtil {
     public Mono<Doctor> find(String licenseNumber) {
         return doctorRepository
                 .findByLicenseNumber(licenseNumber)
-                .switchIfEmpty(Mono.error(NonExistentDoctorException::new))
-                .single();
+                .singleOptional()
+                .flatMap(optional -> {
+                   if (optional.isEmpty()) {
+                       return Mono.error(NonExistentDoctorException::new);
+                   }
+                   return Mono.just(optional.get());
+                });
     }
 
 }

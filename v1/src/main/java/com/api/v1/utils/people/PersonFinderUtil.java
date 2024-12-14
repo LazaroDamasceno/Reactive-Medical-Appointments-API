@@ -19,8 +19,13 @@ public class PersonFinderUtil {
     public Mono<Person> find(@SSN String ssn) {
         return personRepository
                 .findBySsn(ssn)
-                .switchIfEmpty(Mono.error(NonExistentSsnException::new))
-                .single();
+                .singleOptional()
+                .flatMap(optional -> {
+                    if (optional.isEmpty()) {
+                        return Mono.error(NonExistentSsnException::new);
+                    }
+                    return Mono.just(optional.get());
+                });
     }
 
 }

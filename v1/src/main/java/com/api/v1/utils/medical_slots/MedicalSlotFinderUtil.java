@@ -33,7 +33,7 @@ public class MedicalSlotFinderUtil {
                         && slot.getCanceledAt() == null
                         && slot.getCompletedAt() == null
                 )
-                .switchIfEmpty(Mono.error(new UnavailableMedicalSlotException(message)))
-                .single();
+                .singleOrEmpty()
+                .switchIfEmpty(Mono.error(new UnavailableMedicalSlotException(message)));
     }
 }

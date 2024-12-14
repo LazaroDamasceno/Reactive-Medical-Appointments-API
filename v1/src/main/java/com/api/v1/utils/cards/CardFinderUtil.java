@@ -20,7 +20,13 @@ public class CardFinderUtil {
     public Mono<Card> findByNumber(@MongoDbId String number) {
         return cardRepository
                 .findByNumber(new ObjectId(number))
-                .switchIfEmpty(Mono.error(NonExistentCardException::new))
-                .single();
+                .singleOptional()
+                .flatMap(optional -> {
+                   if (optional.isEmpty()) {
+                       return Mono.error(NonExistentCardException::new);
+                   }
+                   return Mono.just(optional.get());
+                });
     }
+
 }
