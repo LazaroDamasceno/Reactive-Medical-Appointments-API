@@ -7,7 +7,6 @@ import org.bson.types.ObjectId;
 import java.time.ZoneId;
 
 public record MedicalAppointmentResponseDto(
-    ObjectId orderNumber,
     String bookedAt,
     ZoneId bookedAtZone,
     String canceledAt,

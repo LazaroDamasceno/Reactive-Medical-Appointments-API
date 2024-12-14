@@ -13,7 +13,7 @@ public class PaymentResponseMapper {
 
     public static PaymentResponseDto mapToDto(Payment payment) {
         return new PaymentResponseDto(
-                payment.number(),
+                payment.id(),
                 CardResponseMapper.mapToDto(payment.card()),
                 payment.price(),
                 MedicalAppointmentResponseMapper.mapToDto(payment.medicalAppointment()),

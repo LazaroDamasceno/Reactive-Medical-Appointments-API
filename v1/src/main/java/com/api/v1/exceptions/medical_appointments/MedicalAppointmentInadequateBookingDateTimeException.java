@@ -1,4 +1,4 @@
-package com.api.v1.services.medical_appointments;
+package com.api.v1.exceptions.medical_appointments;
 
 public class MedicalAppointmentInadequateBookingDateTimeException extends RuntimeException {
     public MedicalAppointmentInadequateBookingDateTimeException() {
