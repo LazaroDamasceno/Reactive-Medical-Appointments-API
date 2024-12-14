@@ -12,7 +12,6 @@ import com.api.v1.utils.customers.CustomerFinderUtil;
 import com.api.v1.utils.doctors.DoctorFinderUtil;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentFinderUtil;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentResponseMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,17 +19,22 @@ import reactor.core.publisher.Mono;
 @Service
 public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmentRetrievalService {
 
-    @Autowired
-    private MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
+    private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
+    private final MedicalAppointmentRepository medicalAppointmentRepository;
+    private final CustomerFinderUtil customerFinderUtil;
+    private final DoctorFinderUtil doctorFinderUtil;
 
-    @Autowired
-    private MedicalAppointmentRepository medicalAppointmentRepository;
-
-    @Autowired
-    private CustomerFinderUtil customerFinderUtil;
-
-    @Autowired
-    private DoctorFinderUtil doctorFinderUtil;
+    public MedicalAppointmentRetrievalServiceImpl(
+            MedicalAppointmentFinderUtil medicalAppointmentFinderUtil,
+            MedicalAppointmentRepository medicalAppointmentRepository,
+            CustomerFinderUtil customerFinderUtil,
+            DoctorFinderUtil doctorFinderUtil
+    ) {
+        this.medicalAppointmentFinderUtil = medicalAppointmentFinderUtil;
+        this.medicalAppointmentRepository = medicalAppointmentRepository;
+        this.customerFinderUtil = customerFinderUtil;
+        this.doctorFinderUtil = doctorFinderUtil;
+    }
 
     @Override
     public Mono<MedicalAppointmentResponseDto> findByid(@MongoDbId String id) {

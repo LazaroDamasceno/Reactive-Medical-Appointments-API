@@ -10,19 +10,22 @@ import com.api.v1.utils.doctors.DoctorFinderUtil;
 import com.api.v1.utils.medical_slots.MedicalSlotResponseMapper;
 import jakarta.validation.Valid;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class MedicalSlotRegistrationServiceImpl implements MedicalSlotRegistrationService {
 
-    @Autowired
-    private MedicalSlotRepository medicalSlotRepository;
+    private final MedicalSlotRepository medicalSlotRepository;
+    private final DoctorFinderUtil doctorFinderUtil;
 
-    @Autowired
-    private DoctorFinderUtil doctorFinderUtil;
-
+    public MedicalSlotRegistrationServiceImpl(
+            MedicalSlotRepository medicalSlotRepository,
+            DoctorFinderUtil doctorFinderUtil
+    ) {
+        this.medicalSlotRepository = medicalSlotRepository;
+        this.doctorFinderUtil = doctorFinderUtil;
+    }
 
     @Override
     public Mono<MedicalSlotResponseDto> register(@Valid MedicalSlotRegistrationDto registrationDto) {

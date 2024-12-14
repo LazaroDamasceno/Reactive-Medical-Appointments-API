@@ -6,7 +6,6 @@ import com.api.v1.dtos.doctors.DoctorResponseDto;
 import com.api.v1.services.doctors.DoctorRetrievalService;
 import com.api.v1.utils.doctors.DoctorFinderUtil;
 import com.api.v1.utils.doctors.DoctorResponseMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,11 +13,16 @@ import reactor.core.publisher.Mono;
 @Service
 public class DoctorRetrievalServiceImpl implements DoctorRetrievalService {
 
-    @Autowired
-    private DoctorFinderUtil doctorFinderUtil;
+    private final DoctorFinderUtil doctorFinderUtil;
+    private final DoctorRepository doctorRepository;
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    public DoctorRetrievalServiceImpl(
+            DoctorFinderUtil doctorFinderUtil,
+            DoctorRepository doctorRepository
+    ) {
+        this.doctorFinderUtil = doctorFinderUtil;
+        this.doctorRepository = doctorRepository;
+    }
 
     @Override
     public Mono<DoctorResponseDto> findByMedicalLicenseNumber(@MedicalLicenseNumber String medicalLicenseNumber) {

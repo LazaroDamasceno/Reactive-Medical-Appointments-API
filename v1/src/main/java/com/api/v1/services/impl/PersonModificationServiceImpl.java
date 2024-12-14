@@ -8,18 +8,22 @@ import com.api.v1.domain.people.PersonRepository;
 import com.api.v1.dtos.people.PersonModificationDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class PersonModificationServiceImpl implements PersonModificationService {
 
-    @Autowired
-    private PersonAuditTrailRepository personAuditTrailRepository;
+    private final PersonAuditTrailRepository personAuditTrailRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
+    public PersonModificationServiceImpl(
+            PersonAuditTrailRepository personAuditTrailRepository,
+            PersonRepository personRepository
+    ) {
+        this.personAuditTrailRepository = personAuditTrailRepository;
+        this.personRepository = personRepository;
+    }
 
     @Override
     public Mono<Person> modify(@NotNull Person person, @Valid PersonModificationDto modificationDto) {

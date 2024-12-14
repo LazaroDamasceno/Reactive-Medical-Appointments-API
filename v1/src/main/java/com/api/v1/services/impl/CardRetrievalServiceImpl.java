@@ -5,7 +5,6 @@ import com.api.v1.domain.cards.Card;
 import com.api.v1.domain.cards.CardRepository;
 import com.api.v1.utils.cards.CardFinderUtil;
 import com.api.v1.annotations.SSN;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,11 +12,13 @@ import reactor.core.publisher.Mono;
 @Service
 public class CardRetrievalServiceImpl implements CardRetrievalService {
 
-    @Autowired
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
+    private final CardFinderUtil cardFinderUtil;
 
-    @Autowired
-    private CardFinderUtil cardFinderUtil;
+    public CardRetrievalServiceImpl(CardRepository cardRepository, CardFinderUtil cardFinderUtil) {
+        this.cardRepository = cardRepository;
+        this.cardFinderUtil = cardFinderUtil;
+    }
 
     @Override
     public Mono<Card> findByNumber(@SSN String cardNumber) {

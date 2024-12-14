@@ -9,7 +9,6 @@ import com.api.v1.services.doctors.DoctorRetrievalService;
 import com.api.v1.services.doctors.DoctorTerminationService;
 import com.api.v1.dtos.people.PersonModificationDto;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -19,17 +18,22 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/doctors")
 public class DoctorController {
 
-    @Autowired
-    private DoctorRegistrationService registrationService;
+    private final DoctorRegistrationService registrationService;
+    private final DoctorModificationService modificationService;
+    private final DoctorTerminationService terminationService;
+    private final DoctorRetrievalService retrievalService;
 
-    @Autowired
-    private DoctorModificationService modificationService;
-
-    @Autowired
-    private DoctorTerminationService terminationService;
-
-    @Autowired
-    private DoctorRetrievalService retrievalService;
+    public DoctorController(
+            DoctorRegistrationService registrationService,
+            DoctorModificationService modificationService,
+            DoctorTerminationService terminationService,
+            DoctorRetrievalService retrievalService
+    ) {
+        this.registrationService = registrationService;
+        this.modificationService = modificationService;
+        this.terminationService = terminationService;
+        this.retrievalService = retrievalService;
+    }
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)

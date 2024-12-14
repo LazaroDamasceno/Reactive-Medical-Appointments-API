@@ -13,7 +13,6 @@ import com.api.v1.dtos.medical_appointments.MedicalAppointmentBookingDto;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentResponseDto;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentResponseMapper;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -22,14 +21,19 @@ import java.time.LocalDateTime;
 @Service
 public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentBookingService {
 
-    @Autowired
-    private CustomerFinderUtil customerFinderUtil;
+    private final CustomerFinderUtil customerFinderUtil;
+    private final DoctorFinderUtil doctorFinderUtil;
+    private final MedicalAppointmentRepository medicalAppointmentRepository;
 
-    @Autowired
-    private DoctorFinderUtil doctorFinderUtil;
-
-    @Autowired
-    private MedicalAppointmentRepository medicalAppointmentRepository;
+    public MedicalAppointmentBookingServiceImpl(
+            CustomerFinderUtil customerFinderUtil,
+            DoctorFinderUtil doctorFinderUtil,
+            MedicalAppointmentRepository medicalAppointmentRepository
+    ) {
+        this.customerFinderUtil = customerFinderUtil;
+        this.doctorFinderUtil = doctorFinderUtil;
+        this.medicalAppointmentRepository = medicalAppointmentRepository;
+    }
 
     @Override
     public Mono<MedicalAppointmentResponseDto> bookPaidMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {

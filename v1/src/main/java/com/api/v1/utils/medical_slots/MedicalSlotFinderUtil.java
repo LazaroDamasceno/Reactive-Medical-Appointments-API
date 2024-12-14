@@ -4,15 +4,17 @@ import com.api.v1.domain.medical_slots.MedicalSlot;
 import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.UnavailableMedicalSlotException;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 public class MedicalSlotFinderUtil {
 
-    @Autowired
-    private MedicalSlotRepository medicalSlotRepository;
+    private final MedicalSlotRepository medicalSlotRepository;
+
+    public MedicalSlotFinderUtil(MedicalSlotRepository medicalSlotRepository) {
+        this.medicalSlotRepository = medicalSlotRepository;
+    }
 
     public Mono<MedicalSlot> find(ObjectId id) {
         String message = "No medical slot was found under the given id.";

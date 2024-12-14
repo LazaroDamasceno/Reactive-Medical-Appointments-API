@@ -7,15 +7,17 @@ import com.api.v1.dtos.people.PersonRegistrationDto;
 import com.api.v1.exceptions.people.DuplicatedEmailException;
 import com.api.v1.exceptions.people.DuplicatedSsnException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class PersonRegistrationServiceImpl implements PersonRegistrationService {
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public PersonRegistrationServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public Mono<Person> register(@Valid PersonRegistrationDto registrationDto) {

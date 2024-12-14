@@ -8,7 +8,6 @@ import com.api.v1.services.cards.CardRegistrationService;
 import com.api.v1.services.cards.CardRetrievalService;
 import com.api.v1.annotations.MongoDbId;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -18,14 +17,19 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/cards")
 public class CardController {
 
-    @Autowired
-    private CardRegistrationService registrationService;
+    private final CardRegistrationService registrationService;
+    private final CardDeletionService deletionService;
+    private final CardRetrievalService retrievalService;
 
-    @Autowired
-    private CardDeletionService deletionService;
-
-    @Autowired
-    private CardRetrievalService retrievalService;
+    public CardController(
+            CardRegistrationService registrationService,
+            CardDeletionService deletionService,
+            CardRetrievalService retrievalService
+    ) {
+        this.registrationService = registrationService;
+        this.deletionService = deletionService;
+        this.retrievalService = retrievalService;
+    }
 
     @PostMapping("credit-card")
     @ResponseStatus(value = HttpStatus.CREATED)

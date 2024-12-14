@@ -7,7 +7,6 @@ import com.api.v1.services.payments.PaymentRetrievalService;
 import com.api.v1.utils.cards.CardFinderUtil;
 import com.api.v1.utils.payments.PaymentFinderUtil;
 import com.api.v1.utils.payments.PaymentResponseMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,14 +14,19 @@ import reactor.core.publisher.Mono;
 @Service
 public class PaymentRetrievalServiceImpl implements PaymentRetrievalService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
+    private final CardFinderUtil cardFinderUtil;
+    private final PaymentFinderUtil paymentFinderUtil;
 
-    @Autowired
-    private CardFinderUtil cardFinderUtil;
-
-    @Autowired
-    private PaymentFinderUtil paymentFinderUtil;
+    public PaymentRetrievalServiceImpl(
+            PaymentRepository paymentRepository,
+            CardFinderUtil cardFinderUtil,
+            PaymentFinderUtil paymentFinderUtil
+    ) {
+        this.paymentRepository = paymentRepository;
+        this.cardFinderUtil = cardFinderUtil;
+        this.paymentFinderUtil = paymentFinderUtil;
+    }
 
     @Override
     public Mono<PaymentResponseDto> findByPaymentNumber(@MongoDbId String paymentNumber) {

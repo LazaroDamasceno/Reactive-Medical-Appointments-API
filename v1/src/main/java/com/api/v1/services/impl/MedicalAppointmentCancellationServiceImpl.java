@@ -5,18 +5,22 @@ import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.exceptions.medical_appointments.ImmutableMedicalAppointmentException;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentFinderUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class MedicalAppointmentCancellationServiceImpl implements MedicalAppointmentCancellationService {
 
-    @Autowired
-    private MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
+    private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
+    private final MedicalAppointmentRepository medicalAppointmentRepository;
 
-    @Autowired
-    private MedicalAppointmentRepository medicalAppointmentRepository;
+    public MedicalAppointmentCancellationServiceImpl(
+            MedicalAppointmentFinderUtil medicalAppointmentFinderUtil,
+            MedicalAppointmentRepository medicalAppointmentRepository
+    ) {
+        this.medicalAppointmentFinderUtil = medicalAppointmentFinderUtil;
+        this.medicalAppointmentRepository = medicalAppointmentRepository;
+    }
 
     @Override
     public Mono<Void> cancel(@MongoDbId String id) {

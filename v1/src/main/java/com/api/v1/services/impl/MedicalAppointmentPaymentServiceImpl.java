@@ -10,21 +10,25 @@ import com.api.v1.dtos.payment.PaymentResponseDto;
 import com.api.v1.exceptions.payments.NotAllowedPaymentException;
 import com.api.v1.utils.payments.PaymentResponseMapper;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class MedicalAppointmentPaymentServiceImpl implements MedicalAppointmentPaymentService {
 
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
+    private final CardFinderUtil cardFinderUtil;
+    private final MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
 
-    @Autowired
-    private CardFinderUtil cardFinderUtil;
-
-    @Autowired
-    private MedicalAppointmentFinderUtil medicalAppointmentFinderUtil;
+    public MedicalAppointmentPaymentServiceImpl(
+            PaymentRepository paymentRepository,
+            CardFinderUtil cardFinderUtil,
+            MedicalAppointmentFinderUtil medicalAppointmentFinderUtil
+    ) {
+        this.paymentRepository = paymentRepository;
+        this.cardFinderUtil = cardFinderUtil;
+        this.medicalAppointmentFinderUtil = medicalAppointmentFinderUtil;
+    }
 
     @Override
     public Mono<PaymentResponseDto> payMedicalAppointment(@Valid MedicalAppointmentPaymentDto paymentDto) {

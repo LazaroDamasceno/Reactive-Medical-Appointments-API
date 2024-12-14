@@ -9,18 +9,21 @@ import com.api.v1.exceptions.medical_appointments.DuplicatedMedicalLicenseNumber
 import com.api.v1.utils.doctors.DoctorResponseMapper;
 import com.api.v1.services.people.PersonRegistrationService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class DoctorRegistrationServiceImpl implements DoctorRegistrationService {
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    private final DoctorRepository doctorRepository;
+    private final PersonRegistrationService personRegistrationService;
 
-    @Autowired
-    private PersonRegistrationService personRegistrationService;
+    public DoctorRegistrationServiceImpl(
+            DoctorRepository doctorRepository,
+            PersonRegistrationService personRegistrationService) {
+        this.doctorRepository = doctorRepository;
+        this.personRegistrationService = personRegistrationService;
+    }
 
     @Override
     public Mono<DoctorResponseDto> register(@Valid DoctorRegistrationDto registrationDto) {

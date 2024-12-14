@@ -11,7 +11,6 @@ import com.api.v1.services.medical_appointments.MedicalAppointmentCancellationSe
 import com.api.v1.services.medical_appointments.MedicalAppointmentCompletionService;
 import com.api.v1.services.medical_appointments.MedicalAppointmentRetrievalService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -21,17 +20,22 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/medical-appointments")
 public class MedicalAppointmentController {
 
-    @Autowired
-    private MedicalAppointmentBookingService bookingService;
+    private final MedicalAppointmentBookingService bookingService;
+    private final MedicalAppointmentCancellationService cancellationService;
+    private final MedicalAppointmentCompletionService completionService;
+    private final MedicalAppointmentRetrievalService retrievalService;
 
-    @Autowired
-    private MedicalAppointmentCancellationService cancellationService;
-
-    @Autowired
-    private MedicalAppointmentCompletionService completionService;
-
-    @Autowired
-    private MedicalAppointmentRetrievalService retrievalService;
+    public MedicalAppointmentController(
+            MedicalAppointmentBookingService bookingService,
+            MedicalAppointmentCancellationService cancellationService,
+            MedicalAppointmentCompletionService completionService,
+            MedicalAppointmentRetrievalService retrievalService, MedicalAppointmentRepository medicalAppointmentRepository
+    ) {
+        this.bookingService = bookingService;
+        this.cancellationService = cancellationService;
+        this.completionService = completionService;
+        this.retrievalService = retrievalService;
+    }
 
     public Mono<MedicalAppointmentResponseDto> book(@Valid @RequestBody MedicalAppointmentBookingDto bookingDto) {
         return bookingService.bookPaidMedicalAppointment(bookingDto);
