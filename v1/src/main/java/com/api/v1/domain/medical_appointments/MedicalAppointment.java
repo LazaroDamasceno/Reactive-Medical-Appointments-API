@@ -2,6 +2,7 @@ package com.api.v1.domain.medical_appointments;
 
 import com.api.v1.domain.customers.Customer;
 import com.api.v1.domain.doctors.Doctor;
+import com.api.v1.domain.medical_slots.MedicalSlot;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +17,7 @@ public class MedicalAppointment {
     private String type;
     private Customer customer;
     private Doctor doctor;
+    private MedicalSlot medicalSlot;
     private String bookedAt;
     private ZoneId bookedAtZone;
     private String canceledAt;
@@ -25,7 +27,13 @@ public class MedicalAppointment {
     private String createdAt;
     private ZoneId createdAtZone;
 
-    private MedicalAppointment(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
+    private MedicalAppointment(
+            Customer customer,
+            Doctor doctor,
+            LocalDateTime bookedAt,
+            String type,
+            MedicalSlot medicalSlot
+    ) {
         this.id = new ObjectId();
         this.type = type;
         this.createdAt = LocalDateTime.now().toString();
@@ -34,13 +42,20 @@ public class MedicalAppointment {
         this.bookedAtZone = ZoneId.systemDefault();
         this.doctor = doctor;
         this.customer = customer;
+        this.medicalSlot = medicalSlot;
     }
 
     public MedicalAppointment() {
     }
 
-    public static MedicalAppointment create(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
-        return new MedicalAppointment(customer, doctor, bookedAt, type);
+    public static MedicalAppointment create(
+            Customer customer,
+            Doctor doctor,
+            LocalDateTime bookedAt,
+            String type,
+            MedicalSlot medicalSlot
+    ) {
+        return new MedicalAppointment(customer, doctor, bookedAt, type, medicalSlot);
     }
 
     public void markAsCompleted() {
@@ -99,5 +114,9 @@ public class MedicalAppointment {
 
     public ZoneId getCreatedAtZone() {
         return createdAtZone;
+    }
+
+    public MedicalSlot getMedicalSlot() {
+        return medicalSlot;
     }
 }
