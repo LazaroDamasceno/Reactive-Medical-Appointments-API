@@ -20,7 +20,7 @@ public class MedicalSlotRegistrationTest {
 
     MedicalSlotRegistrationDto registrationDto = new MedicalSlotRegistrationDto(
             "12345678CA",
-            LocalDateTime.parse("2014-12-12T12:30:30")
+            LocalDateTime.parse("2024-12-12T12:30:30")
     );
 
     @Order(1)
@@ -49,7 +49,7 @@ public class MedicalSlotRegistrationTest {
 
     MedicalSlotRegistrationDto registrationDto2 = new MedicalSlotRegistrationDto(
             "12345677CA",
-            LocalDateTime.parse("2014-12-12T12:30:30")
+            LocalDateTime.parse("2024-12-12T12:30:30")
     );
 
     @Order(3)
