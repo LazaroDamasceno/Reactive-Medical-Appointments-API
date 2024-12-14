@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MedicalSlotCancellationTest {
+public class MedicalSlotCompletionTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -24,7 +24,7 @@ public class MedicalSlotCancellationTest {
     void testSuccessful() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-slots/%s/cancellation".formatted(id.get()))
+                .uri("api/v1/medical-slots/%s/completion".formatted(id.get()))
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful();
@@ -36,7 +36,7 @@ public class MedicalSlotCancellationTest {
         id.set("");
         webTestClient
                 .patch()
-                .uri("api/v1/medical-slots/%s/cancellation".formatted(id.get()))
+                .uri("api/v1/medical-slots/%s/completion".formatted(id.get()))
                 .exchange()
                 .expectStatus()
                 .is5xxServerError();
