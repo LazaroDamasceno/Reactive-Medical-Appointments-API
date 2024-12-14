@@ -9,7 +9,6 @@ public record MedicalSlotResponseDto(
         DoctorResponseDto doctorResponseDto,
         String availableAt,
         ZoneId availableAtZone,
-        MedicalAppointmentResponseDto medicalAppointmentResponseDto,
         String canceledAt,
         ZoneId canceledAtZone
 ) {

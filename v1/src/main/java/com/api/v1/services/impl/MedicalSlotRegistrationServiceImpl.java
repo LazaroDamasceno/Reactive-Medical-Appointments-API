@@ -44,10 +44,10 @@ public class MedicalSlotRegistrationServiceImpl implements MedicalSlotRegistrati
     private Mono<Object> onDuplicatedDateTime(ObjectId doctorId, String availableAt) {
         return medicalSlotRepository
                 .findAll()
-                .filter(slot ->
-                        slot.getAvailableAt().equals(availableAt)
-                        && slot.getDoctor().getId().equals(doctorId)
-                        && slot.getCanceledAt() == null
+                .filter(medicalSlot ->
+                        medicalSlot.getAvailableAt().equals(availableAt)
+                        && medicalSlot.getDoctor().getId().equals(doctorId)
+                        && medicalSlot.getCanceledAt() == null
                 )
                 .hasElements()
                 .flatMap(exists -> {

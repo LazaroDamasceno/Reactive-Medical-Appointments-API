@@ -30,7 +30,6 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
                 .find(new ObjectId(id))
                 .flatMap(medicalSlot -> {
                     return onCanceledMedicalSlot(medicalSlot)
-                            .then(onImmutableMedicalSlot(medicalSlot))
                             .then(Mono.defer(() -> {
                                 medicalSlot.cancel();
                                 return medicalSlotRepository.save(medicalSlot);
@@ -42,14 +41,6 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
     private Mono<Object> onCanceledMedicalSlot(MedicalSlot medicalSlot) {
         String message = "Medical slot is already canceled.";
         if (medicalSlot.getCanceledAt() != null) {
-            return Mono.error(new ImmutableMedicalSlotException(message));
-        }
-        return Mono.empty();
-    }
-
-    private Mono<Object> onImmutableMedicalSlot(MedicalSlot medicalSlot) {
-        String message = "Medical slot has an active medical appointment attached to it.";
-        if (medicalSlot.getMedicalAppointment() != null)  {
             return Mono.error(new ImmutableMedicalSlotException(message));
         }
         return Mono.empty();

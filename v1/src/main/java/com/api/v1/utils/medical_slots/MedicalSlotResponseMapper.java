@@ -13,7 +13,6 @@ public class MedicalSlotResponseMapper {
                 DoctorResponseMapper.mapToDto(medicalSlot.getDoctor()),
                 medicalSlot.getAvailableAt(),
                 medicalSlot.getAvailableAtZone(),
-                MedicalAppointmentResponseMapper.mapToDto(medicalSlot.getMedicalAppointment()),
                 medicalSlot.getCanceledAt(),
                 medicalSlot.getCanceledAtZone()
         );
