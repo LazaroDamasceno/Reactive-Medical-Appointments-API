@@ -1,5 +1,7 @@
 package com.api.v1.domain.medical_slots;
 
+import com.api.v1.domain.doctors.Doctor;
+import com.api.v1.domain.medical_appointments.MedicalAppointment;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,8 +12,10 @@ import java.time.ZoneId;
 public class MedicalSlot {
 
     private ObjectId id;
+    private Doctor doctor;
     private String availableAt;
     private ZoneId availableAtZone;
+    private MedicalAppointment medicalAppointment;
     private String canceledAt;
     private ZoneId canceledAtZone;
     private String createdAt;
@@ -20,21 +24,22 @@ public class MedicalSlot {
     public MedicalSlot() {
     }
 
-    private MedicalSlot(LocalDateTime availableAt) {
+    private MedicalSlot(LocalDateTime availableAt, Doctor doctor) {
         this.id = new ObjectId();
+        this.doctor = doctor;
         this.availableAt = availableAt.toString();
         this.availableAtZone = ZoneId.systemDefault();
         this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
     }
 
-    public static MedicalSlot create(LocalDateTime availableAt) {
-        return new MedicalSlot(availableAt);
+    public static MedicalSlot create(LocalDateTime availableAt, Doctor doctor) {
+        return new MedicalSlot(availableAt, doctor);
     }
 
     public void cancel() {
         canceledAt = LocalDateTime.now().toString();
-        createdAtZone = ZoneId.systemDefault();
+        canceledAtZone = ZoneId.systemDefault();
     }
 
     public ObjectId getId() {
@@ -63,5 +68,17 @@ public class MedicalSlot {
 
     public ZoneId getCreatedAtZone() {
         return createdAtZone;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public MedicalAppointment getMedicalAppointment() {
+        return medicalAppointment;
+    }
+
+    public void setMedicalAppointment(MedicalAppointment medicalAppointment) {
+        this.medicalAppointment = medicalAppointment;
     }
 }
