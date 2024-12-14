@@ -2,7 +2,6 @@ package com.api.v1.dtos.medical_appointments;
 
 import com.api.v1.dtos.customers.CustomerResponseDto;
 import com.api.v1.dtos.doctors.DoctorResponseDto;
-import org.bson.types.ObjectId;
 
 import java.time.ZoneId;
 

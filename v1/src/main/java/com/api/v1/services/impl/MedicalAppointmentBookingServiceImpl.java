@@ -3,7 +3,7 @@ package com.api.v1.services.impl;
 import com.api.v1.domain.customers.Customer;
 import com.api.v1.domain.medical_appointments.MedicalAppointment;
 import com.api.v1.exceptions.medical_slots.UnavailableMedicalSlotException;
-import com.api.v1.exceptions.medical_appointments.MedicalAppointmentInvalidBookingDateTimeException;
+import com.api.v1.exceptions.medical_appointments.InvalidMedicalAppointmentBookingDateTimeException;
 import com.api.v1.utils.customers.CustomerFinderUtil;
 import com.api.v1.domain.doctors.Doctor;
 import com.api.v1.utils.doctors.DoctorFinderUtil;
@@ -133,6 +133,6 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                 && bookedAt.getMonthValue() == month
                 && bookedAt.getDayOfMonth() == day;
         if (!isGivenEqualsOrLessThanToday) return Mono.empty();
-        return Mono.error(MedicalAppointmentInvalidBookingDateTimeException::new);
+        return Mono.error(InvalidMedicalAppointmentBookingDateTimeException::new);
     }
 }
