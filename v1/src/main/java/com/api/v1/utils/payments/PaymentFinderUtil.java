@@ -21,7 +21,7 @@ public class PaymentFinderUtil {
         return paymentRepository
                 .findAll()
                 .filter(p -> p.id().equals(new ObjectId(paymentNumber)))
-                .singleOrEmpty()
-                .switchIfEmpty(Mono.error(NonExistentPaymentException::new));
+                .switchIfEmpty(Mono.error(NonExistentPaymentException::new))
+                .single();
     }
 }
