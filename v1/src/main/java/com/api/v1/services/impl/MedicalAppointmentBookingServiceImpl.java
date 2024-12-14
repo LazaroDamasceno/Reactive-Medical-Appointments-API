@@ -2,7 +2,6 @@ package com.api.v1.services.impl;
 
 import com.api.v1.domain.customers.Customer;
 import com.api.v1.domain.medical_appointments.MedicalAppointment;
-import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.UnavailableMedicalSlotException;
 import com.api.v1.exceptions.medical_appointments.InvalidMedicalAppointmentBookingDateTimeException;
 import com.api.v1.utils.customers.CustomerFinderUtil;
@@ -13,7 +12,6 @@ import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentBookingDto;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentResponseDto;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentResponseMapper;
-import com.api.v1.utils.medical_slots.MedicalSlotFinderUtil;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -26,21 +24,15 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
     private final CustomerFinderUtil customerFinderUtil;
     private final DoctorFinderUtil doctorFinderUtil;
     private final MedicalAppointmentRepository medicalAppointmentRepository;
-    private final MedicalSlotRepository medicalSlotRepository;
-    private final MedicalSlotFinderUtil medicalSlotFinderUtil;
 
     public MedicalAppointmentBookingServiceImpl(
             CustomerFinderUtil customerFinderUtil,
             DoctorFinderUtil doctorFinderUtil,
-            MedicalAppointmentRepository medicalAppointmentRepository,
-            MedicalSlotRepository medicalSlotRepository,
-            MedicalSlotFinderUtil medicalSlotFinderUtil
+            MedicalAppointmentRepository medicalAppointmentRepository
     ) {
         this.customerFinderUtil = customerFinderUtil;
         this.doctorFinderUtil = doctorFinderUtil;
         this.medicalAppointmentRepository = medicalAppointmentRepository;
-        this.medicalSlotRepository = medicalSlotRepository;
-        this.medicalSlotFinderUtil = medicalSlotFinderUtil;
     }
 
     @Override
@@ -52,30 +44,19 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                 .flatMap(tuple -> {
                    Customer customer = tuple.getT1();
                    Doctor doctor = tuple.getT2();
-                   return medicalSlotFinderUtil
-                           .find(doctor.getId(), bookingDto.bookingDate().toString())
-                           .flatMap(medicalSlot -> {
-                               return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
-                                       .then(onInvalidBookingDateTime(bookingDto.bookingDate()))
-                                       .then(Mono.defer(() -> {
-                                           MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                                                   customer,
-                                                   doctor,
-                                                   bookingDto.bookingDate(),
-                                                   "Medical appointment covered by the customer.",
-                                                   medicalSlot
-                                           );
-                                           return medicalAppointmentRepository
-                                                   .save(medicalAppointment)
-                                                   .flatMap(savedMedicalAppointment -> {
-                                                       medicalSlot.setMedicalAppointment(savedMedicalAppointment);
-                                                       return medicalSlotRepository.save(medicalSlot);
-                                                   });
-                                       })).flatMap(slot -> {
-                                           return MedicalAppointmentResponseMapper.mapToMono(slot.getMedicalAppointment());
-                                       });
-                           });
-                });
+                   return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
+                           .then(onInadequateBookingDateTime(bookingDto.bookingDate()))
+                           .then(Mono.defer(() -> {
+                               MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                       customer,
+                                       doctor,
+                                       bookingDto.bookingDate(),
+                                       "Medical appointment covered by the customer."
+                               );
+                              return medicalAppointmentRepository.save(medicalAppointment);
+                           }));
+                })
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     @Override
@@ -87,30 +68,19 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                 .flatMap(tuple -> {
                     Customer customer = tuple.getT1();
                     Doctor doctor = tuple.getT2();
-                    return medicalSlotFinderUtil
-                            .find(doctor.getId(), bookingDto.bookingDate().toString())
-                            .flatMap(medicalSlot -> {
-                                return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
-                                        .then(onInvalidBookingDateTime(bookingDto.bookingDate()))
-                                        .then(Mono.defer(() -> {
-                                            MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                                                    customer,
-                                                    doctor,
-                                                    bookingDto.bookingDate(),
-                                                    "Medical appointment covered by the Affordable Care Act (ACA).",
-                                                    medicalSlot
-                                            );
-                                            return medicalAppointmentRepository
-                                                    .save(medicalAppointment)
-                                                    .flatMap(savedMedicalAppointment -> {
-                                                        medicalSlot.setMedicalAppointment(savedMedicalAppointment);
-                                                        return medicalSlotRepository.save(medicalSlot);
-                                                    });
-                                        })).flatMap(slot -> {
-                                            return MedicalAppointmentResponseMapper.mapToMono(slot.getMedicalAppointment());
-                                        });
-                            });
-                });
+                    return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
+                            .then(onInadequateBookingDateTime(bookingDto.bookingDate()))
+                            .then(Mono.defer(() -> {
+                                MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                        customer,
+                                        doctor,
+                                        bookingDto.bookingDate(),
+                                        "Medical appointment covered by the Affordable Care Act (ACA)."
+                                );
+                                return medicalAppointmentRepository.save(medicalAppointment);
+                            }));
+                })
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     @Override
@@ -122,30 +92,19 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                 .flatMap(tuple -> {
                     Customer customer = tuple.getT1();
                     Doctor doctor = tuple.getT2();
-                    return medicalSlotFinderUtil
-                            .find(doctor.getId(), bookingDto.bookingDate().toString())
-                            .flatMap(medicalSlot -> {
-                                return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
-                                        .then(onInvalidBookingDateTime(bookingDto.bookingDate()))
-                                        .then(Mono.defer(() -> {
-                                            MedicalAppointment medicalAppointment = MedicalAppointment.create(
-                                                    customer,
-                                                    doctor,
-                                                    bookingDto.bookingDate(),
-                                                    "Medical appointment covered by the private healthcare.",
-                                                    medicalSlot
-                                            );
-                                            return medicalAppointmentRepository
-                                                    .save(medicalAppointment)
-                                                    .flatMap(savedMedicalAppointment -> {
-                                                        medicalSlot.setMedicalAppointment(savedMedicalAppointment);
-                                                        return medicalSlotRepository.save(medicalSlot);
-                                                    });
-                                        })).flatMap(slot -> {
-                                            return MedicalAppointmentResponseMapper.mapToMono(slot.getMedicalAppointment());
-                                        });
-                            });
-                });
+                    return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
+                            .then(onInadequateBookingDateTime(bookingDto.bookingDate()))
+                            .then(Mono.defer(() -> {
+                                MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                        customer,
+                                        doctor,
+                                        bookingDto.bookingDate(),
+                                        "Medical appointment covered by the private health care."
+                                );
+                                return medicalAppointmentRepository.save(medicalAppointment);
+                            }));
+                })
+                .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     private Mono<Object> onDuplicatedBookingDate(Customer customer, Doctor doctor, String bookedAt) {
@@ -166,7 +125,7 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                 });
     }
 
-    private Mono<Object> onInvalidBookingDateTime(LocalDateTime bookedAt) {
+    private Mono<Object> onInadequateBookingDateTime(LocalDateTime bookedAt) {
         var day = LocalDateTime.now().getDayOfMonth();
         var month = LocalDateTime.now().getMonthValue();
         var year = LocalDateTime.now().getYear();
