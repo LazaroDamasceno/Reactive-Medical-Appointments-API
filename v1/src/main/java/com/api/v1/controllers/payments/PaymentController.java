@@ -6,6 +6,7 @@ import com.api.v1.dtos.payment.PaymentResponseDto;
 import com.api.v1.services.payments.MedicalAppointmentPaymentService;
 import com.api.v1.services.payments.PaymentRetrievalService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -15,16 +16,11 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/payments")
 public class PaymentController {
 
-    private final MedicalAppointmentPaymentService paymentPaymentService;
-    private final PaymentRetrievalService retrievalService;
+    @Autowired
+    private MedicalAppointmentPaymentService paymentPaymentService;
 
-    public PaymentController(
-            MedicalAppointmentPaymentService paymentPaymentService,
-            PaymentRetrievalService retrievalService
-    ) {
-        this.paymentPaymentService = paymentPaymentService;
-        this.retrievalService = retrievalService;
-    }
+    @Autowired
+    private PaymentRetrievalService retrievalService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)

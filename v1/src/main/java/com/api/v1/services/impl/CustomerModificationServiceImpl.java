@@ -7,25 +7,21 @@ import com.api.v1.annotations.SSN;
 import com.api.v1.dtos.people.PersonModificationDto;
 import com.api.v1.services.people.PersonModificationService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class CustomerModificationServiceImpl implements CustomerModificationService {
 
-    private final CustomerFinderUtil customerFinderUtil;
-    private final PersonModificationService personModificationService;
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private CustomerFinderUtil customerFinderUtil;
 
-    public CustomerModificationServiceImpl(
-            CustomerFinderUtil customerFinderUtil,
-            PersonModificationService personModificationService,
-            CustomerRepository customerRepository
-    ) {
-        this.customerFinderUtil = customerFinderUtil;
-        this.personModificationService = personModificationService;
-        this.customerRepository = customerRepository;
-    }
+    @Autowired
+    private PersonModificationService personModificationService;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public Mono<Void> modify(@SSN String ssn, @Valid PersonModificationDto modificationDto) {

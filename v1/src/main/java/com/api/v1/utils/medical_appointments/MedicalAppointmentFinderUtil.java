@@ -5,17 +5,15 @@ import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.exceptions.medical_appointments.NonExistentMedicalAppointmentException;
 import com.api.v1.annotations.MongoDbId;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 public class MedicalAppointmentFinderUtil {
 
-    private final MedicalAppointmentRepository medicalAppointmentRepository;
-
-    public MedicalAppointmentFinderUtil(MedicalAppointmentRepository medicalAppointmentRepository) {
-        this.medicalAppointmentRepository = medicalAppointmentRepository;
-    }
+    @Autowired
+    private MedicalAppointmentRepository medicalAppointmentRepository;
 
     public Mono<MedicalAppointment> find(@MongoDbId String id) {
         return medicalAppointmentRepository

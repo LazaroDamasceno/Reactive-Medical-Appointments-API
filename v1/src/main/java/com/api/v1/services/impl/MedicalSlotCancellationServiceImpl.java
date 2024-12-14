@@ -6,6 +6,7 @@ import com.api.v1.exceptions.medical_slots.ImmutableMedicalSlotException;
 import com.api.v1.services.medical_slots.MedicalSlotCancellationService;
 import com.api.v1.utils.medical_slots.MedicalSlotFinderUtil;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -14,16 +15,11 @@ import java.util.concurrent.atomic.AtomicReference;
 @Service
 public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellationService {
 
-    private final MedicalSlotFinderUtil medicalSlotFinderUtil;
-    private final MedicalSlotRepository medicalSlotRepository;
+    @Autowired
+    private MedicalSlotFinderUtil medicalSlotFinderUtil;
 
-    public MedicalSlotCancellationServiceImpl(
-            MedicalSlotFinderUtil medicalSlotFinderUtil,
-            MedicalSlotRepository medicalSlotRepository
-    ) {
-        this.medicalSlotFinderUtil = medicalSlotFinderUtil;
-        this.medicalSlotRepository = medicalSlotRepository;
-    }
+    @Autowired
+    private MedicalSlotRepository medicalSlotRepository;
 
     @Override
     public Mono<Void> cancel(@MongoDbId String id) {

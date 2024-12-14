@@ -7,17 +7,15 @@ import com.api.v1.dtos.cards.CardRegistrationDto;
 import com.api.v1.dtos.cards.CardResponseDto;
 import com.api.v1.utils.cards.CardResponseMapper;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
 public class CardRegistrationServiceImpl implements CardRegistrationService {
 
-    private final CardRepository cardRepository;
-
-    public CardRegistrationServiceImpl(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
+    @Autowired
+    private CardRepository cardRepository;
 
     @Override
     public Mono<CardResponseDto> registerCreditCard(@Valid CardRegistrationDto registrationDto) {

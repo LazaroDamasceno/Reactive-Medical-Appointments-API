@@ -8,6 +8,7 @@ import com.api.v1.dtos.people.PersonModificationDto;
 import com.api.v1.dtos.people.PersonRegistrationDto;
 import com.api.v1.services.customers.CustomerRetrievalService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -17,19 +18,14 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
 
-    private final CustomerRegistrationService registrationService;
-    private final CustomerModificationService modificationService;
-    private final CustomerRetrievalService retrievalService;
+    @Autowired
+    private CustomerRegistrationService registrationService;
 
-    public CustomerController(
-            CustomerRegistrationService registrationService,
-            CustomerModificationService modificationService,
-            CustomerRetrievalService retrievalService
-    ) {
-        this.registrationService = registrationService;
-        this.modificationService = modificationService;
-        this.retrievalService = retrievalService;
-    }
+    @Autowired
+    private CustomerModificationService modificationService;
+
+    @Autowired
+    private CustomerRetrievalService retrievalService;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
