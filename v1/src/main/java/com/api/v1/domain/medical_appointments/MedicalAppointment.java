@@ -13,7 +13,6 @@ public class MedicalAppointment {
 
     @BsonId
     private ObjectId id;
-    private ObjectId orderNumber;
     private String type;
     private Customer customer;
     private Doctor doctor;
@@ -29,7 +28,6 @@ public class MedicalAppointment {
     private MedicalAppointment(Customer customer, Doctor doctor, LocalDateTime bookedAt, String type) {
         this.id = new ObjectId();
         this.type = type;
-        this.orderNumber = new ObjectId();
         this.createdAt = LocalDateTime.now().toString();
         this.createdAtZone = ZoneId.systemDefault();
         this.bookedAt = bookedAt.toString();
@@ -57,10 +55,6 @@ public class MedicalAppointment {
 
     public ObjectId getId() {
         return id;
-    }
-
-    public ObjectId getOrderNumber() {
-        return orderNumber;
     }
 
     public String getType() {

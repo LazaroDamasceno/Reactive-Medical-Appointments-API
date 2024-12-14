@@ -19,7 +19,7 @@ public class MedicalAppointmentFinderUtil {
 
     public Mono<MedicalAppointment> find(@OrderNumber String orderNumber) {
         return medicalAppointmentRepository
-                .findByOrderNumber(new ObjectId(orderNumber))
+                .findById(new ObjectId(orderNumber))
                 .switchIfEmpty(Mono.error(NonExistentMedicalAppointmentException::new))
                 .single();
     }

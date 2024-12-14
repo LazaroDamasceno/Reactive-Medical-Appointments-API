@@ -1,7 +1,7 @@
 package com.api.v1.services.impl;
 
 import com.api.v1.domain.customers.Customer;
-import com.api.v1.exceptions.medical_appointments.UnavailableSlotException;
+import com.api.v1.exceptions.medical_slots.UnavailableMedicalSlotException;
 import com.api.v1.utils.customers.CustomerFinderUtil;
 import com.api.v1.domain.doctors.Doctor;
 import com.api.v1.utils.doctors.DoctorFinderUtil;
@@ -36,6 +36,9 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
     public Mono<MedicalAppointmentResponseDto> bookPaidMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
+        String message = """
+                Medical slot whose doctor's license number is %s and booked datetime is %s is already occupied.
+        """.formatted(bookingDto.medicalLicenseNumber(), bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
                 .flatMap(tuple -> {
@@ -49,10 +52,7 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                             )
                             .hasElements()
                             .flatMap(exists -> {
-                               if (exists) return Mono.error(new UnavailableSlotException(
-                                       bookingDto.bookingDate(),
-                                       bookingDto.medicalLicenseNumber())
-                               );
+                               if (exists) return Mono.error(new UnavailableMedicalSlotException(message));
                                return Mono.defer(() -> {
                                    Customer customer = tuple.getT1();
                                    Doctor doctor = tuple.getT2();
@@ -73,6 +73,9 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
     public Mono<MedicalAppointmentResponseDto> bookAffordableMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
+        String message = """
+                Medical slot whose doctor's license number is %s and booked datetime is %s is already occupied.
+        """.formatted(bookingDto.medicalLicenseNumber(), bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
                 .flatMap(tuple -> {
@@ -86,10 +89,7 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                             )
                             .hasElements()
                             .flatMap(exists -> {
-                                if (exists) return Mono.error(new UnavailableSlotException(
-                                        bookingDto.bookingDate(),
-                                        bookingDto.medicalLicenseNumber())
-                                );
+                                if (exists) return Mono.error(new UnavailableMedicalSlotException(message));
                                 return Mono.defer(() -> {
                                     Customer customer = tuple.getT1();
                                     Doctor doctor = tuple.getT2();
@@ -110,6 +110,9 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
     public Mono<MedicalAppointmentResponseDto> bookPrivateHeathCareMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
+        String message = """
+                Medical slot whose doctor's license number is %s and booked datetime is %s is already occupied.
+        """.formatted(bookingDto.medicalLicenseNumber(), bookingDto.medicalLicenseNumber());
         return customerMono
                 .zipWith(doctorMono)
                 .flatMap(tuple -> {
@@ -123,10 +126,7 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
                             )
                             .hasElements()
                             .flatMap(exists -> {
-                                if (exists) return Mono.error(new UnavailableSlotException(
-                                        bookingDto.bookingDate(),
-                                        bookingDto.medicalLicenseNumber())
-                                );
+                                if (exists) return Mono.error(new UnavailableMedicalSlotException(message));
                                 return Mono.defer(() -> {
                                     Customer customer = tuple.getT1();
                                     Doctor doctor = tuple.getT2();

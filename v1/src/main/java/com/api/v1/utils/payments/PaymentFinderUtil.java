@@ -20,7 +20,7 @@ public class PaymentFinderUtil {
     public Mono<Payment> find(@OrderNumber String paymentNumber) {
         return paymentRepository
                 .findAll()
-                .filter(p -> p.number().equals(new ObjectId(paymentNumber)))
+                .filter(p -> p.id().equals(new ObjectId(paymentNumber)))
                 .singleOrEmpty()
                 .switchIfEmpty(Mono.error(NonExistentPaymentException::new));
     }

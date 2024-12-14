@@ -14,7 +14,6 @@ import java.time.ZoneId;
 public record Payment(
         @BsonId
         ObjectId id,
-        ObjectId number,
         Card card,
         MedicalAppointment medicalAppointment,
         BigDecimal price,
@@ -24,7 +23,6 @@ public record Payment(
 
     public static Payment create(Card card, MedicalAppointment medicalAppointment, double price) {
         return new Payment(
-                new ObjectId(),
                 new ObjectId(),
                 card,
                 medicalAppointment,
