@@ -6,7 +6,7 @@ import com.api.v1.dtos.cards.CardResponseDto;
 import com.api.v1.services.cards.CardDeletionService;
 import com.api.v1.services.cards.CardRegistrationService;
 import com.api.v1.services.cards.CardRetrievalService;
-import com.api.v1.annotations.OrderNumber;
+import com.api.v1.annotations.MongoObjectId;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +51,7 @@ public class CardController {
 
     @GetMapping("{cardNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<Card> findByNumber(@OrderNumber @ PathVariable String cardNumber) {
+    public Mono<Card> findByNumber(@MongoObjectId @ PathVariable String cardNumber) {
         return retrievalService.findByNumber(cardNumber);
     }
 

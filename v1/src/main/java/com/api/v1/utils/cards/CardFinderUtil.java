@@ -3,7 +3,7 @@ package com.api.v1.utils.cards;
 import com.api.v1.domain.cards.Card;
 import com.api.v1.domain.cards.CardRepository;
 import com.api.v1.exceptions.cards.NonExistentCardException;
-import com.api.v1.annotations.OrderNumber;
+import com.api.v1.annotations.MongoObjectId;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -17,7 +17,7 @@ public class CardFinderUtil {
         this.cardRepository = cardRepository;
     }
 
-    public Mono<Card> findByNumber(@OrderNumber String number) {
+    public Mono<Card> findByNumber(@MongoObjectId String number) {
         return cardRepository
                 .findByNumber(new ObjectId(number))
                 .singleOptional()

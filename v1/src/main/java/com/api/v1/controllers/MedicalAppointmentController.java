@@ -1,7 +1,7 @@
 package com.api.v1.controllers;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
-import com.api.v1.annotations.OrderNumber;
+import com.api.v1.annotations.MongoObjectId;
 import com.api.v1.annotations.SSN;
 import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentBookingDto;
@@ -67,19 +67,19 @@ public class MedicalAppointmentController {
 
     @PatchMapping("{orderNumber}/cancellation")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> cancel(@OrderNumber @PathVariable String orderNumber) {
+    public Mono<Void> cancel(@MongoObjectId @PathVariable String orderNumber) {
         return cancellationService.cancel(orderNumber);
     }
 
     @PatchMapping("{orderNumber}/completion")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> complete(@OrderNumber @PathVariable String orderNumber) {
+    public Mono<Void> complete(@MongoObjectId @PathVariable String orderNumber) {
         return completionService.complete(orderNumber);
     }
 
     @GetMapping("{orderNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@PathVariable @OrderNumber String orderNumber) {
+    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@PathVariable @MongoObjectId String orderNumber) {
         return retrievalService.findByOrderNumber(orderNumber);
     }
 
