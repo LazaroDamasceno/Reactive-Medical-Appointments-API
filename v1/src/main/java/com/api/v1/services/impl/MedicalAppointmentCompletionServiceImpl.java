@@ -1,7 +1,7 @@
 package com.api.v1.services.impl;
 
 import com.api.v1.services.medical_appointments.MedicalAppointmentCompletionService;
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.exceptions.medical_appointments.ImmutableMedicalAppointmentException;
 import com.api.v1.utils.medical_appointments.MedicalAppointmentFinderUtil;
@@ -23,7 +23,7 @@ public class MedicalAppointmentCompletionServiceImpl implements MedicalAppointme
     }
 
     @Override
-    public Mono<Void> complete(@MongoObjectId String orderNumber) {
+    public Mono<Void> complete(@MongoDbId String orderNumber) {
         return medicalAppointmentFinderUtil
                 .find(orderNumber)
                 .flatMap(medicalAppointment -> {

@@ -1,6 +1,6 @@
-package com.api.v1.controllers;
+package com.api.v1.controllers.payments;
 
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.dtos.medical_appointments.MedicalAppointmentPaymentDto;
 import com.api.v1.dtos.payment.PaymentResponseDto;
 import com.api.v1.services.payments.MedicalAppointmentPaymentService;
@@ -34,13 +34,13 @@ public class PaymentController {
 
     @GetMapping("by-payment-number/{paymentNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<PaymentResponseDto> findByPaymentNumber(@MongoObjectId @PathVariable String paymentNumber) {
+    public Mono<PaymentResponseDto> findByPaymentNumber(@MongoDbId @PathVariable String paymentNumber) {
         return retrievalService.findByPaymentNumber(paymentNumber);
     }
 
     @GetMapping("by-card-number/{cardNumber}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flux<PaymentResponseDto> findAllByCardNumber(@MongoObjectId @PathVariable String cardNumber) {
+    public Flux<PaymentResponseDto> findAllByCardNumber(@MongoDbId @PathVariable String cardNumber) {
         return retrievalService.findAllByCardNumber(cardNumber);
     }
 

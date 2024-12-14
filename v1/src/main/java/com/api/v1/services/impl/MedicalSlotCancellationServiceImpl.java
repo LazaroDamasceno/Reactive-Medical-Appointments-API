@@ -1,6 +1,6 @@
 package com.api.v1.services.impl;
 
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.ImmutableMedicalSlotException;
 import com.api.v1.services.medical_slots.MedicalSlotCancellationService;
@@ -26,7 +26,7 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
     }
 
     @Override
-    public Mono<Void> cancel(@MongoObjectId String id) {
+    public Mono<Void> cancel(@MongoDbId String id) {
         return medicalSlotFinderUtil
                 .find(new ObjectId(id))
                 .flatMap(slot -> {

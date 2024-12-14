@@ -1,7 +1,7 @@
 package com.api.v1.services.impl;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.annotations.SSN;
 import com.api.v1.domain.customers.Customer;
 import com.api.v1.domain.doctors.Doctor;
@@ -37,7 +37,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@MongoObjectId String orderNumber) {
+    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@MongoDbId String orderNumber) {
         return medicalAppointmentFinderUtil
                 .find(orderNumber)
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);

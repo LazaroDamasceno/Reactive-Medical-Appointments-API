@@ -1,6 +1,6 @@
 package com.api.v1.services.impl;
 
-import com.api.v1.annotations.MongoObjectId;
+import com.api.v1.annotations.MongoDbId;
 import com.api.v1.domain.payments.PaymentRepository;
 import com.api.v1.dtos.payment.PaymentResponseDto;
 import com.api.v1.services.payments.PaymentRetrievalService;
@@ -29,14 +29,14 @@ public class PaymentRetrievalServiceImpl implements PaymentRetrievalService {
     }
 
     @Override
-    public Mono<PaymentResponseDto> findByPaymentNumber(@MongoObjectId String paymentNumber) {
+    public Mono<PaymentResponseDto> findByPaymentNumber(@MongoDbId String paymentNumber) {
         return paymentFinderUtil
                 .find(paymentNumber)
                 .flatMap(PaymentResponseMapper::mapToMono);
     }
 
     @Override
-    public Flux<PaymentResponseDto> findAllByCardNumber(@MongoObjectId String cardNumber) {
+    public Flux<PaymentResponseDto> findAllByCardNumber(@MongoDbId String cardNumber) {
         return cardFinderUtil
                 .findByNumber(cardNumber)
                 .flatMapMany(foundCard -> paymentRepository
