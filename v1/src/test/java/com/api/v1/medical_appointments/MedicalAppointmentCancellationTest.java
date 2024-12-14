@@ -15,14 +15,14 @@ public class MedicalAppointmentCancellationTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    String orderNumber = "";
+    String id = "";
 
     @Test
     @Order(1)
     void testSuccessful() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-appointments/%s/cancellation".formatted(orderNumber))
+                .uri("api/v1/medical-appointments/%s/cancellation".formatted(id))
                 .exchange()
                 .expectStatus().is2xxSuccessful();
     }
@@ -32,7 +32,7 @@ public class MedicalAppointmentCancellationTest {
     void testUnSuccessfulForImmutableMedicalAppointment() {
         webTestClient
                 .patch()
-                .uri("api/v1/medical-appointments/%s/cancellation".formatted(orderNumber))
+                .uri("api/v1/medical-appointments/%s/cancellation".formatted(id))
                 .exchange()
                 .expectStatus().is5xxServerError();
     }

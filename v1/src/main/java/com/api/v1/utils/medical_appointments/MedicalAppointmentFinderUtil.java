@@ -17,9 +17,9 @@ public class MedicalAppointmentFinderUtil {
         this.medicalAppointmentRepository = medicalAppointmentRepository;
     }
 
-    public Mono<MedicalAppointment> find(@MongoDbId String orderNumber) {
+    public Mono<MedicalAppointment> find(@MongoDbId String id) {
         return medicalAppointmentRepository
-                .findById(new ObjectId(orderNumber))
+                .findById(new ObjectId(id))
                 .switchIfEmpty(Mono.error(NonExistentMedicalAppointmentException::new))
                 .single();
     }

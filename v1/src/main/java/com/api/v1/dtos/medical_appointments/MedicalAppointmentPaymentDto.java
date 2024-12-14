@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Min;
 
 public record MedicalAppointmentPaymentDto(
         @MongoDbId String cardNumber,
-        @MongoDbId String appointmentOrderNumber,
+        @MongoDbId String appointmentid,
         @Min(0) double price
 ) {
 }

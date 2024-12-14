@@ -65,22 +65,22 @@ public class MedicalAppointmentController {
         return bookingService.bookPrivateHeathCareMedicalAppointment(bookingDto);
     }
 
-    @PatchMapping("{orderNumber}/cancellation")
+    @PatchMapping("{id}/cancellation")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> cancel(@MongoDbId @PathVariable String orderNumber) {
-        return cancellationService.cancel(orderNumber);
+    public Mono<Void> cancel(@MongoDbId @PathVariable String id) {
+        return cancellationService.cancel(id);
     }
 
-    @PatchMapping("{orderNumber}/completion")
+    @PatchMapping("{id}/completion")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> complete(@MongoDbId @PathVariable String orderNumber) {
-        return completionService.complete(orderNumber);
+    public Mono<Void> complete(@MongoDbId @PathVariable String id) {
+        return completionService.complete(id);
     }
 
-    @GetMapping("{orderNumber}")
+    @GetMapping("{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@PathVariable @MongoDbId String orderNumber) {
-        return retrievalService.findByOrderNumber(orderNumber);
+    public Mono<MedicalAppointmentResponseDto> findByid(@PathVariable @MongoDbId String id) {
+        return retrievalService.findByid(id);
     }
 
     @GetMapping

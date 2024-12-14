@@ -37,9 +37,9 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Mono<MedicalAppointmentResponseDto> findByOrderNumber(@MongoDbId String orderNumber) {
+    public Mono<MedicalAppointmentResponseDto> findByid(@MongoDbId String id) {
         return medicalAppointmentFinderUtil
-                .find(orderNumber)
+                .find(id)
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 

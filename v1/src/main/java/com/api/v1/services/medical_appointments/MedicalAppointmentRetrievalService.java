@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface MedicalAppointmentRetrievalService {
-    Mono<MedicalAppointmentResponseDto> findByOrderNumber(String orderNumber);
+    Mono<MedicalAppointmentResponseDto> findByid(String id);
     Flux<MedicalAppointmentResponseDto> findAll();
     Flux<MedicalAppointmentResponseDto> findAllByCustomer(String ssn);
     Flux<MedicalAppointmentResponseDto> findAllByDoctor(String medicalLicenseNumber);

@@ -33,7 +33,7 @@ public class MedicalAppointmentPaymentServiceImpl implements MedicalAppointmentP
     @Override
     public Mono<PaymentResponseDto> payMedicalAppointment(@Valid MedicalAppointmentPaymentDto paymentDto) {
         var cardMono = cardFinderUtil.findByNumber(paymentDto.cardNumber());
-        var appointmentMono = medicalAppointmentFinderUtil.find(paymentDto.appointmentOrderNumber());
+        var appointmentMono = medicalAppointmentFinderUtil.find(paymentDto.appointmentid());
         return cardMono
                 .zipWith(appointmentMono)
                 .flatMap(tuple -> {

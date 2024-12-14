@@ -23,9 +23,9 @@ public class MedicalAppointmentCompletionServiceImpl implements MedicalAppointme
     }
 
     @Override
-    public Mono<Void> complete(@MongoDbId String orderNumber) {
+    public Mono<Void> complete(@MongoDbId String id) {
         return medicalAppointmentFinderUtil
-                .find(orderNumber)
+                .find(id)
                 .flatMap(medicalAppointment -> {
                     if (medicalAppointment.getCanceledAt() != null && medicalAppointment.getCompletedAt() == null) {
                         String message = "The sought medical appointment is already canceled.";
