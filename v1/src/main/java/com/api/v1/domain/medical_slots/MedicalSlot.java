@@ -39,12 +39,12 @@ public class MedicalSlot {
         return new MedicalSlot(availableAt, doctor);
     }
 
-    public void cancel() {
+    public void markAsCanceled() {
         canceledAt = LocalDateTime.now().toString();
         canceledAtZone = ZoneId.systemDefault();
     }
 
-    public void complete() {
+    public void markAsCompleted() {
         completedAt = LocalDateTime.now().toString();
         completedAtZone = ZoneId.systemDefault();
     }

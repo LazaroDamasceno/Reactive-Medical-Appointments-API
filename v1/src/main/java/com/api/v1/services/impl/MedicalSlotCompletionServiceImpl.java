@@ -32,7 +32,7 @@ public class MedicalSlotCompletionServiceImpl implements MedicalSlotCompletionSe
                     return onCanceledMedicalSlot(medicalSlot)
                             .then(onCompletedMedicalSlot(medicalSlot))
                             .then(Mono.defer(() -> {
-                                medicalSlot.complete();
+                                medicalSlot.markAsCompleted();
                                 return medicalSlotRepository.save(medicalSlot);
                             }));
                 })

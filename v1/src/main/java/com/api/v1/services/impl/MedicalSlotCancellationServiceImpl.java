@@ -1,6 +1,8 @@
 package com.api.v1.services.impl;
 
 import com.api.v1.annotations.MongoDbId;
+import com.api.v1.domain.medical_appointments.MedicalAppointment;
+import com.api.v1.domain.medical_appointments.MedicalAppointmentRepository;
 import com.api.v1.domain.medical_slots.MedicalSlot;
 import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.ImmutableMedicalSlotException;
@@ -15,13 +17,16 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
 
     private final MedicalSlotFinderUtil medicalSlotFinderUtil;
     private final MedicalSlotRepository medicalSlotRepository;
+    private final MedicalAppointmentRepository medicalAppointmentRepository;
 
     public MedicalSlotCancellationServiceImpl(
             MedicalSlotFinderUtil medicalSlotFinderUtil,
-            MedicalSlotRepository medicalSlotRepository
+            MedicalSlotRepository medicalSlotRepository,
+            MedicalAppointmentRepository medicalAppointmentRepository
     ) {
         this.medicalSlotFinderUtil = medicalSlotFinderUtil;
         this.medicalSlotRepository = medicalSlotRepository;
+        this.medicalAppointmentRepository = medicalAppointmentRepository;
     }
 
     @Override
@@ -32,8 +37,14 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
                     return onCanceledMedicalSlot(medicalSlot)
                             .then(onCompletedMedicalSlot(medicalSlot))
                             .then(Mono.defer(() -> {
-                                medicalSlot.cancel();
-                                return medicalSlotRepository.save(medicalSlot);
+                                medicalSlot.markAsCanceled();
+                                MedicalAppointment medicalAppointment = medicalSlot.getMedicalAppointment();
+                                medicalAppointment.markAsCanceled();
+                                return medicalAppointmentRepository
+                                        .save(medicalAppointment)
+                                        .then(Mono.defer(() -> {
+                                            return medicalSlotRepository.save(medicalSlot);
+                                        }));
                             }));
                 })
                 .then();
