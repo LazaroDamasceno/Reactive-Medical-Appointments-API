@@ -39,6 +39,21 @@ public class MedicalSlotCompletionServiceImpl implements MedicalSlotCompletionSe
                 .then();
     }
 
+    @Override
+    public Mono<Void> complete(ObjectId id) {
+        return medicalSlotFinderUtil
+                .find(id)
+                .flatMap(medicalSlot -> {
+                    return onCanceledMedicalSlot(medicalSlot)
+                            .then(onCompletedMedicalSlot(medicalSlot))
+                            .then(Mono.defer(() -> {
+                                medicalSlot.markAsCompleted();
+                                return medicalSlotRepository.save(medicalSlot);
+                            }));
+                })
+                .then();
+    }
+
     private Mono<Object> onCanceledMedicalSlot(MedicalSlot medicalSlot) {
         String message = "Medical slot is already canceled.";
         if (medicalSlot.getCanceledAt() != null && medicalSlot.getCompletedAt() == null) {

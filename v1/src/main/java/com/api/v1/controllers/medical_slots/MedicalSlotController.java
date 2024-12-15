@@ -13,11 +13,10 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/medical-slots")
-public class MedicalSlotController implements MedicalSlotCompletionService {
+public class MedicalSlotController {
 
     private final MedicalSlotRegistrationService registrationService;
     private final MedicalSlotCancellationService cancellationService;
-    private final MedicalSlotCompletionService completionService;
 
     public MedicalSlotController(
             MedicalSlotRegistrationService registrationService,
@@ -26,7 +25,6 @@ public class MedicalSlotController implements MedicalSlotCompletionService {
     ) {
         this.registrationService = registrationService;
         this.cancellationService = cancellationService;
-        this.completionService = completionService;
     }
 
     @PostMapping
@@ -39,11 +37,5 @@ public class MedicalSlotController implements MedicalSlotCompletionService {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> cancel(@MongoDbId @PathVariable String id) {
         return cancellationService.cancel(id);
-    }
-
-    @PatchMapping("{id}/completion")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public Mono<Void> complete(@MongoDbId @PathVariable String id) {
-        return completionService.complete(id);
     }
 }
