@@ -81,15 +81,68 @@ public class MedicalAppointmentBookingServiceImpl implements MedicalAppointmentB
     public Mono<MedicalAppointmentResponseDto> bookAffordableMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
-        return null;
+        return customerMono
+        .zipWith(doctorMono)
+        .flatMap(tuple -> {
+           Customer customer = tuple.getT1();
+           Doctor doctor = tuple.getT2();
+           return medicalSlotFinderUtil
+                   .find(doctor.getId(), bookingDto.bookingDate().toString())
+                   .flatMap(medicalSlot -> {
+                       return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
+                               .then()
+                               .then(onInvalidBookingDateTime(bookingDto.bookingDate()))
+                               .then(Mono.defer(() -> {
+                                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                            customer,
+                                            doctor,
+                                            bookingDto.bookingDate(),
+                                            "Medical appointment covered by the Affordable Care Act (ACA)."
+                                    );
+                                    medicalSlot.setMedicalAppointment(medicalAppointment);
+                                    return medicalSlotRepository
+                                            .save(medicalSlot)
+                                            .then(Mono.defer(() -> {
+                                                return medicalAppointmentRepository.save(medicalAppointment);
+                                            }));
+                               }));
+                   });
+        })
+        .flatMap(MedicalAppointmentResponseMapper::mapToMono);
     }
 
     @Override
     public Mono<MedicalAppointmentResponseDto> bookPrivateHeathCareMedicalAppointment(@Valid MedicalAppointmentBookingDto bookingDto) {
         Mono<Customer> customerMono = customerFinderUtil.find(bookingDto.ssn());
         Mono<Doctor> doctorMono = doctorFinderUtil.find(bookingDto.medicalLicenseNumber());
-        return null;
-    }
+        return customerMono
+        .zipWith(doctorMono)
+        .flatMap(tuple -> {
+           Customer customer = tuple.getT1();
+           Doctor doctor = tuple.getT2();
+           return medicalSlotFinderUtil
+                   .find(doctor.getId(), bookingDto.bookingDate().toString())
+                   .flatMap(medicalSlot -> {
+                       return onDuplicatedBookingDate(customer, doctor, bookingDto.bookingDate().toString())
+                               .then()
+                               .then(onInvalidBookingDateTime(bookingDto.bookingDate()))
+                               .then(Mono.defer(() -> {
+                                    MedicalAppointment medicalAppointment = MedicalAppointment.create(
+                                            customer,
+                                            doctor,
+                                            bookingDto.bookingDate(),
+                                            "Medical appointment covered by the private healthcare."
+                                    );
+                                    medicalSlot.setMedicalAppointment(medicalAppointment);
+                                    return medicalSlotRepository
+                                            .save(medicalSlot)
+                                            .then(Mono.defer(() -> {
+                                                return medicalAppointmentRepository.save(medicalAppointment);
+                                            }));
+                               }));
+                   });
+        })
+        .flatMap(MedicalAppointmentResponseMapper::mapToMono);    }
 
     private Mono<Object> onDuplicatedBookingDate(Customer customer, Doctor doctor, String bookedAt) {
         return medicalAppointmentRepository
