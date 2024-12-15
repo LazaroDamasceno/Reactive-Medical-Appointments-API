@@ -48,6 +48,7 @@ public class MedicalSlotRegistrationServiceImpl implements MedicalSlotRegistrati
                         medicalSlot.getAvailableAt().equals(availableAt)
                         && medicalSlot.getDoctor().getId().equals(doctorId)
                         && medicalSlot.getCanceledAt() == null
+                        && medicalSlot.getCompletedAt() == null
                 )
                 .hasElements()
                 .flatMap(exists -> {

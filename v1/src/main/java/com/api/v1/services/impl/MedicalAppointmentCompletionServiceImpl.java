@@ -48,7 +48,7 @@ public class MedicalAppointmentCompletionServiceImpl implements MedicalAppointme
                                             return medicalSlotFinderUtil
                                                     .find(doctorId, medicalAppointment.getBookedAt())
                                                     .flatMap(medicalSlot -> {
-                                                        return medicalSlotCompletionService.complete(medicalAppointment.getId());
+                                                        return medicalSlotCompletionService.complete(medicalSlot, medicalAppointment);
                                                     });
                                         }));
                             }));

@@ -1,6 +1,7 @@
 package com.api.v1.services.impl;
 
 import com.api.v1.annotations.MongoDbId;
+import com.api.v1.domain.medical_appointments.MedicalAppointment;
 import com.api.v1.domain.medical_slots.MedicalSlot;
 import com.api.v1.domain.medical_slots.MedicalSlotRepository;
 import com.api.v1.exceptions.medical_slots.ImmutableMedicalSlotException;
@@ -40,18 +41,13 @@ public class MedicalSlotCompletionServiceImpl implements MedicalSlotCompletionSe
     }
 
     @Override
-    public Mono<Void> complete(ObjectId id) {
-        return medicalSlotFinderUtil
-                .find(id)
-                .flatMap(medicalSlot -> {
-                    return onCanceledMedicalSlot(medicalSlot)
-                            .then(onCompletedMedicalSlot(medicalSlot))
-                            .then(Mono.defer(() -> {
-                                medicalSlot.markAsCompleted();
-                                return medicalSlotRepository.save(medicalSlot);
-                            }));
-                })
-                .then();
+    public Mono<Void> complete(MedicalSlot medicalSlot, MedicalAppointment medicalAppointment) {
+        return Mono.defer(() -> {
+                medicalSlot.setMedicalAppointment(medicalAppointment);
+                medicalSlot.markAsCompleted();
+                return medicalSlotRepository.save(medicalSlot);
+            })
+            .then();
     }
 
     private Mono<Object> onCanceledMedicalSlot(MedicalSlot medicalSlot) {
