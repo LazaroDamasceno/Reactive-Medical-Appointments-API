@@ -37,7 +37,7 @@ public class MedicalSlotController {
         return registrationService.register(registrationDto);
     }
 
-    @PatchMapping("{id}/cancellation")
+    @PatchMapping("{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> cancel(@MongoDbId @PathVariable String id) {
         return cancellationService.cancel(id);
