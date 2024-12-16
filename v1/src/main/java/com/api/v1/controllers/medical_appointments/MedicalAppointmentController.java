@@ -80,7 +80,7 @@ public class MedicalAppointmentController {
     @GetMapping("{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Mono<MedicalAppointmentResponseDto> findByid(@PathVariable @MongoDbId String id) {
-        return retrievalService.findByid(id);
+        return retrievalService.findById(id);
     }
 
     @GetMapping
@@ -92,7 +92,7 @@ public class MedicalAppointmentController {
     @GetMapping("{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<MedicalAppointmentResponseDto> findAllByCustomer(@PathVariable @SSN String ssn) {
-        return retrievalService.findActiveCustomer(ssn);
+        return retrievalService.findAllByCustomer(ssn);
     }
 
     @GetMapping("{medicalLicenseNumber}")
@@ -115,7 +115,7 @@ public class MedicalAppointmentController {
     @GetMapping("active/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<MedicalAppointmentResponseDto> findActiveCustomer(@PathVariable @SSN String ssn) {
-        return retrievalService.findActiveCustomer(ssn);
+        return retrievalService.findActivatedByCustomer(ssn);
     }
 
     @GetMapping("active/{medicalLicenseNumber}")
@@ -123,7 +123,7 @@ public class MedicalAppointmentController {
     public Flux<MedicalAppointmentResponseDto> findActiveByDoctor(
             @PathVariable @MedicalLicenseNumber String medicalLicenseNumber
     ) {
-        return retrievalService.findActiveByDoctor(medicalLicenseNumber);
+        return retrievalService.findActivatedByDoctor(medicalLicenseNumber);
     }
 
     @GetMapping("active/{ssn}/{medicalLicenseNumber}")
@@ -132,13 +132,13 @@ public class MedicalAppointmentController {
             @PathVariable @SSN String ssn,
             @PathVariable @MedicalLicenseNumber String medicalLicenseNumber
     ) {
-        return retrievalService.findActiveByCustomerAndDoctor(ssn, medicalLicenseNumber);
+        return retrievalService.findActivatedByCustomerAndDoctor(ssn, medicalLicenseNumber);
     }
 
     @GetMapping("completed/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<MedicalAppointmentResponseDto> findCompletedCustomer(@PathVariable @SSN String ssn) {
-        return retrievalService.findCompletedCustomer(ssn);
+        return retrievalService.findCompletedByCustomer(ssn);
     }
 
     @GetMapping("completed/{medicalLicenseNumber}")
@@ -161,7 +161,7 @@ public class MedicalAppointmentController {
     @GetMapping("canceled/{ssn}")
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<MedicalAppointmentResponseDto> findCanceledCustomer(@PathVariable @SSN String ssn) {
-        return retrievalService.findCanceledCustomer(ssn);
+        return retrievalService.findCanceledByCustomer(ssn);
     }
 
     @GetMapping("canceled/{findCanceledByDoctor}")

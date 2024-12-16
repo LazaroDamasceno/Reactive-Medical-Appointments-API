@@ -5,17 +5,17 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface MedicalAppointmentRetrievalService {
-    Mono<MedicalAppointmentResponseDto> findByid(String id);
+    Mono<MedicalAppointmentResponseDto> findById(String id);
     Flux<MedicalAppointmentResponseDto> findAll();
     Flux<MedicalAppointmentResponseDto> findAllByCustomer(String ssn);
     Flux<MedicalAppointmentResponseDto> findAllByDoctor(String medicalLicenseNumber);
     Flux<MedicalAppointmentResponseDto> findAllByCustomerAndDoctor(String ssn, String medicalLicenseNumber);
-    Flux<MedicalAppointmentResponseDto> findActiveCustomer(String ssn);
-    Flux<MedicalAppointmentResponseDto> findActiveByDoctor(String medicalLicenseNumber);
-    Flux<MedicalAppointmentResponseDto> findActiveByCustomerAndDoctor(String ssn, String medicalLicenseNumber);
-    Flux<MedicalAppointmentResponseDto> findCompletedCustomer(String ssn);
+    Flux<MedicalAppointmentResponseDto> findActivatedByCustomer(String ssn);
+    Flux<MedicalAppointmentResponseDto> findActivatedByDoctor(String medicalLicenseNumber);
+    Flux<MedicalAppointmentResponseDto> findActivatedByCustomerAndDoctor(String ssn, String medicalLicenseNumber);
+    Flux<MedicalAppointmentResponseDto> findCompletedByCustomer(String ssn);
     Flux<MedicalAppointmentResponseDto> findCompletedByDoctor(String medicalLicenseNumber);
     Flux<MedicalAppointmentResponseDto> findCompletedByCustomerAndDoctor(String ssn, String medicalLicenseNumber);
-    Flux<MedicalAppointmentResponseDto> findCanceledCustomer(String ssn);
+    Flux<MedicalAppointmentResponseDto> findCanceledByCustomer(String ssn);
     Flux<MedicalAppointmentResponseDto> findCanceledByDoctor(String medicalLicenseNumber);
 }

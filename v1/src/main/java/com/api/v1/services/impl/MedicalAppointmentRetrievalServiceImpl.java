@@ -37,7 +37,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Mono<MedicalAppointmentResponseDto> findByid(@MongoDbId String id) {
+    public Mono<MedicalAppointmentResponseDto> findById(@MongoDbId String id) {
         return medicalAppointmentFinderUtil
                 .find(id)
                 .flatMap(MedicalAppointmentResponseMapper::mapToMono);
@@ -90,7 +90,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findActiveCustomer(@SSN String ssn) {
+    public Flux<MedicalAppointmentResponseDto> findActivatedByCustomer(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(foundCustomer -> medicalAppointmentRepository
@@ -104,7 +104,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findActiveByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
+    public Flux<MedicalAppointmentResponseDto> findActivatedByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
                 .find(medicalLicenseNumber)
                 .flatMapMany(foundDoctor -> medicalAppointmentRepository
@@ -118,7 +118,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findActiveByCustomerAndDoctor(
+    public Flux<MedicalAppointmentResponseDto> findActivatedByCustomerAndDoctor(
             @SSN String ssn,
             @MedicalLicenseNumber String medicalLicenseNumber
     ) {
@@ -137,7 +137,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findCompletedCustomer(@SSN String ssn) {
+    public Flux<MedicalAppointmentResponseDto> findCompletedByCustomer(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(foundCustomer -> medicalAppointmentRepository
@@ -184,7 +184,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     }
 
     @Override
-    public Flux<MedicalAppointmentResponseDto> findCanceledCustomer(@SSN String ssn) {
+    public Flux<MedicalAppointmentResponseDto> findCanceledByCustomer(@SSN String ssn) {
         return customerFinderUtil
                 .find(ssn)
                 .flatMapMany(foundCustomer -> medicalAppointmentRepository
