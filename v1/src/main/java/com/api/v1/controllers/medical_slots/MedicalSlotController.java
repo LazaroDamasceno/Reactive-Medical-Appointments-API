@@ -58,9 +58,9 @@ public class MedicalSlotController {
         return retrievalService.findAll(medicalLicenseNumber);
     }
 
-    @GetMapping("{medicalLicenseNumber}/active")
+    @GetMapping("{medicalLicenseNumber}/activated")
     public Flux<MedicalSlotResponseDto> findActive(@PathVariable @MedicalLicenseNumber String medicalLicenseNumber) {
-        return retrievalService.findActive(medicalLicenseNumber);
+        return retrievalService.findactivated(medicalLicenseNumber);
     }
 
     @GetMapping("{medicalLicenseNumber}/completed")

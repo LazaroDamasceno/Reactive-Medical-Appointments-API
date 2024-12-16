@@ -56,7 +56,7 @@ public class MedicalSlotRetrievalServiceImpl implements MedicalSlotRetrievalServ
     }
 
     @Override
-    public Flux<MedicalSlotResponseDto> findActive(@MedicalLicenseNumber String medicalLicenseNumber) {
+    public Flux<MedicalSlotResponseDto> findactivated(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
                 .find(medicalLicenseNumber)
                 .flatMapMany(doctor -> medicalSlotRepository

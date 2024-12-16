@@ -8,7 +8,7 @@ public interface MedicalSlotRetrievalService {
     Mono<MedicalSlotResponseDto> find(String id);
     Flux<MedicalSlotResponseDto> findAll();
     Flux<MedicalSlotResponseDto> findAll(String medicalLicenseNumber);
-    Flux<MedicalSlotResponseDto> findActive(String medicalLicenseNumber);
+    Flux<MedicalSlotResponseDto> findactivated(String medicalLicenseNumber);
     Flux<MedicalSlotResponseDto> findCompleted(String medicalLicenseNumber);
     Flux<MedicalSlotResponseDto> findCanceled(String medicalLicenseNumber);
 }
