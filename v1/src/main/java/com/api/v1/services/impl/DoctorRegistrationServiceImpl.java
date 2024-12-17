@@ -42,10 +42,27 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
                         .singleOptional()
                         .flatMap(optional -> {
                             return handleDuplicatedMedicalLicenseNumber(optional)
-                                    .then(handleTerminatedDoctor(registrationDto.licenseNumberDto()))
                                     .then(Mono.defer(() -> {
-                                        Doctor doctor = Doctor.create(registrationDto.licenseNumberDto(), foundPerson);
-                                        return doctorRepository.save(doctor);
+                                        return doctorRepository
+                                                .findAll()
+                                                .filter(doctor ->
+                                                    doctor.getLicenseNumber().equals(registrationDto.licenseNumberDto())
+                                                    && doctor.getTerminatedAt() != null
+                                                )
+                                                .singleOrEmpty()
+                                                .switchIfEmpty(Mono.defer(() -> {
+                                                    Doctor doctor = Doctor.create(registrationDto.licenseNumberDto(), foundPerson);
+                                                    return doctorRepository.save(doctor);
+                                                })
+                                                .flatMap(foundDoctor -> {
+                                                    DoctorAuditTrail doctorAuditTrail = DoctorAuditTrail.create(foundDoctor);
+                                                    return doctorAuditTrailRepository
+                                                            .save(doctorAuditTrail)
+                                                            .then(Mono.defer(() -> {
+                                                                foundDoctor.markAsRehired();
+                                                                return doctorRepository.save(foundDoctor);
+                                                            }));
+                                                }));
                                     }));
                 }))
                 .flatMap(savedDoctor -> Mono.just(DoctorResponseMapper.mapToDto(savedDoctor)));
@@ -56,24 +73,5 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
             return Mono.error(DuplicatedMedicalLicenseNumberException::new);
         }
         return Mono.empty();
-    }
-
-    public Mono<Void> handleTerminatedDoctor(String medicalLicenseNumber) {
-        return doctorRepository
-                .findAll()
-                .filter(doctor ->
-                    doctor.getTerminatedAt() != null
-                    && doctor.getLicenseNumber().equals(medicalLicenseNumber)
-                )
-                .singleOrEmpty()
-                .switchIfEmpty(Mono.empty())
-                .flatMap(doctor -> {
-                    DoctorAuditTrail doctorAuditTrail = DoctorAuditTrail.create(doctor);
-                    return doctorAuditTrailRepository
-                            .save(doctorAuditTrail)
-                            .then(Mono.defer(() -> {
-                               return doctorRepository.delete(doctor);
-                            }));
-                });
     }
 }
