@@ -3,10 +3,7 @@ package com.api.v1.controllers.doctors;
 import com.api.v1.annotations.MedicalLicenseNumber;
 import com.api.v1.dtos.doctors.DoctorHiringDto;
 import com.api.v1.dtos.doctors.DoctorResponseDto;
-import com.api.v1.services.doctors.DoctorModificationService;
-import com.api.v1.services.doctors.DoctorHiringService;
-import com.api.v1.services.doctors.DoctorRetrievalService;
-import com.api.v1.services.doctors.DoctorTerminationService;
+import com.api.v1.services.doctors.*;
 import com.api.v1.dtos.people.PersonModificationDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,17 +19,20 @@ public class DoctorController {
     private final DoctorModificationService modificationService;
     private final DoctorTerminationService terminationService;
     private final DoctorRetrievalService retrievalService;
+    private final DoctorRehiringService rehiringService;
 
     public DoctorController(
             DoctorHiringService hiringService,
             DoctorModificationService modificationService,
             DoctorTerminationService terminationService,
-            DoctorRetrievalService retrievalService
+            DoctorRetrievalService retrievalService,
+            DoctorRehiringService rehiringService
     ) {
         this.hiringService = hiringService;
         this.modificationService = modificationService;
         this.terminationService = terminationService;
         this.retrievalService = retrievalService;
+        this.rehiringService = rehiringService;
     }
 
     @PostMapping
@@ -68,5 +68,10 @@ public class DoctorController {
     @ResponseStatus(value = HttpStatus.OK)
     public Flux<DoctorResponseDto> findAll() {
         return retrievalService.findAll();
+    }
+
+    @PatchMapping("{medicalLicenseNumber}/rehiring")
+    public Mono<Void> rehire(@PathVariable @MedicalLicenseNumber String medicalLicenseNumber) {
+        return rehiringService.rehire(medicalLicenseNumber);
     }
 }
