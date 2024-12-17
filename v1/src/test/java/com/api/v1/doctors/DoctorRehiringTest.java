@@ -31,6 +31,19 @@ public class DoctorRehiringTest {
     @Test
     @Order(2)
     void testUnsuccessful() {
+        String medicalLicenseNumber = "12345678CA";
+        webTestClient
+                .patch()
+                .uri("api/v1/doctors/%s/rehiring".formatted(medicalLicenseNumber))
+                .exchange()
+                .expectStatus()
+                .is5xxServerError();
+
+    }
+
+    @Test
+    @Order(3)
+    void testUnsuccessful2() {
         String medicalLicenseNumber = "12345677CA";
         webTestClient
                 .patch()
