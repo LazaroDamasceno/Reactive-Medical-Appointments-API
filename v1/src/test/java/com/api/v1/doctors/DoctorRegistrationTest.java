@@ -1,6 +1,6 @@
 package com.api.v1.doctors;
 
-import com.api.v1.dtos.doctors.DoctorRegistrationDto;
+import com.api.v1.dtos.doctors.DoctorHiringDto;
 import com.api.v1.dtos.people.PersonAddressDto;
 import com.api.v1.dtos.people.PersonRegistrationDto;
 import org.junit.jupiter.api.MethodOrderer;
@@ -20,7 +20,7 @@ public class DoctorRegistrationTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    DoctorRegistrationDto registrationDto1 = new DoctorRegistrationDto(
+    DoctorHiringDto registrationDto1 = new DoctorHiringDto(
             "12345678CA",
             new PersonRegistrationDto(
                     "Leonardo",
@@ -62,7 +62,7 @@ public class DoctorRegistrationTest {
                 .expectStatus().is5xxServerError();
     }
 
-    DoctorRegistrationDto registrationDto2 = new DoctorRegistrationDto(
+    DoctorHiringDto registrationDto2 = new DoctorHiringDto(
             "12345678CA",
             new PersonRegistrationDto(
                     "Leonardo",
@@ -93,7 +93,7 @@ public class DoctorRegistrationTest {
                 .expectStatus().is5xxServerError();
     }
 
-    DoctorRegistrationDto registrationDto3 = new DoctorRegistrationDto(
+    DoctorHiringDto registrationDto3 = new DoctorHiringDto(
             "12345678CA",
             new PersonRegistrationDto(
                     "Leonardo",

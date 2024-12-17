@@ -1,10 +1,10 @@
 package com.api.v1.controllers.doctors;
 
 import com.api.v1.annotations.MedicalLicenseNumber;
-import com.api.v1.dtos.doctors.DoctorRegistrationDto;
+import com.api.v1.dtos.doctors.DoctorHiringDto;
 import com.api.v1.dtos.doctors.DoctorResponseDto;
 import com.api.v1.services.doctors.DoctorModificationService;
-import com.api.v1.services.doctors.DoctorRegistrationService;
+import com.api.v1.services.doctors.DoctorHiringService;
 import com.api.v1.services.doctors.DoctorRetrievalService;
 import com.api.v1.services.doctors.DoctorTerminationService;
 import com.api.v1.dtos.people.PersonModificationDto;
@@ -18,18 +18,18 @@ import reactor.core.publisher.Mono;
 @RequestMapping("api/v1/doctors")
 public class DoctorController {
 
-    private final DoctorRegistrationService registrationService;
+    private final DoctorHiringService hiringService;
     private final DoctorModificationService modificationService;
     private final DoctorTerminationService terminationService;
     private final DoctorRetrievalService retrievalService;
 
     public DoctorController(
-            DoctorRegistrationService registrationService,
+            DoctorHiringService hiringService,
             DoctorModificationService modificationService,
             DoctorTerminationService terminationService,
             DoctorRetrievalService retrievalService
     ) {
-        this.registrationService = registrationService;
+        this.hiringService = hiringService;
         this.modificationService = modificationService;
         this.terminationService = terminationService;
         this.retrievalService = retrievalService;
@@ -37,8 +37,8 @@ public class DoctorController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Mono<DoctorResponseDto> register(@Valid @RequestBody DoctorRegistrationDto registrationDto) {
-        return registrationService.register(registrationDto);
+    public Mono<DoctorResponseDto> register(@Valid @RequestBody DoctorHiringDto registrationDto) {
+        return hiringService.hire(registrationDto);
     }
 
     @PutMapping("{medicalLicenseNumber}")

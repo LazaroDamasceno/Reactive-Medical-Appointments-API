@@ -1,9 +1,9 @@
 package com.api.v1.services.impl;
 
-import com.api.v1.services.doctors.DoctorRegistrationService;
+import com.api.v1.services.doctors.DoctorHiringService;
 import com.api.v1.domain.doctors.Doctor;
 import com.api.v1.domain.doctors.DoctorRepository;
-import com.api.v1.dtos.doctors.DoctorRegistrationDto;
+import com.api.v1.dtos.doctors.DoctorHiringDto;
 import com.api.v1.dtos.doctors.DoctorResponseDto;
 import com.api.v1.exceptions.medical_appointments.DuplicatedMedicalLicenseNumberException;
 import com.api.v1.utils.doctors.DoctorResponseMapper;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class DoctorRegistrationServiceImpl implements DoctorRegistrationService {
+public class DoctorHiringServiceImpl implements DoctorHiringService {
 
     private final DoctorRepository doctorRepository;
     private final PersonRegistrationService personRegistrationService;
 
-    public DoctorRegistrationServiceImpl(
+    public DoctorHiringServiceImpl(
             DoctorRepository doctorRepository,
             PersonRegistrationService personRegistrationService) {
         this.doctorRepository = doctorRepository;
@@ -26,7 +26,7 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
     }
 
     @Override
-    public Mono<DoctorResponseDto> register(@Valid DoctorRegistrationDto registrationDto) {
+    public Mono<DoctorResponseDto> hire(@Valid DoctorHiringDto registrationDto) {
         return personRegistrationService
                 .register(registrationDto.personRegistrationDto())
                 .flatMap(foundPerson -> doctorRepository
