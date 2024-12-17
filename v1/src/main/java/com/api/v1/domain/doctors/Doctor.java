@@ -38,14 +38,9 @@ public class Doctor {
         return new Doctor(licenseNumber, person);
     }
 
-    public void markAsTerminated() {
+    public void terminate() {
         this.terminatedAt = LocalDateTime.now().toString();
         this.terminatedAtZone = ZoneId.systemDefault();
-    }
-
-    public void markAsRehired() {
-        this.terminatedAt = null;
-        this.terminatedAtZone = null;
     }
 
     public ObjectId getId() {

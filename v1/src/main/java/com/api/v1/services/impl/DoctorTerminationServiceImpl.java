@@ -27,7 +27,7 @@ public class DoctorTerminationServiceImpl implements DoctorTerminationService {
                     if (doctor.getTerminatedAt() != null) {
                         return Mono.error(TerminatedDoctorException::new);
                     }
-                    doctor.markAsTerminated();
+                    doctor.terminate();
                     return doctorRepository.save(doctor);
                 })
                 .then();
