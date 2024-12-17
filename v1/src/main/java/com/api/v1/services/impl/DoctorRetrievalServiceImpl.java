@@ -27,7 +27,7 @@ public class DoctorRetrievalServiceImpl implements DoctorRetrievalService {
     @Override
     public Mono<DoctorResponseDto> findByMedicalLicenseNumber(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMap(DoctorResponseMapper::mapToMono);
     }
 

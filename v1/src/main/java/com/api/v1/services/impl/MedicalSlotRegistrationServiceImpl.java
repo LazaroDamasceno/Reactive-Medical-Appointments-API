@@ -30,7 +30,7 @@ public class MedicalSlotRegistrationServiceImpl implements MedicalSlotRegistrati
     @Override
     public Mono<MedicalSlotResponseDto> register(@Valid MedicalSlotRegistrationDto registrationDto) {
         return doctorFinderUtil
-                .find(registrationDto.medicalLicenseNumber())
+                .findByLicenseNumber(registrationDto.medicalLicenseNumber())
                 .flatMap(foundDoctor -> {
                     return onDuplicatedDateTime(foundDoctor.getId(), registrationDto.availableAt().toString())
                             .then(Mono.defer(() -> {

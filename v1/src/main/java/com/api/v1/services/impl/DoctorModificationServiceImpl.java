@@ -30,7 +30,7 @@ public class DoctorModificationServiceImpl implements DoctorModificationService 
     @Override
     public Mono<Void> modify(@MedicalLicenseNumber String medicalLicenseNumber, @Valid PersonModificationDto modificationDto) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMap(doctor -> personModificationService
                         .modify(doctor.getPerson(), modificationDto)
                             .flatMap(modifiedPerson -> {

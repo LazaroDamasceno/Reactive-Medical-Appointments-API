@@ -64,7 +64,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     @Override
     public Flux<MedicalAppointmentResponseDto> findAllByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(foundDoctor -> medicalAppointmentRepository
                         .findAll()
                         .filter(ma-> ma.getDoctor().equals(foundDoctor))
@@ -78,7 +78,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
             @MedicalLicenseNumber String medicalLicenseNumber
     ) {
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
-        Mono<Doctor> doctorMono = doctorFinderUtil.find(medicalLicenseNumber);
+        Mono<Doctor> doctorMono = doctorFinderUtil.findByLicenseNumber(medicalLicenseNumber);
         return Mono.zip(customerMono, doctorMono)
                 .flatMapMany(tuple -> medicalAppointmentRepository
                         .findAll()
@@ -106,7 +106,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     @Override
     public Flux<MedicalAppointmentResponseDto> findActivatedByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(foundDoctor -> medicalAppointmentRepository
                         .findAll()
                         .filter(ma-> ma.getDoctor().equals(foundDoctor)
@@ -123,7 +123,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
             @MedicalLicenseNumber String medicalLicenseNumber
     ) {
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
-        Mono<Doctor> doctorMono = doctorFinderUtil.find(medicalLicenseNumber);
+        Mono<Doctor> doctorMono = doctorFinderUtil.findByLicenseNumber(medicalLicenseNumber);
         return Mono.zip(customerMono, doctorMono)
                 .flatMapMany(tuple -> medicalAppointmentRepository
                         .findAll()
@@ -153,7 +153,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     @Override
     public Flux<MedicalAppointmentResponseDto> findCompletedByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(foundDoctor -> medicalAppointmentRepository
                         .findAll()
                         .filter(ma-> ma.getDoctor().equals(foundDoctor)
@@ -170,7 +170,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
             @MedicalLicenseNumber String medicalLicenseNumber
     ) {
         Mono<Customer> customerMono = customerFinderUtil.find(ssn);
-        Mono<Doctor> doctorMono = doctorFinderUtil.find(medicalLicenseNumber);
+        Mono<Doctor> doctorMono = doctorFinderUtil.findByLicenseNumber(medicalLicenseNumber);
         return Mono.zip(customerMono, doctorMono)
                 .flatMapMany(tuple -> medicalAppointmentRepository
                         .findAll()
@@ -200,7 +200,7 @@ public class MedicalAppointmentRetrievalServiceImpl implements MedicalAppointmen
     @Override
     public Flux<MedicalAppointmentResponseDto> findCanceledByDoctor(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(foundDoctor -> medicalAppointmentRepository
                         .findAll()
                         .filter(ma-> ma.getDoctor().equals(foundDoctor)

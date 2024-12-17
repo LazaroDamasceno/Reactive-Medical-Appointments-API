@@ -30,7 +30,7 @@ public class DoctorRehiringServiceImpl implements DoctorRehiringService {
     @Override
     public Mono<Void> rehire(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByActiveStatusAndLicenseNumber(medicalLicenseNumber)
                 .flatMap(doctor -> {
                     if (doctor.getTerminatedAt() == null) {
                         return Mono.error(EmployedDoctorException::new);

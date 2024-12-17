@@ -16,7 +16,7 @@ public class DoctorFinderUtil {
         this.doctorRepository = doctorRepository;
     }
 
-    public Mono<Doctor> find(String licenseNumber) {
+    public Mono<Doctor> findByLicenseNumber(String licenseNumber) {
         return doctorRepository
                 .findByLicenseNumber(licenseNumber)
                 .singleOptional()
@@ -28,6 +28,18 @@ public class DoctorFinderUtil {
                        return Mono.error(TerminatedDoctorException::new);
                    }
                    return Mono.just(optional.get());
+                });
+    }
+
+    public Mono<Doctor> findByActiveStatusAndLicenseNumber(String licenseNumber) {
+        return doctorRepository
+                .findByLicenseNumber(licenseNumber)
+                .singleOptional()
+                .flatMap(optional -> {
+                    if (optional.isEmpty()) {
+                        return Mono.error(NonExistentDoctorException::new);
+                    }
+                    return Mono.just(optional.get());
                 });
     }
 

@@ -47,7 +47,7 @@ public class MedicalSlotRetrievalServiceImpl implements MedicalSlotRetrievalServ
     @Override
     public Flux<MedicalSlotResponseDto> findAll(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(doctor -> medicalSlotRepository
                             .findAll()
                             .filter(slot -> slot.getDoctor().getId().equals(doctor.getId()))
@@ -58,7 +58,7 @@ public class MedicalSlotRetrievalServiceImpl implements MedicalSlotRetrievalServ
     @Override
     public Flux<MedicalSlotResponseDto> findactivated(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(doctor -> medicalSlotRepository
                         .findAll()
                         .filter(slot -> slot.getDoctor().getId().equals(doctor.getId())
@@ -72,7 +72,7 @@ public class MedicalSlotRetrievalServiceImpl implements MedicalSlotRetrievalServ
     @Override
     public Flux<MedicalSlotResponseDto> findCompleted(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(doctor -> medicalSlotRepository
                         .findAll()
                         .filter(slot -> slot.getDoctor().getId().equals(doctor.getId())
@@ -86,7 +86,7 @@ public class MedicalSlotRetrievalServiceImpl implements MedicalSlotRetrievalServ
     @Override
     public Flux<MedicalSlotResponseDto> findCanceled(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMapMany(doctor -> medicalSlotRepository
                         .findAll()
                         .filter(slot -> slot.getDoctor().getId().equals(doctor.getId())

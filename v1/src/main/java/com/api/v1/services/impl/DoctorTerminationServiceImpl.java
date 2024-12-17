@@ -22,7 +22,7 @@ public class DoctorTerminationServiceImpl implements DoctorTerminationService {
     @Override
     public Mono<Void> terminate(@MedicalLicenseNumber String medicalLicenseNumber) {
         return doctorFinderUtil
-                .find(medicalLicenseNumber)
+                .findByLicenseNumber(medicalLicenseNumber)
                 .flatMap(doctor -> {
                     if (doctor.getTerminatedAt() != null) {
                         return Mono.error(TerminatedDoctorException::new);
