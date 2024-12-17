@@ -10,7 +10,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DoctorTerminationTest {
+public class DoctorRehiringTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -21,31 +21,24 @@ public class DoctorTerminationTest {
         String medicalLicenseNumber = "12345678CA";
         webTestClient
                 .patch()
-                .uri("api/v1/doctors/%s/termination".formatted(medicalLicenseNumber))
+                .uri("api/v1/doctors/%s/rehiring".formatted(medicalLicenseNumber))
                 .exchange()
-                .expectStatus().is2xxSuccessful();
+                .expectStatus()
+                .is2xxSuccessful();
+
     }
 
     @Test
     @Order(2)
-    void testUnsuccessful1() {
-        String medicalLicenseNumber = "12345678CA";
-        webTestClient
-                .patch()
-                .uri("api/v1/doctors/%s/termination".formatted(medicalLicenseNumber))
-                .exchange()
-                .expectStatus().is5xxServerError();
-    }
-
-    @Test
-    @Order(3)
-    void testUnsuccessful2() {
+    void testUnsuccessful() {
         String medicalLicenseNumber = "12345677CA";
         webTestClient
                 .patch()
-                .uri("api/v1/doctors/%s/termination".formatted(medicalLicenseNumber))
+                .uri("api/v1/doctors/%s/rehiring".formatted(medicalLicenseNumber))
                 .exchange()
-                .expectStatus().is5xxServerError();
+                .expectStatus()
+                .is5xxServerError();
+
     }
 
 }

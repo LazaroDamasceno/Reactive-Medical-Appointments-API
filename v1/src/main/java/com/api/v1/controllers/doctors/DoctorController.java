@@ -50,7 +50,7 @@ public class DoctorController {
         return modificationService.modify(medicalLicenseNumber, modificationDto);
     }
 
-    @PatchMapping("{medicalLicenseNumber}")
+    @PatchMapping("{medicalLicenseNumber}/termination")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public Mono<Void> terminate(@PathVariable @MedicalLicenseNumber String medicalLicenseNumber) {
         return terminationService.terminate(medicalLicenseNumber);
