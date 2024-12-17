@@ -37,14 +37,19 @@ public class MedicalSlotCancellationServiceImpl implements MedicalSlotCancellati
                     return onCanceledMedicalSlot(medicalSlot)
                             .then(onCompletedMedicalSlot(medicalSlot))
                             .then(Mono.defer(() -> {
-                                medicalSlot.markAsCanceled();
                                 MedicalAppointment medicalAppointment = medicalSlot.getMedicalAppointment();
-                                medicalAppointment.markAsCanceled();
-                                return medicalAppointmentRepository
-                                        .save(medicalAppointment)
-                                        .then(Mono.defer(() -> {
-                                            return medicalSlotRepository.save(medicalSlot);
-                                        }));
+                                if (medicalAppointment != null) {
+                                    medicalAppointment.markAsCanceled();
+                                    return medicalAppointmentRepository
+                                            .save(medicalAppointment)
+                                            .then(Mono.defer(() -> {
+                                                return medicalSlotRepository.save(medicalSlot);
+                                            }));
+                                }
+                                medicalSlot.markAsCanceled();
+                                return medicalSlotRepository
+                                        .save(medicalSlot)
+                                        .then();
                             }));
                 })
                 .then();
