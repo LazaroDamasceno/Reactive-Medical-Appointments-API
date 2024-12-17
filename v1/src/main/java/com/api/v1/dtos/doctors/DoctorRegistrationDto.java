@@ -5,7 +5,7 @@ import com.api.v1.dtos.people.PersonRegistrationDto;
 import jakarta.validation.Valid;
 
 public record DoctorRegistrationDto(
-        @MedicalLicenseNumber String licenseNumberDto,
+        @MedicalLicenseNumber String licenseNumber,
         @Valid PersonRegistrationDto personRegistrationDto
 ) {
 }

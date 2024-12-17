@@ -30,14 +30,14 @@ public class DoctorRegistrationServiceImpl implements DoctorRegistrationService 
         return personRegistrationService
                 .register(registrationDto.personRegistrationDto())
                 .flatMap(foundPerson -> doctorRepository
-                        .findByLicenseNumber(registrationDto.licenseNumberDto())
+                        .findByLicenseNumber(registrationDto.licenseNumber())
                         .singleOptional()
                         .flatMap(optional -> {
                             if (optional.isPresent()) {
                                 return Mono.error(DuplicatedMedicalLicenseNumberException::new);
                             }
                             return Mono.defer(() -> {
-                               Doctor doctor = Doctor.create(registrationDto.licenseNumberDto(), foundPerson);
+                               Doctor doctor = Doctor.create(registrationDto.licenseNumber(), foundPerson);
                                return doctorRepository.save(doctor);
                             });
                 }))
