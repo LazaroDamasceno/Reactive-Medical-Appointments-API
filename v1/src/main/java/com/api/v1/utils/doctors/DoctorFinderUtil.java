@@ -7,6 +7,8 @@ import com.api.v1.exceptions.doctors.TerminatedDoctorException;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @Component
 public class DoctorFinderUtil {
 
@@ -21,13 +23,11 @@ public class DoctorFinderUtil {
                 .findByLicenseNumber(licenseNumber)
                 .singleOptional()
                 .flatMap(optional -> {
-                   if (optional.isEmpty()) {
-                       return Mono.error(NonExistentDoctorException::new);
-                   }
-                   if (optional.get().getTerminatedAt() != null) {
-                       return Mono.error(TerminatedDoctorException::new);
-                   }
-                   return Mono.just(optional.get());
+                    return onWrongGivenMedicalLicenseNumber(optional)
+                            .then(onTerminatedDoctor(optional))
+                            .then(Mono.defer(() -> {
+                                return Mono.just(optional.get());
+                            }));
                 });
     }
 
@@ -36,11 +36,24 @@ public class DoctorFinderUtil {
                 .findByLicenseNumber(licenseNumber)
                 .singleOptional()
                 .flatMap(optional -> {
-                    if (optional.isEmpty()) {
-                        return Mono.error(NonExistentDoctorException::new);
-                    }
-                    return Mono.just(optional.get());
+                    return onWrongGivenMedicalLicenseNumber(optional)
+                            .then(Mono.defer(() -> {
+                                return Mono.just(optional.get());
+                            }));
                 });
     }
 
+    private Mono<Void> onWrongGivenMedicalLicenseNumber(Optional<Doctor> optional) {
+        if (optional.isEmpty()) {
+            return Mono.error(NonExistentDoctorException::new);
+        }
+        return Mono.empty();
+    }
+
+    private Mono<Void> onTerminatedDoctor(Optional<Doctor> optional) {
+        if (optional.get().getTerminatedAt() != null) {
+            return Mono.error(TerminatedDoctorException::new);
+        }
+        return Mono.empty();
+    }
 }
