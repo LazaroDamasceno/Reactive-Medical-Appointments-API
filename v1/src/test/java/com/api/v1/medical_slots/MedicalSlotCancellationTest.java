@@ -17,7 +17,7 @@ public class MedicalSlotCancellationTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    private final AtomicReference<String> id = new AtomicReference<>("");
+    private final AtomicReference<String> id = new AtomicReference<>("676240e72063083371c7f5b1");
 
     @Order(1)
     @Test

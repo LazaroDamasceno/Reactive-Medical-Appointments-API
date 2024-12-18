@@ -42,6 +42,7 @@ public class MedicalSlot {
     public void markAsCanceled() {
         canceledAt = LocalDateTime.now().toString();
         canceledAtZone = ZoneId.systemDefault();
+        medicalAppointment = null;
     }
 
     public void markAsCompleted() {
